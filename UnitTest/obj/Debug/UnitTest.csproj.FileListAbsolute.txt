@@ -1,0 +1,6 @@
+C:\Projects\iPhoto\UnitTest\bin\Debug\UnitTest.dll
+C:\Projects\iPhoto\UnitTest\bin\Debug\UnitTest.pdb
+C:\Projects\iPhoto\UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.dll
+C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.pdb

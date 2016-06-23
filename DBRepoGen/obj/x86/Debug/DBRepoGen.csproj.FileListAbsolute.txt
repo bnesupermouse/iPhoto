@@ -1,0 +1,6 @@
+C:\Projects\iPhoto\DBRepoGen\bin\Debug\MemDBGenerator.exe.config
+C:\Projects\iPhoto\DBRepoGen\bin\Debug\MemDBGenerator.exe
+C:\Projects\iPhoto\DBRepoGen\bin\Debug\MemDBGenerator.pdb
+C:\Projects\iPhoto\DBRepoGen\obj\x86\Debug\MemDBGenerator.exe
+C:\Projects\iPhoto\DBRepoGen\obj\x86\Debug\MemDBGenerator.pdb
+C:\Projects\iPhoto\DBRepoGen\obj\x86\Debug\DBRepoGen.csprojResolveAssemblyReference.cache

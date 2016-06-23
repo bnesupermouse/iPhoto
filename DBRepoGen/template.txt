@@ -1,0 +1,98 @@
+public partial class MemTableName
+    {
+        public override Entity Fetch()
+        {
+            using (var client = Entity.RedisManager.GetClient())
+            {
+                var mem = client.As<MemTableName>();
+                var ent = mem.GetById(Id);
+                if (ent == null)
+                {
+                    using (var dc = new HostDBDataContext())
+                    {
+                        ent = dc.GetTable<MemTableName>().Where(e => e.Id == Id).First();
+                        if (ent != null)
+                        {
+                            mem.Store(ent);
+                            mem.ExpireIn(Id, new TimeSpan(0, 5, 0));
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+                
+                return ent;
+                
+            }
+        }
+ 	public override Entity Add()
+        {
+            using (var client = Entity.RedisManager.GetClient())
+            {
+                var mem = client.As<MemTableName>();
+                
+                this.Id = mem.GetNextSequence();
+                
+                var ent = mem.Store(this);
+                mem.ExpireIn(Id, new TimeSpan(0, 5, 0));
+                return ent;
+            }
+        }
+
+        public override Entity Update()
+        {
+            using (var client = Entity.RedisManager.GetClient())
+            {
+                var mem = client.As<MemTableName>();
+                var ent = mem.Store(this);
+                mem.ExpireIn(Id, new TimeSpan(0, 5, 0));
+                return ent;
+            }
+        }
+
+        public override void Delete()
+        {
+            using (var client = Entity.RedisManager.GetClient())
+            {
+                var mem = client.As<MemTableName>();
+                mem.Delete(this);
+            }
+        }
+
+        public override Entity AddSql()
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                dc.GetTable<MemTableName>().InsertOnSubmit(this);
+                dc.SubmitChanges();
+            }
+
+            return this;
+        }
+
+        public override Entity UpdateSql()
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                var ent = dc.GetTable<MemTableName>().Where(e => e.Id == Id).First();
+                dc.GetTable<MemTableName>().DeleteOnSubmit(ent);
+                dc.SubmitChanges();
+                dc.GetTable<MemTableName>().InsertOnSubmit(this);
+                dc.SubmitChanges();
+            }
+
+            return this;
+        }
+
+        public override void DeleteSql()
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                var ent = dc.GetTable<MemTableName>().Where(e => e.Id == Id).First();
+                dc.GetTable<MemTableName>().DeleteOnSubmit(ent);
+                dc.SubmitChanges();
+            }
+        }
+    }

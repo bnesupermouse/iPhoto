@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A1AEE6A7-5678-4A9F-956A-C967274E10AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HostMessage</RootNamespace>
+    <AssemblyName>HostMessage</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\OrderStatus.cs" />
+    <Compile Include="Base\PaymentInfo.cs" />
+    <Compile Include="PhotographerLogin.cs" />
+    <Compile Include="CustomerCancelOrder.cs" />
+    <Compile Include="RemoveOfferPicture.cs" />
+    <Compile Include="PhotographerWithdraw.cs" />
+    <Compile Include="RemovePhotographerWorkPicture.cs" />
+    <Compile Include="Responses\PhotographerLoginResponse.cs" />
+    <Compile Include="Responses\CustomerCancelOrderResponse.cs" />
+    <Compile Include="Responses\RemoveOfferPictureResponse.cs" />
+    <Compile Include="Responses\PhotographerWithdrawResponse.cs" />
+    <Compile Include="Responses\RemovePhotographerWorkPictureResponse.cs" />
+    <Compile Include="Responses\UpdOfferResponse.cs" />
+    <Compile Include="Responses\UpdPhotographerResponse.cs" />
+    <Compile Include="Responses\UpdPhotographerWorkResponse.cs" />
+    <Compile Include="Responses\UpdPhotoTypeResponse.cs" />
+    <Compile Include="Responses\UploadOfferPictureResponse.cs" />
+    <Compile Include="Responses\UploadPhotographerWorkPictureResponse.cs" />
+    <Compile Include="UpdateOrderStatus.cs" />
+    <Compile Include="CustomerLogin.cs" />
+    <Compile Include="PlaceOrder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Base\Request.cs" />
+    <Compile Include="Base\Response.cs" />
+    <Compile Include="Responses\ConfirmRetouchedPhotoResponse.cs" />
+    <Compile Include="Responses\SelectRawPhotoResponse.cs" />
+    <Compile Include="Responses\UploadRetouchedPhotoResponse.cs" />
+    <Compile Include="Responses\UploadRawPhotoResponse.cs" />
+    <Compile Include="Responses\UpdateOrderStatusResponse.cs" />
+    <Compile Include="Responses\PlaceOrderResponse.cs" />
+    <Compile Include="Responses\CustomerLoginResponse.cs" />
+    <Compile Include="Responses\UpdCustomerResponse.cs" />
+    <Compile Include="ConfirmRetouchedPhoto.cs" />
+    <Compile Include="UpdCustomer.cs" />
+    <Compile Include="SelectRawPhoto.cs" />
+    <Compile Include="UpdOffer.cs" />
+    <Compile Include="UpdPhotographer.cs" />
+    <Compile Include="UpdPhotographerWork.cs" />
+    <Compile Include="UpdPhotoType.cs" />
+    <Compile Include="UploadOfferPicture.cs" />
+    <Compile Include="UploadPhotographerWorkPicture.cs" />
+    <Compile Include="UploadRetouchedPhoto.cs" />
+    <Compile Include="UploadRawPhoto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HostDB\HostDB.csproj">
+      <Project>{75f0bdef-5c28-4232-bfc7-891d22dab0d8}</Project>
+      <Name>HostDB</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
