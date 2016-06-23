@@ -268,10 +268,7 @@ namespace Host
 
             TxCustomerLogin txn = new TxCustomerLogin();
             txn.request = req;
-            //stopWatch5.Start();
             var res = TxnFunc.ProcessTxn(txn);
-            //Console.WriteLine("Time elapsed " + stopWatch5.ElapsedMilliseconds);
-            //stopWatch5.Restart();
             if (res == Result.Success)
             {
                 Console.WriteLine("Customer login successfully");
