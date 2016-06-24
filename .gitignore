@@ -4,6 +4,7 @@
 *.dll
 *.exe
 *.pdb
+*.cache
 
 # User-specific files
 *.suo
