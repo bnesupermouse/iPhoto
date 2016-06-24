@@ -89,6 +89,16 @@ namespace Host
             newPa.TotalBalance += order.PhotographerPay.Value;
             newPa.PendingBalance += order.PhotographerPay.Value;
             Data.AddNew(pa, newPa);
+
+            try
+            {
+                var tokenId = Utility.GetTokenId(curReq.Payment);
+                var chargeId = Utility.ChargeCustomer(tokenId.Result, (int)(order.Amount*100));
+            }
+            catch (Exception e)
+            {
+                int x = 1;
+            }
             return Result.Success;
         }
         public override Result Prepare()

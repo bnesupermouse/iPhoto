@@ -9,6 +9,8 @@ using HostDB;
 using System.Reflection;
 using HostMessage.Responses;
 using System.Threading.Tasks;
+using Host.Common;
+using Stripe;
 
 namespace Host
 {
@@ -17,6 +19,7 @@ namespace Host
         static void Main(string[] args)
         {
             log4net.Config.XmlConfigurator.Configure();
+            StripeConfiguration.SetApiKey("sk_test_kHY4ReMrtud46mggLvf1lFnh");
             Console.WriteLine("Host Started");
             Entity ent = new Entity();
             //Test Place Order
@@ -289,6 +292,12 @@ namespace Host
             req.PhotographerId = photographerId;
             req.SessionKey = Guid.NewGuid();
             req.TxnId = 1;
+            PaymentInfo pay = new PaymentInfo();
+            pay.CardNumber = "4012888888881881";
+            pay.Year = "2018";
+            pay.Month = "10";
+            pay.Cvc = "666";
+            req.Payment = pay;
             Stopwatch stopWatch1 = new Stopwatch();
             TxPlaceOrder txn = new TxPlaceOrder();
             txn.request = req;

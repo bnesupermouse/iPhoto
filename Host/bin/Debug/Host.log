@@ -1304,3 +1304,16 @@
 [2016-06-23 18:00:38,200]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
 [2016-06-23 20:38:26,764]  9 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
 [2016-06-23 20:38:33,799]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-24 18:16:20,180]  9 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:16:24,564]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:16:28,112]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:16:32,739]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:21:38,160]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:21:42,020]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:21:45,156]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:21:48,946]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-24 18:23:13,748]  9 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-24 18:34:34,362]  9 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:34:41,197]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-24 18:42:11,165]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-24 18:42:21,122]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
