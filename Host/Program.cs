@@ -11,6 +11,9 @@ using HostMessage.Responses;
 using System.Threading.Tasks;
 using Host.Common;
 using Stripe;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using Newtonsoft.Json;
 
 namespace Host
 {
@@ -18,22 +21,7 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            log4net.Config.XmlConfigurator.Configure();
-            StripeConfiguration.SetApiKey("sk_test_kHY4ReMrtud46mggLvf1lFnh");
-            Console.WriteLine("Host Started");
-            Entity ent = new Entity();
-            //Test Place Order
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
-            List<int> idx = new List<int>();
-            for (int i = 0; i < 1; i++)
-            {
-                idx.Add(i);
-                //ParallelTest();
-            }
-            Parallel.ForEach(idx, (i) => ParallelTest());
-            Console.WriteLine("Total: "+stopWatch.ElapsedMilliseconds);
-            Console.ReadKey();
+            MessageConsumer.StartConsumer();
         }
 
         static public void ParallelTest()

@@ -9,7 +9,7 @@ namespace Host
     {
         public UpdCustomer()
         {
-            TxnId = 2;
+            
         }
         public Customer OldCustomer { get; set; }
         public Customer NewCustomer { get; set; }

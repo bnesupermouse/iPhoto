@@ -1317,3 +1317,9 @@
 [2016-06-24 18:34:41,197]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
 [2016-06-24 18:42:11,165]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
 [2016-06-24 18:42:21,122]  10 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Email already registered
+[2016-06-26 15:46:37,085]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Invalid Age value
+[2016-06-26 15:46:37,185]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Invalid Age value
+[2016-06-26 15:49:49,946]  16 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-26 15:50:59,367]  18 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-26 16:02:31,823]  17 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-26 17:02:29,160]  16 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
