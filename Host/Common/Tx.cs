@@ -63,6 +63,7 @@ namespace Host
                     }
                     CustomerSession NewSession = OldSession.Clone() as CustomerSession;
                     NewSession.LastUseTime = DateTime.UtcNow;
+                    NewSession.SessionKey = Guid.NewGuid().ToString();
                     Data.AddNew(OldSession, NewSession);
                 }
                 else
@@ -121,6 +122,7 @@ namespace Host
                     PhotographerId = OldSession.PhotographerId;
                     PhotographerSession NewSession = OldSession.Clone() as PhotographerSession;
                     NewSession.LastUseTime = DateTime.UtcNow;
+                    NewSession.SessionKey = Guid.NewGuid().ToString();
                     Data.AddNew(OldSession, NewSession);
                 }
                 else

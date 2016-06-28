@@ -13,7 +13,6 @@ using Host.Common;
 using Stripe;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using Newtonsoft.Json;
 using System.Web.Http;
 using System.Web.Http.SelfHost;
 
@@ -26,15 +25,15 @@ namespace Host
             var config = new HttpSelfHostConfiguration("http://localhost:8080");
 
             config.Routes.MapHttpRoute(
-                "API Default", "api/{controller}/{id}",
+                "API Default", "api/{controller}/{action}/{id}",
                 new { id = RouteParameter.Optional });
 
             using (HttpSelfHostServer server = new HttpSelfHostServer(config))
             {
                 server.OpenAsync().Wait();
+                Console.WriteLine("Host Started");
+                Console.ReadKey();
             }
-
-            MessageConsumer.StartConsumer();
         }
 
         static public void ParallelTest()

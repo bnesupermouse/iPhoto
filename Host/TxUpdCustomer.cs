@@ -141,6 +141,7 @@ namespace Host
                     NewCustomer.Status = 0;
 
                     NewSession = new CustomerSession();
+                    NewSession.SessionKey = Guid.NewGuid().ToString();
                     NewSession.LastUseTime = NewCustomer.LastLoginTime;
                     NewSession.Status = 0;
                 }
@@ -187,6 +188,7 @@ namespace Host
                 resp.CustomerId = NewCustomer.CustomerId;
                 resp.SessionId = NewSession.SessionId;
                 resp.Email = NewCustomer.Email;
+                resp.SessionKey = NewSession.SessionKey;
             }
             else
             {
@@ -195,6 +197,7 @@ namespace Host
                 var s = Data.GetEntityListByType<CustomerSession>().First();
                 resp.SessionId = (s.NewEntity as CustomerSession).SessionId;
                 resp.Email = OldCustomer.Email;
+                resp.SessionKey = (s.NewEntity as CustomerSession).SessionKey;
             }
             response = resp;
             return Data.Validate();

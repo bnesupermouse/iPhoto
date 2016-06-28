@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Base\OrderStatus.cs" />
     <Compile Include="Base\PaymentInfo.cs" />
+    <Compile Include="Base\APIResponse.cs" />
     <Compile Include="PhotographerLogin.cs" />
     <Compile Include="CustomerCancelOrder.cs" />
     <Compile Include="RemoveOfferPicture.cs" />

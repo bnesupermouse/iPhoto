@@ -105,6 +105,7 @@
     <Compile Include="Common\MessageInterface.cs" />
     <Compile Include="Common\TxnFactory.cs" />
     <Compile Include="Common\UpdEntity.cs" />
+    <Compile Include="Interface\CustomerController.cs" />
     <Compile Include="TxConfirmRetouchedPhoto.cs" />
     <Compile Include="TxPhotographerLogin.cs" />
     <Compile Include="TxCancelOrder.cs" />
@@ -160,6 +161,7 @@
       <Name>HostMessage</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
