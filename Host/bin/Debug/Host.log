@@ -1323,3 +1323,7 @@
 [2016-06-26 15:50:59,367]  18 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
 [2016-06-26 16:02:31,823]  17 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
 [2016-06-26 17:02:29,160]  16 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-28 21:26:16,543]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-28 21:26:22,787]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-28 21:26:25,306]  14 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-06-28 21:43:44,451]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.25302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{120AF659-F534-428B-95C2-4440000023DD}"
 EndProject
@@ -12,53 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostMessage", "HostMessage\HostMessage.csproj", "{A1AEE6A7-5678-4A9F-956A-C967274E10AF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{F8E27609-5688-4CDA-915E-9345958ACBCF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{5A330C0D-6A6C-4E0D-A10D-1CDC5E5AB5BE}"
-	ProjectSection(SolutionItems) = preProject
-		Web\about-us.html = Web\about-us.html
-		Web\account.html = Web\account.html
-		Web\add-address.html = Web\add-address.html
-		Web\all-page-link.html = Web\all-page-link.html
-		Web\angscript.js = Web\angscript.js
-		Web\blank-page.html = Web\blank-page.html
-		Web\blog-details.html = Web\blog-details.html
-		Web\blog.html = Web\blog.html
-		Web\cart.html = Web\cart.html
-		Web\category-collapse-open-first-one.html = Web\category-collapse-open-first-one.html
-		Web\category-list.html = Web\category-list.html
-		Web\category-product-hover.html = Web\category-product-hover.html
-		Web\category-product-slide.html = Web\category-product-slide.html
-		Web\category-tree-menu-open.html = Web\category-tree-menu-open.html
-		Web\category-tree-menu.html = Web\category-tree-menu.html
-		Web\category.html = Web\category.html
-		Web\checkout-0.html = Web\checkout-0.html
-		Web\checkout-1.html = Web\checkout-1.html
-		Web\checkout-2.html = Web\checkout-2.html
-		Web\checkout-3.html = Web\checkout-3.html
-		Web\checkout-4.html = Web\checkout-4.html
-		Web\checkout-5.html = Web\checkout-5.html
-		Web\contact-us-2.html = Web\contact-us-2.html
-		Web\contact-us.html = Web\contact-us.html
-		Web\Documentation - TSHOP -V1.5.html = Web\Documentation - TSHOP -V1.5.html
-		Web\error-page.html = Web\error-page.html
-		Web\forgot-password.html = Web\forgot-password.html
-		Web\form.html = Web\form.html
-		Web\index.html = Web\index.html
-		Web\jquery-validation-login-modal.html = Web\jquery-validation-login-modal.html
-		Web\my-address.html = Web\my-address.html
-		Web\one-page-checkout.html = Web\one-page-checkout.html
-		Web\order-list.html = Web\order-list.html
-		Web\order-status.html = Web\order-status.html
-		Web\product-details.html = Web\product-details.html
-		Web\sidebar-shopping-cart.html = Web\sidebar-shopping-cart.html
-		Web\single-product-modal.html = Web\single-product-modal.html
-		Web\single-subscribe-modal.html = Web\single-subscribe-modal.html
-		Web\sub-category.html = Web\sub-category.html
-		Web\terms-conditions.html = Web\terms-conditions.html
-		Web\thanks-for-order.html = Web\thanks-for-order.html
-		Web\user-information.html = Web\user-information.html
-		Web\wishlist.html = Web\wishlist.html
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

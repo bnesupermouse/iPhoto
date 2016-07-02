@@ -4,3 +4,10 @@ C:\Projects\iPhoto\UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTe
 C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
 C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.dll
 C:\Projects\iPhoto\UnitTest\obj\Debug\UnitTest.pdb
+C:\Repos\iPhoto\UnitTest\bin\Debug\UnitTest.dll
+C:\Repos\iPhoto\UnitTest\bin\Debug\UnitTest.pdb
+C:\Repos\iPhoto\UnitTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Repos\iPhoto\UnitTest\bin\Debug\zh-Hans\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Repos\iPhoto\UnitTest\obj\Debug\UnitTest.csprojResolveAssemblyReference.cache
+C:\Repos\iPhoto\UnitTest\obj\Debug\UnitTest.dll
+C:\Repos\iPhoto\UnitTest\obj\Debug\UnitTest.pdb

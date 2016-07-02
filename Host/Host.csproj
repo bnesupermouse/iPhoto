@@ -45,6 +45,25 @@
       <HintPath>..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.FileSystems, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.FileSystems.3.0.1\lib\net45\Microsoft.Owin.FileSystems.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.HttpListener">
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Hosting, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.StaticFiles, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.StaticFiles.3.0.1\lib\net45\Microsoft.Owin.StaticFiles.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
@@ -58,8 +77,20 @@
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nancy.Owin, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Owin.1.4.1\lib\net40\Nancy.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.6.2.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
@@ -84,12 +115,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Http.SelfHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.3\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
+    <Reference Include="System.Web.Http.Owin, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows.Forms" />
@@ -97,6 +130,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Topshelf.3.2.0\lib\net40-full\Topshelf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Errors.cs" />
@@ -105,7 +142,11 @@
     <Compile Include="Common\MessageInterface.cs" />
     <Compile Include="Common\TxnFactory.cs" />
     <Compile Include="Common\UpdEntity.cs" />
+    <Compile Include="CustomContentTypeProvider.cs" />
+    <Compile Include="CustomMiddleware.cs" />
     <Compile Include="Interface\CustomerController.cs" />
+    <Compile Include="NancyDemo.cs" />
+    <Compile Include="Startup.cs" />
     <Compile Include="TxConfirmRetouchedPhoto.cs" />
     <Compile Include="TxPhotographerLogin.cs" />
     <Compile Include="TxCancelOrder.cs" />
@@ -137,6 +178,7 @@
     <Compile Include="TxCustomerLogin.cs" />
     <Compile Include="TxUpdCustomer.cs" />
     <Compile Include="Common\Utility.cs" />
+    <Compile Include="Webserver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -147,6 +189,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Scripts\angular-route.min.js.map" />
+    <None Include="Scripts\angular.min.js.map" />
+    <None Include="WebSrc\app\tsconfig.json" />
+    <None Include="WebSrc\app\assets\bootstrap\css\bootstrap-theme.css.map" />
+    <None Include="WebSrc\app\assets\bootstrap\css\bootstrap.css.map" />
+    <None Include="WebSrc\app\assets\bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="WebSrc\app\assets\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="WebSrc\app\assets\bootstrap\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="WebSrc\app\assets\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="WebSrc\app\assets\css\bootstrap-theme.css.map" />
+    <None Include="WebSrc\app\assets\css\bootstrap.css.map" />
+    <None Include="WebSrc\app\scripts\angular-route.min.js.map" />
+    <None Include="WebSrc\app\scripts\angular.min.js.map" />
+    <None Include="WebSrc\app\scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -161,7 +217,139 @@
       <Name>HostMessage</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="gulpfile.js" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="WebSrc\app\customer\view\account.html" />
+    <Content Include="WebSrc\app\customer\view\signin.html" />
+    <Content Include="WebSrc\app\customer\view\signup.html" />
+    <Content Include="WebSrc\app\assets\bootstrap\css\bootstrap-theme.css" />
+    <Content Include="WebSrc\app\assets\bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="WebSrc\app\assets\bootstrap\css\bootstrap.css" />
+    <Content Include="WebSrc\app\assets\bootstrap\css\bootstrap.min.css" />
+    <Content Include="WebSrc\app\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="WebSrc\app\assets\bootstrap\js\bootstrap.js" />
+    <Content Include="WebSrc\app\assets\bootstrap\js\bootstrap.min.js" />
+    <Content Include="WebSrc\app\assets\bootstrap\js\min\bootstrap.min.js" />
+    <Content Include="WebSrc\app\assets\bootstrap\js\min\npm.min.js" />
+    <Content Include="WebSrc\app\assets\bootstrap\js\npm.js" />
+    <Content Include="WebSrc\app\assets\css\AjaxLoader.gif" />
+    <Content Include="WebSrc\app\assets\css\alpha.css" />
+    <Content Include="WebSrc\app\assets\css\animate.min.css" />
+    <Content Include="WebSrc\app\assets\css\blog.css" />
+    <Content Include="WebSrc\app\assets\css\bootstrap-theme.css" />
+    <Content Include="WebSrc\app\assets\css\bootstrap-theme.min.css" />
+    <Content Include="WebSrc\app\assets\css\bootstrap.css" />
+    <Content Include="WebSrc\app\assets\css\bootstrap.min.css" />
+    <Content Include="WebSrc\app\assets\css\btn.css" />
+    <Content Include="WebSrc\app\assets\css\cart-nav.css" />
+    <Content Include="WebSrc\app\assets\css\category-2.css" />
+    <Content Include="WebSrc\app\assets\css\font-awesome.css" />
+    <Content Include="WebSrc\app\assets\css\font-awesome.min.css" />
+    <Content Include="WebSrc\app\assets\css\footable-0.1.css" />
+    <Content Include="WebSrc\app\assets\css\footable.paginate.css" />
+    <Content Include="WebSrc\app\assets\css\footable.sortable-0.1.css" />
+    <Content Include="WebSrc\app\assets\css\grabbing.png" />
+    <Content Include="WebSrc\app\assets\css\gray-look.css" />
+    <Content Include="WebSrc\app\assets\css\home-v7.css" />
+    <Content Include="WebSrc\app\assets\css\idangerous.swiper.css" />
+    <Content Include="WebSrc\app\assets\css\idangerous.swiper.scrollbar.css" />
+    <Content Include="WebSrc\app\assets\css\img\down.png" />
+    <Content Include="WebSrc\app\assets\css\img\minus.png" />
+    <Content Include="WebSrc\app\assets\css\img\plus.png" />
+    <Content Include="WebSrc\app\assets\css\img\sorting_sprite.png" />
+    <Content Include="WebSrc\app\assets\css\img\up.png" />
+    <Content Include="WebSrc\app\assets\css\jquery.mCustomScrollbar.css" />
+    <Content Include="WebSrc\app\assets\css\jquery.minimalect.css" />
+    <Content Include="WebSrc\app\assets\css\jquery.minimalect.min.css" />
+    <Content Include="WebSrc\app\assets\css\mCSB_buttons.png" />
+    <Content Include="WebSrc\app\assets\css\mixins.css" />
+    <Content Include="WebSrc\app\assets\css\owl.carousel.css" />
+    <Content Include="WebSrc\app\assets\css\owl.theme.css" />
+    <Content Include="WebSrc\app\assets\css\product-details-5.css" />
+    <Content Include="WebSrc\app\assets\css\skin-0.css" />
+    <Content Include="WebSrc\app\assets\css\skin-1.css" />
+    <Content Include="WebSrc\app\assets\css\skin-10.css" />
+    <Content Include="WebSrc\app\assets\css\skin-11.css" />
+    <Content Include="WebSrc\app\assets\css\skin-2.css" />
+    <Content Include="WebSrc\app\assets\css\skin-3.css" />
+    <Content Include="WebSrc\app\assets\css\skin-4.css" />
+    <Content Include="WebSrc\app\assets\css\skin-5.css" />
+    <Content Include="WebSrc\app\assets\css\skin-6.css" />
+    <Content Include="WebSrc\app\assets\css\skin-7.css" />
+    <Content Include="WebSrc\app\assets\css\skin-8.css" />
+    <Content Include="WebSrc\app\assets\css\skin-9.css" />
+    <Content Include="WebSrc\app\assets\css\skin-black.css" />
+    <Content Include="WebSrc\app\assets\css\smoothproducts.css" />
+    <Content Include="WebSrc\app\assets\css\story.css" />
+    <Content Include="WebSrc\app\assets\css\style.css" />
+    <Content Include="WebSrc\app\assets\js\bootstrap.min.js" />
+    <Content Include="WebSrc\app\assets\js\bootstrap.touchspin.js" />
+    <Content Include="WebSrc\app\assets\js\grids.js" />
+    <Content Include="WebSrc\app\assets\js\home.js" />
+    <Content Include="WebSrc\app\assets\js\icheck.min.js" />
+    <Content Include="WebSrc\app\assets\js\jquery.cycle2.min.js" />
+    <Content Include="WebSrc\app\assets\js\jquery.easing.1.3.js" />
+    <Content Include="WebSrc\app\assets\js\jquery.mCustomScrollbar.js" />
+    <Content Include="WebSrc\app\assets\js\jquery.mousewheel.min.js" />
+    <Content Include="WebSrc\app\assets\js\jquery.parallax-1.1.js" />
+    <Content Include="WebSrc\app\assets\js\owl.carousel.min.js" />
+    <Content Include="WebSrc\app\assets\js\script.js" />
+    <Content Include="WebSrc\app\images\logo.png" />
+    <Content Include="WebSrc\app\images\payment\american_express_card.png" />
+    <Content Include="WebSrc\app\images\payment\discover_network_card.png" />
+    <Content Include="WebSrc\app\images\payment\google_wallet.png" />
+    <Content Include="WebSrc\app\images\payment\master_card.png" />
+    <Content Include="WebSrc\app\images\payment\paypal-small.png" />
+    <Content Include="WebSrc\app\images\payment\paypal.png" />
+    <Content Include="WebSrc\app\images\payment\visa_card.png" />
+    <Content Include="WebSrc\app\images\payment\western_union.png" />
+    <Content Include="WebSrc\app\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebSrc\app\scripts\angular-mocks.js" />
+    <Content Include="WebSrc\app\scripts\angular-route.js" />
+    <Content Include="WebSrc\app\scripts\angular-route.min.js" />
+    <Content Include="WebSrc\app\scripts\angular.js" />
+    <Content Include="WebSrc\app\scripts\angular.min.js" />
+    <Content Include="WebSrc\app\scripts\bootstrap.js" />
+    <Content Include="WebSrc\app\scripts\bootstrap.min.js" />
+    <Content Include="WebSrc\app\scripts\jquery-1.9.0.intellisense.js" />
+    <Content Include="WebSrc\app\scripts\jquery-1.9.0.js" />
+    <Content Include="WebSrc\app\scripts\jquery-1.9.0.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="WebSrc\app\javascripts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-component-router.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\app.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\CustomerSignUpController.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\model\Customer.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerService.ts" />
+    <TypeScriptCompile Include="WebSrc\app\MainController.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-animate.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-cookies.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-mocks.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-resource.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-route.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-sanitize.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-scenario.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\scripts\typings\jquery\jquery.d.ts" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

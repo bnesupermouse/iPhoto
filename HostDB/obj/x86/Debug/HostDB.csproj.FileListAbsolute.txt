@@ -37,3 +37,8 @@ C:\Projects\iPhoto\HostDB\obj\x86\Debug\HostDB.csprojResolveAssemblyReference.ca
 C:\Projects\iPhoto\HostDB\bin\Debug\HostDB.dll.config
 C:\Projects\iPhoto\HostDB\bin\Debug\HostDB.dll
 C:\Projects\iPhoto\HostDB\obj\x86\Debug\HostDB.dll
+C:\Repos\iPhoto\HostDB\bin\Debug\HostDB.dll.config
+C:\Repos\iPhoto\HostDB\bin\Debug\HostDB.dll
+C:\Repos\iPhoto\HostDB\bin\Debug\HostDB.pdb
+C:\Repos\iPhoto\HostDB\obj\x86\Debug\HostDB.dll
+C:\Repos\iPhoto\HostDB\obj\x86\Debug\HostDB.pdb

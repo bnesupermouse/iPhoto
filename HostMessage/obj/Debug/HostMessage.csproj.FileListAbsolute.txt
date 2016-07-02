@@ -6,3 +6,11 @@ C:\Projects\iPhoto\HostMessage\bin\Debug\HostMessage.dll.config
 C:\Projects\iPhoto\HostMessage\bin\Debug\HostMessage.dll
 C:\Projects\iPhoto\HostMessage\obj\Debug\HostMessage.dll
 C:\Projects\iPhoto\HostMessage\bin\Debug\HostDB.dll
+C:\Repos\iPhoto\HostMessage\bin\Debug\HostMessage.dll.config
+C:\Repos\iPhoto\HostMessage\bin\Debug\HostMessage.dll
+C:\Repos\iPhoto\HostMessage\bin\Debug\HostMessage.pdb
+C:\Repos\iPhoto\HostMessage\bin\Debug\HostDB.dll
+C:\Repos\iPhoto\HostMessage\bin\Debug\HostDB.pdb
+C:\Repos\iPhoto\HostMessage\obj\Debug\HostMessage.csprojResolveAssemblyReference.cache
+C:\Repos\iPhoto\HostMessage\obj\Debug\HostMessage.dll
+C:\Repos\iPhoto\HostMessage\obj\Debug\HostMessage.pdb
