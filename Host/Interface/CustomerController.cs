@@ -43,6 +43,37 @@ namespace Host
             }
         }
 
+
+        [HttpPost]
+        public APIResponse SignOn(Customer ctm)
+        {
+            CustomerLogin request = new CustomerLogin();
+            request.Email = ctm.Email;
+            request.Password = ctm.Password;
+            TxCustomerLogin txn = new TxCustomerLogin();
+            txn.request = request;
+            var res = TxnFunc.ProcessTxn(txn);
+            if (res == Result.Success)
+            {
+                var resp = new APIResponse();
+                var nv = new NameValueCollection();
+                nv["sid"] = (txn.response as CustomerLoginResponse).SessionId.ToString();
+                nv["skey"] = (txn.response as CustomerLoginResponse).SessionKey.ToString();
+                nv["sname"] = ctm.CustomerName;
+                var cookie = new CookieHeaderValue("session", nv);
+
+                resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
+                resp.response = txn.response;
+                resp.StatusCode = System.Net.HttpStatusCode.Accepted;
+                return resp;
+                //return txn.response;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         [HttpGet]
         public Customer GetMe(int id)
         {

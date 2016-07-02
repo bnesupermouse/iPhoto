@@ -1327,3 +1327,12 @@
 [2016-06-28 21:26:22,787]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
 [2016-06-28 21:26:25,306]  14 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
 [2016-06-28 21:43:44,451]  10 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-02 21:31:29,209]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-02 21:32:12,706]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
+[2016-07-02 21:32:27,439]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
+[2016-07-02 21:44:40,327]  23 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-02 21:45:54,185]  40 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-02 21:47:51,791]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-02 21:52:31,252]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
+[2016-07-02 21:55:12,053]  22 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-02 21:56:01,582]  22 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL

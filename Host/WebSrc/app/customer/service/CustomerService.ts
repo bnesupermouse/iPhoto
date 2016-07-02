@@ -1,30 +1,48 @@
-﻿/// <reference path="../model/Customer.ts" />
+﻿/// <reference path="../../all.ts" />
 module Services {
-    export class CustomerService {
-        private customers: Array<DataModels.Customer>;
-        private signUpApiPath: string;
+    export class CustomerDataSvc {
+        private techCtmApiPath: string;
+        private signOnApiPath: string;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
 
-        addNewCustomer(customer: DataModels.Customer) {
+        addCustomer(customer: DataModels.Customer): ng.IPromise<any> {
             var self = this;
-            self.httpService.post(self.signUpApiPath, customer)
+            var deferred = self.qService.defer();
+
+            self.httpService.post(self.techCtmApiPath, customer)
                 .then(function (result) {
-                    alert(result);
+                    deferred.resolve();
                 }, function (error) {
-                    alert(error);
+                    deferred.reject(error);
                 });
 
+            return deferred.promise;
+        }
+
+        signOnCustomer(customer: DataModels.Customer): ng.IPromise<any> {
+            var self = this;
+            var deferred = self.qService.defer();
+
+            self.httpService.post(self.signOnApiPath, customer)
+                .then(function (result) {
+                    deferred.resolve();
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
         }
 
         constructor($http: ng.IHttpService, $q: ng.IQService) {
-            this.signUpApiPath = "api/customer/newaccount";
+            this.techCtmApiPath = "api/customer/newaccount";
+            this.signOnApiPath = "api/customer/signon";
             this.httpService = $http;
             this.qService = $q;
         }
 
-        public static CustomerServiceFactory($http: ng.IHttpService, $q: ng.IQService): CustomerService {
-            return new CustomerService($http, $q);
+        public static CustomerDataSvcFactory($http: ng.IHttpService, $q: ng.IQService): CustomerDataSvc {
+            return new CustomerDataSvc($http, $q);
         }
 
     }

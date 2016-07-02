@@ -184,6 +184,7 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="package.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -335,11 +336,13 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\all.ts" />
     <TypeScriptCompile Include="WebSrc\app\app.ts" />
-    <TypeScriptCompile Include="WebSrc\app\customer\controller\CustomerSignUpController.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\SignOnCustomerCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\AddCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\model\Customer.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerService.ts" />
-    <TypeScriptCompile Include="WebSrc\app\MainController.ts" />
+    <TypeScriptCompile Include="WebSrc\app\main\controller\MainPageCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-mocks.d.ts" />

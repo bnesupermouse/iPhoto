@@ -60,6 +60,7 @@ namespace Host
             resp.CustomerId = CustomerId;
             var s = Data.GetEntityListByType<CustomerSession>().First();
             resp.SessionId = (s.NewEntity as CustomerSession).SessionId;
+            resp.SessionKey = (s.NewEntity as CustomerSession).SessionKey;
             response = resp;
             return Result.Success;
         }
