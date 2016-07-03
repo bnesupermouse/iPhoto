@@ -76,21 +76,65 @@ var Controllers;
     Controllers.AddCustomerCtrl = AddCustomerCtrl;
 })(Controllers || (Controllers = {}));
 
+/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var MainPageCtrl = (function () {
-        function MainPageCtrl($scope) {
+        function MainPageCtrl($scope, dataSvc) {
             var self = this;
             self.$scope = $scope;
+            self.dataSvc = dataSvc;
             self.init();
         }
         MainPageCtrl.prototype.init = function () {
             var self = this;
+            self.dataSvc.getMainPage().then(function (data) {
+                self.$scope.Header = data;
+            });
         };
         return MainPageCtrl;
     }());
     Controllers.MainPageCtrl = MainPageCtrl;
 })(Controllers || (Controllers = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var Offer = (function () {
+        function Offer() {
+        }
+        return Offer;
+    }());
+    DataModels.Offer = Offer;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
+var Services;
+(function (Services) {
+    var MainPageDataSvc = (function () {
+        function MainPageDataSvc($http, $q) {
+            this.indexApiPath = "api/mainpage/index";
+            this.httpService = $http;
+            this.qService = $q;
+        }
+        MainPageDataSvc.prototype.getMainPage = function () {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.indexApiPath)
+                .then(function (data) {
+                deferred.resolve();
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        MainPageDataSvc.MainPageDataSvcFactory = function ($http, $q) {
+            return new MainPageDataSvc($http, $q);
+        };
+        return MainPageDataSvc;
+    }());
+    Services.MainPageDataSvc = MainPageDataSvc;
+})(Services || (Services = {}));
 
 /// <reference path="../../all.ts" />
 var Controllers;
@@ -118,13 +162,33 @@ var Controllers;
     Controllers.SignOnCustomerCtrl = SignOnCustomerCtrl;
 })(Controllers || (Controllers = {}));
 
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var PhotoType = (function () {
+        function PhotoType() {
+        }
+        return PhotoType;
+    }());
+    DataModels.PhotoType = PhotoType;
+    var NavigationHeader = (function () {
+        function NavigationHeader() {
+        }
+        return NavigationHeader;
+    }());
+    DataModels.NavigationHeader = NavigationHeader;
+})(DataModels || (DataModels = {}));
+
 /// <reference path="./scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="./scripts/typings/angularjs/angular-route.d.ts" />
 /// <reference path="./customer/model/Customer.ts" />
-/// <reference path="./customer/service/CustomerService.ts" />
+/// <reference path="./customer/service/CustomerDataSvc.ts" />
 /// <reference path="./customer/controller/AddCustomerCtrl.ts" />
-/// <reference path="./main/controller/MainPageCtrl.ts" />
-/// <reference path="./customer/controller/SignOnCustomerCtrl.ts" /> 
+/// <reference path="./main/MainPageCtrl.ts" />
+/// <reference path="./main/MainPage.ts" />
+/// <reference path="./main/MainPageDataSvc.ts" />
+/// <reference path="./customer/controller/SignOnCustomerCtrl.ts" />
+/// <reference path="./common/IBaseScope.ts" /> 
 
 /// <reference path="./all.ts" />
 var OneStopCustomerApp;
@@ -143,11 +207,12 @@ var OneStopCustomerApp;
     Config.$inject = ['$routeProvider'];
     Controllers.AddCustomerCtrl.$inject = ['$scope', 'customerDataSvc'];
     Controllers.SignOnCustomerCtrl.$inject = ['$scope', 'customerDataSvc'];
-    Controllers.MainPageCtrl.$inject = ['$scope'];
+    Controllers.MainPageCtrl.$inject = ['$scope', 'mainPageDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
+    app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);
     app.controller('AddNewCustomerCtrl', Controllers.AddCustomerCtrl);
     app.controller('CustomerSignOnCtrl', Controllers.SignOnCustomerCtrl);
     app.controller('IndexPageCtrl', Controllers.MainPageCtrl);

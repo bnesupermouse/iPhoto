@@ -144,6 +144,7 @@
     <Compile Include="Common\UpdEntity.cs" />
     <Compile Include="CustomContentTypeProvider.cs" />
     <Compile Include="CustomMiddleware.cs" />
+    <Compile Include="Interface\MainPageController.cs" />
     <Compile Include="Interface\CustomerController.cs" />
     <Compile Include="NancyDemo.cs" />
     <Compile Include="Startup.cs" />
@@ -341,8 +342,11 @@
     <TypeScriptCompile Include="WebSrc\app\customer\controller\SignOnCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\AddCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\model\Customer.ts" />
-    <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerService.ts" />
-    <TypeScriptCompile Include="WebSrc\app\main\controller\MainPageCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\main\MainPageDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\common\IBaseScope.ts" />
+    <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-mocks.d.ts" />
