@@ -144,8 +144,13 @@
     <Compile Include="Common\UpdEntity.cs" />
     <Compile Include="CustomContentTypeProvider.cs" />
     <Compile Include="CustomMiddleware.cs" />
+    <Compile Include="Interface\OfferController.cs" />
+    <Compile Include="Interface\PhotoTypeController.cs" />
     <Compile Include="Interface\MainPageController.cs" />
     <Compile Include="Interface\CustomerController.cs" />
+    <Compile Include="Models\NavigationHeader.cs" />
+    <Compile Include="Models\PhotoTypeInfo.cs" />
+    <Compile Include="Models\OfferInfo.cs" />
     <Compile Include="NancyDemo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="TxConfirmRetouchedPhoto.cs" />
@@ -313,6 +318,8 @@
     <Content Include="WebSrc\app\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebSrc\app\offer\details.html" />
+    <Content Include="WebSrc\app\phototype\phototype.html" />
     <Content Include="WebSrc\app\scripts\angular-mocks.js" />
     <Content Include="WebSrc\app\scripts\angular-route.js" />
     <Content Include="WebSrc\app\scripts\angular-route.min.js" />
@@ -347,6 +354,10 @@
     <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\common\IBaseScope.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\phototype\PhotoTypeDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\phototype\PhotoTypeCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-cookies.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-mocks.d.ts" />

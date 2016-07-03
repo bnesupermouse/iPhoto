@@ -2,8 +2,8 @@
 module Services {
     export class MainPageDataSvc {
         private indexApiPath: string;
-        private OfferList: Array<DataModels.Offer>;
-        private NavHeader: DataModels.NavigationHeader;
+        public OfferList: Array<DataModels.Offer>;
+        public NavHeader: DataModels.NavigationHeader;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
 
@@ -12,8 +12,11 @@ module Services {
             var deferred = self.qService.defer();
 
             self.httpService.get(self.indexApiPath)
-                .then(function (data) {
-                    deferred.resolve();
+                .then(function (result: any) {
+                    self.NavHeader.CustomerName = result.data.CustomerName;
+                    self.NavHeader.PhotoTypes = result.data.PhotoTypes;
+                    //alert(JSON.stringify(self));
+                    deferred.resolve(self.NavHeader);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -26,6 +29,7 @@ module Services {
 
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.indexApiPath = "api/mainpage/index";
+            this.NavHeader = new DataModels.NavigationHeader();
             this.httpService = $http;
             this.qService = $q;
         }

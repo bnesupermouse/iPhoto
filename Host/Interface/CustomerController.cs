@@ -61,7 +61,7 @@ namespace Host
                 nv["skey"] = (txn.response as CustomerLoginResponse).SessionKey.ToString();
                 nv["sname"] = ctm.CustomerName;
                 var cookie = new CookieHeaderValue("session", nv);
-
+                cookie.HttpOnly = true;
                 resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
                 resp.response = txn.response;
                 resp.StatusCode = System.Net.HttpStatusCode.Accepted;

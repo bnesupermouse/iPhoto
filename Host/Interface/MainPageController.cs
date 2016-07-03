@@ -1,4 +1,5 @@
-﻿using HostDB;
+﻿using Host.Models;
+using HostDB;
 using HostMessage.Responses;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -12,9 +13,15 @@ namespace Host
     public class MainPageController : ApiController
     {
         [HttpGet]
-        public string Index()
+        public NavigationHeader Index()
         {
-            return "Hello";
+            NavigationHeader header = new NavigationHeader();
+            header.CustomerName = "test";
+            using (var dc = new HostDBDataContext())
+            {
+                header.PhotoTypes = dc.PhotoTypes.ToList();
+            }
+            return header;
         }
     }
 }

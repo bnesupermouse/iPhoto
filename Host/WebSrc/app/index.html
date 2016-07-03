@@ -51,7 +51,7 @@
                 <div class="col-lg-6 col-sm-6 col-xs-6 col-md-6 no-margin no-padding">
                     <div class="pull-right">
                         <ul class="userMenu">
-                            <li><a href="#account"><span class="hidden-xs"> My Account</span> <i
+                            <li><a href="#account"><span class="hidden-xs"> {{Header.CustomerName}}</span> <i
                                     class="glyphicon glyphicon-user hide visible-xs "></i></a></li>
                             <li><a href="#signin"> <span class="hidden-xs">Sign In</span>
                                 <i class="glyphicon glyphicon-log-in hide visible-xs "></i> </a></li>
@@ -76,11 +76,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#"> Home </a></li>
-                <li class="dropdown megamenu-fullwidth"><a href="all-page-link.html" target="_blank"> PhotoType1 </a></li>
-				<li class="dropdown megamenu-fullwidth"><a href="all-page-link.html" target="_blank"> PhotoType2 </a></li>
-				<li class="dropdown megamenu-fullwidth"><a href="all-page-link.html" target="_blank"> PhotoType3 </a></li>
-				<li class="dropdown megamenu-fullwidth"><a href="all-page-link.html" target="_blank"> PhotoType4 </a></li>
-				<li class="dropdown megamenu-fullwidth"><a href="all-page-link.html" target="_blank"> PhotoType5 </a></li>
+                <li ng-repeat="x in Header.PhotoTypes" class="dropdown megamenu-fullwidth"><a href="#phototype/{{x.PhotoTypeId}}"> {{x.PhotoTypeName}} </a></li>
             </ul>
             <!--/.navbar-nav hidden-xs-->
         </div>
