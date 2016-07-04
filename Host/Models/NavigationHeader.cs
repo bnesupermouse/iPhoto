@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace Host.Models
 {
-    public class NavigationHeader
+    public class MainPageContent
     {
         public string CustomerName { get; set; }
         public List<PhotoType> PhotoTypes { get; set; }
+        public List<OfferInfo> Offers { get; set; }
     }
 }

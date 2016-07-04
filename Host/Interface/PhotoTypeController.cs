@@ -16,7 +16,7 @@ namespace Host
        
         public PhotoTypeInfo GetPhotoTypeOffers(int id)
         {
-            CookieHeaderValue cookie = Request.Headers.GetCookies("session").FirstOrDefault();
+            CookieHeaderValue cookie = Request.Headers.GetCookies("sid").FirstOrDefault();
             if (cookie != null)
             {
                 string sessionId = cookie["sid"].Value;

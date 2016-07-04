@@ -1338,3 +1338,4 @@
 [2016-07-02 21:56:01,582]  22 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
 [2016-07-03 10:32:00,785]  15 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
 [2016-07-03 10:33:23,919]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
+[2016-07-04 20:13:52,801]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL

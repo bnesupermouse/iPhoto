@@ -5,11 +5,4 @@ module DataModels {
         PhotoTypeName: string;
         SortOrder: number;
     }
-    export class NavigationHeader {
-        CustomerName: string;
-        PhotoTypes: Array<PhotoType>;
-    }
-    export interface IBaseScope extends ng.IScope {
-        Header: NavigationHeader;
-    }
 }

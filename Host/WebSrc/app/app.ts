@@ -12,13 +12,13 @@ module OneStopCustomerApp {
         }
     }
     Config.$inject = ['$routeProvider'];
-    Controllers.AddCustomerCtrl.$inject = ['$scope', 'customerDataSvc'];
-    Controllers.SignOnCustomerCtrl.$inject = ['$scope', 'customerDataSvc'];
-    Controllers.MainPageCtrl.$inject = ['$scope', 'mainPageDataSvc'];
+    Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
+    Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
+    Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$routeParams', 'offerDetailsDataSvc'];
     //test
-    var app = angular.module("webApp", ['ngRoute']);
+    var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);

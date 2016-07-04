@@ -13,15 +13,10 @@ module DataModels {
         public LastLoginTime: string;
         public Status: number;
     }
-    export interface IAddCustomerScope extends ng.IScope {
-        CustomerName: string;
-        Email: string;
-        Password: string;
-        addCustomer(): void;
-    }
-    export interface ISignOnCustomerScope extends ng.IScope {
-        Email: string;
-        Password: string;
-        signOnCustomer(): void;
+    export class CookieInfo {
+        sid: number;
+        skey: string;
+        cid: number;
+        cname: string;
     }
 }

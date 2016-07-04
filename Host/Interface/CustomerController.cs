@@ -22,19 +22,6 @@ namespace Host
             var res = TxnFunc.ProcessTxn(txn);
             if (res == Result.Success)
             {
-                //var resp = new APIResponse();
-                //var nv = new NameValueCollection();
-                //nv["sid"] = (txn.response as UpdCustomerResponse).SessionId.ToString();
-                //nv["skey"] = (txn.response as UpdCustomerResponse).SessionKey.ToString();
-                //nv["sname"] = ctm.CustomerName;
-                //var cookie = new CookieHeaderValue("session", nv);
-
-                //resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-                //resp.response = txn.response;
-
-                //return resp;
-
-
                 return txn.response;
             }
             else
@@ -45,7 +32,7 @@ namespace Host
 
 
         [HttpPost]
-        public APIResponse SignOn(Customer ctm)
+        public Response SignOn(Customer ctm)
         {
             CustomerLogin request = new CustomerLogin();
             request.Email = ctm.Email;
@@ -55,18 +42,7 @@ namespace Host
             var res = TxnFunc.ProcessTxn(txn);
             if (res == Result.Success)
             {
-                var resp = new APIResponse();
-                var nv = new NameValueCollection();
-                nv["sid"] = (txn.response as CustomerLoginResponse).SessionId.ToString();
-                nv["skey"] = (txn.response as CustomerLoginResponse).SessionKey.ToString();
-                nv["sname"] = ctm.CustomerName;
-                var cookie = new CookieHeaderValue("session", nv);
-                cookie.HttpOnly = true;
-                resp.Headers.AddCookies(new CookieHeaderValue[] { cookie });
-                resp.response = txn.response;
-                resp.StatusCode = System.Net.HttpStatusCode.Accepted;
-                return resp;
-                //return txn.response;
+                return txn.response;
             }
             else
             {

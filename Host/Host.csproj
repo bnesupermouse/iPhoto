@@ -196,6 +196,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Scripts\angular-cookies.min.js.map" />
     <None Include="Scripts\angular-route.min.js.map" />
     <None Include="Scripts\angular.min.js.map" />
     <None Include="WebSrc\app\tsconfig.json" />
@@ -226,6 +227,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="gulpfile.js" />
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-route.js" />
     <Content Include="Scripts\angular-route.min.js" />

@@ -13,10 +13,9 @@ namespace Host
     public class MainPageController : ApiController
     {
         [HttpGet]
-        public NavigationHeader Index()
+        public MainPageContent Index()
         {
-            NavigationHeader header = new NavigationHeader();
-            header.CustomerName = "test";
+            MainPageContent header = new MainPageContent();
             using (var dc = new HostDBDataContext())
             {
                 header.PhotoTypes = dc.PhotoTypes.ToList();

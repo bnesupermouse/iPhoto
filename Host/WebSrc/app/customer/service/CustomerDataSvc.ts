@@ -6,13 +6,21 @@ module Services {
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
 
+        private SessionId: number
+
+        cookieInfo: DataModels.CookieInfo;
+
         addCustomer(customer: DataModels.Customer): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
 
             self.httpService.post(self.techCtmApiPath, customer)
                 .then(function (result) {
-                    deferred.resolve();
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.CustomerId;
+                    self.cookieInfo.cname = result.data.CustomerName;
+                    deferred.resolve(self.cookieInfo);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -26,11 +34,14 @@ module Services {
 
             self.httpService.post(self.signOnApiPath, customer)
                 .then(function (result) {
-                    deferred.resolve();
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.CustomerId;
+                    self.cookieInfo.cname = result.data.CustomerName;
+                    deferred.resolve(self.cookieInfo);
                 }, function (error) {
                     deferred.reject(error);
                 });
-
             return deferred.promise;
         }
 
@@ -39,6 +50,7 @@ module Services {
             this.signOnApiPath = "api/customer/signon";
             this.httpService = $http;
             this.qService = $q;
+            this.cookieInfo = new DataModels.CookieInfo();
         }
 
         public static CustomerDataSvcFactory($http: ng.IHttpService, $q: ng.IQService): CustomerDataSvc {

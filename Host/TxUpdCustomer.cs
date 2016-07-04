@@ -186,6 +186,7 @@ namespace Host
                 Data.AddNew(null, NewCustomer);
                 Data.AddNew(null, NewSession);
                 resp.CustomerId = NewCustomer.CustomerId;
+                resp.CustomerName = NewCustomer.CustomerName;
                 resp.SessionId = NewSession.SessionId;
                 resp.Email = NewCustomer.Email;
                 resp.SessionKey = NewSession.SessionKey;
@@ -196,6 +197,8 @@ namespace Host
                 resp.CustomerId = CustomerId;
                 var s = Data.GetEntityListByType<CustomerSession>().First();
                 resp.SessionId = (s.NewEntity as CustomerSession).SessionId;
+                resp.CustomerId = OldCustomer.CustomerId;
+                resp.CustomerName = NewCustomer.CustomerName;
                 resp.Email = OldCustomer.Email;
                 resp.SessionKey = (s.NewEntity as CustomerSession).SessionKey;
             }

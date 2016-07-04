@@ -13,5 +13,7 @@ namespace HostMessage.Responses
         public long SessionId { get; set; }
         public string SessionKey { get; set; }
 
+        public string CustomerName { get; set; }
+
     }
 }
