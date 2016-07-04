@@ -186,11 +186,12 @@ var Controllers;
 (function (Controllers) {
     var SignOnCustomerCtrl = (function () {
         //static $inject = ['$scope', '$cookies', 'dataSvc'];
-        function SignOnCustomerCtrl($scope, $cookies, dataSvc) {
+        function SignOnCustomerCtrl($scope, $cookies, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
             self.dataSvc = dataSvc;
+            self.$location = $location;
             self.$scope.signOnCustomer = function () {
                 var ctm = new DataModels.Customer();
                 ctm.Email = self.$scope.Email;
@@ -201,7 +202,7 @@ var Controllers;
                     $cookies.put("cid", String(res.cid));
                     $cookies.put("cname", String(res.cname));
                     self.$scope.CustomerName = self.$cookies.get("cname");
-                    alert(JSON.stringify(self.$cookies.get("cname")));
+                    self.$location.path("/");
                 });
             };
             self.init();
@@ -358,7 +359,7 @@ var OneStopCustomerApp;
     OneStopCustomerApp.Config = Config;
     Config.$inject = ['$routeProvider'];
     Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
-    Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
+    Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$routeParams', 'offerDetailsDataSvc'];

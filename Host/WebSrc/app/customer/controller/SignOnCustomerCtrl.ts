@@ -3,14 +3,17 @@ module Controllers {
     export class SignOnCustomerCtrl {
         $scope: DataModels.ISignOnCustomerScope;
         $cookies: ng.cookies.ICookieStoreService;
+        $location: ng.ILocationService;
         dataSvc: Services.CustomerDataSvc;
         
         //static $inject = ['$scope', '$cookies', 'dataSvc'];
-        constructor($scope: DataModels.ISignOnCustomerScope, $cookies: ng.cookies.ICookieStoreService, dataSvc: Services.CustomerDataSvc) {
+        constructor($scope: DataModels.ISignOnCustomerScope, $cookies: ng.cookies.ICookieStoreService, $location: ng.ILocationService, dataSvc: Services.CustomerDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
             self.dataSvc = dataSvc;
+
+            self.$location = $location;
 
             self.$scope.signOnCustomer = function () {
                 let ctm = new DataModels.Customer();
@@ -22,7 +25,7 @@ module Controllers {
                     $cookies.put("cid", String(res.cid));
                     $cookies.put("cname", String(res.cname));
                     self.$scope.CustomerName = self.$cookies.get("cname");
-                    alert(JSON.stringify(self.$cookies.get("cname")));
+                    self.$location.path("/");
                 });
             };
 

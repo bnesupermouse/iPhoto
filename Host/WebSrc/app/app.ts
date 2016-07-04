@@ -13,7 +13,7 @@ module OneStopCustomerApp {
     }
     Config.$inject = ['$routeProvider'];
     Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
-    Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
+    Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$routeParams', 'offerDetailsDataSvc'];
