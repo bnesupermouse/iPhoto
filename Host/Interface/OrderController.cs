@@ -23,7 +23,7 @@ namespace Host
                                  join ph in dc.Photographers on o.PhotographerId equals ph.PhotographerId
                                  join ctm in dc.Customers on o.CustomerId equals ctm.CustomerId
                                  join of in dc.Offers on o.OfferId equals of.OfferId
-                                 where o.CustomerId == id && o.Status == 0
+                                 where o.CustomerId == id //&& o.Status == 0
                                  select new OrderInfo
                                  {
                                      SerialNo = o.SerialNo,
@@ -36,7 +36,8 @@ namespace Host
                                      OrderTime = o.OrderTime,
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
-                                     Status = o.Status
+                                     Status = o.Status,
+                                     StatusString = StatusValue.GetStringValue(o.Status)
                                  };
                     var res = orders.ToList();
                     return res;
@@ -47,7 +48,7 @@ namespace Host
                                  join ph in dc.Photographers on o.PhotographerId equals ph.PhotographerId
                                  join ctm in dc.Customers on o.CustomerId equals ctm.CustomerId
                                  join of in dc.Offers on o.OfferId equals of.OfferId
-                                 where o.PhotographerId == id && o.Status == 0
+                                 where o.PhotographerId == id //&& o.Status == 0
                                  select new OrderInfo
                                  {
                                      SerialNo = o.SerialNo,
@@ -60,7 +61,8 @@ namespace Host
                                      OrderTime = o.OrderTime,
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
-                                     Status = o.Status
+                                     Status = o.Status,
+                                     StatusString = StatusValue.GetStringValue(o.Status)
                                  };
                     var res =  orders.ToList();
                     return res;

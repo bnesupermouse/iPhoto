@@ -11,6 +11,7 @@ module DataModels {
         AppointmentTime: string;
         OrderTime: string;
         Amount: number;
-        status: number;
+        Status: number;
+        StatusString: string;
     }
 }

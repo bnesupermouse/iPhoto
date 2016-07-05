@@ -598,6 +598,26 @@ var DataModels;
     DataModels.PlaceOrder = PlaceOrder;
 })(DataModels || (DataModels = {}));
 
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    (function (OrderStatusValue) {
+        OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
+        OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
+        OrderStatusValue[OrderStatusValue["RawPhotoUploading"] = 2] = "RawPhotoUploading";
+        OrderStatusValue[OrderStatusValue["RawPhotoUploaded"] = 3] = "RawPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["PhotoSelecting"] = 4] = "PhotoSelecting";
+        OrderStatusValue[OrderStatusValue["PhotoSelected"] = 5] = "PhotoSelected";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploading"] = 6] = "RetouchedPhotoUploading";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploaded"] = 7] = "RetouchedPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoConfirming"] = 8] = "RetouchedPhotoConfirming";
+        OrderStatusValue[OrderStatusValue["OrderFinalised"] = 9] = "OrderFinalised";
+        OrderStatusValue[OrderStatusValue["OrderRejected"] = 10] = "OrderRejected";
+        OrderStatusValue[OrderStatusValue["OrderCancelled"] = 11] = "OrderCancelled"; //Ctm
+    })(DataModels.OrderStatusValue || (DataModels.OrderStatusValue = {}));
+    var OrderStatusValue = DataModels.OrderStatusValue;
+})(DataModels || (DataModels = {}));
+
 // Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Anthony Ciccarello <http://github.com/aciccarello>
