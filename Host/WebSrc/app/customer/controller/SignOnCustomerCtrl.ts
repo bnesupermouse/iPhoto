@@ -16,19 +16,36 @@ module Controllers {
             self.$location = $location;
 
             self.$scope.signOnCustomer = function () {
-                let ctm = new DataModels.Customer();
-                ctm.Email = self.$scope.Email;
-                ctm.Password = self.$scope.Password;
-                dataSvc.signOnCustomer(ctm).then(function (res) {
-                    $cookies.put("sid", String(res.sid));
-                    $cookies.put("skey", String(res.skey));
-                    $cookies.put("cid", String(res.cid));
-                    $cookies.put("cname", String(res.cname));
-                    self.$scope.CustomerName = self.$cookies.get("cname");
-                    self.$location.path("/");
-                });
-            };
+                if (self.$scope.CustomerType == 1) {
+                    let ctm = new DataModels.Customer();
+                    ctm.Email = self.$scope.Email;
+                    ctm.Password = self.$scope.Password;
+                    dataSvc.signOnCustomer(ctm).then(function (res) {
+                        $cookies.put("ctype", String(1));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$location.path("/");
+                    });
+                }
+                else {
 
+                    let phg = new DataModels.Photographer();
+                    phg.Email = self.$scope.Email;
+                    phg.Password = self.$scope.Password;
+                    dataSvc.signOnPhotographer(phg).then(function (res) {
+                        $cookies.put("ctype", String(2));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$location.path("/");
+                    });
+                }
+            }
             self.init();
         }
 

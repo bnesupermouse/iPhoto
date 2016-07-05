@@ -15,6 +15,17 @@ var DataModels;
     DataModels.CookieInfo = CookieInfo;
 })(DataModels || (DataModels = {}));
 
+/// <reference path="../../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var Photographer = (function () {
+        function Photographer() {
+        }
+        return Photographer;
+    }());
+    DataModels.Photographer = Photographer;
+})(DataModels || (DataModels = {}));
+
 /// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
@@ -33,6 +44,8 @@ var Services;
         function CustomerDataSvc($http, $q) {
             this.techCtmApiPath = "api/customer/newaccount";
             this.signOnApiPath = "api/customer/signon";
+            this.addPhApiPath = "api/photographer/newaccount";
+            this.signOnPhApiPath = "api/photographer/signon";
             this.httpService = $http;
             this.qService = $q;
             this.cookieInfo = new DataModels.CookieInfo();
@@ -67,6 +80,36 @@ var Services;
             });
             return deferred.promise;
         };
+        CustomerDataSvc.prototype.addPhotographer = function (photographer) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.addPhApiPath, photographer)
+                .then(function (result) {
+                self.cookieInfo.sid = result.data.SessionId;
+                self.cookieInfo.skey = result.data.SessionKey;
+                self.cookieInfo.cid = result.data.PhotographerId;
+                self.cookieInfo.cname = result.data.PhotographerName;
+                deferred.resolve(self.cookieInfo);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        CustomerDataSvc.prototype.signOnPhotographer = function (photographer) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.signOnPhApiPath, photographer)
+                .then(function (result) {
+                self.cookieInfo.sid = result.data.SessionId;
+                self.cookieInfo.skey = result.data.SessionKey;
+                self.cookieInfo.cid = result.data.PhotographerId;
+                self.cookieInfo.cname = result.data.PhotographerName;
+                deferred.resolve(self.cookieInfo);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
         CustomerDataSvc.CustomerDataSvcFactory = function ($http, $q) {
             return new CustomerDataSvc($http, $q);
         };
@@ -78,6 +121,36 @@ var Services;
 /// <reference path="../../all.ts" />
 var Controllers;
 (function (Controllers) {
+    var ManageAccountCtrl = (function () {
+        //static $inject = ['$scope', '$cookies', 'dataSvc'];
+        function ManageAccountCtrl($scope, $cookies, $location, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.dataSvc = dataSvc;
+            self.$location = $location;
+            var sid = $cookies.get("sid");
+            if (sid == null) {
+                self.$location.path("/signin");
+            }
+            else {
+                self.$scope.CustomerName = $cookies.get("cname");
+                self.$scope.AcccountId = $cookies.get("cid");
+                self.$scope.CustomerType = $cookies.get("ctype");
+            }
+            self.init();
+        }
+        ManageAccountCtrl.prototype.init = function () {
+            var self = this;
+        };
+        return ManageAccountCtrl;
+    }());
+    Controllers.ManageAccountCtrl = ManageAccountCtrl;
+})(Controllers || (Controllers = {}));
+
+/// <reference path="../../all.ts" />
+var Controllers;
+(function (Controllers) {
     var AddCustomerCtrl = (function () {
         function AddCustomerCtrl($scope, $cookies, dataSvc) {
             var self = this;
@@ -85,18 +158,36 @@ var Controllers;
             self.$cookies = $cookies;
             self.dataSvc = dataSvc;
             self.$scope.addCustomer = function () {
-                var ctm = new DataModels.Customer();
-                ctm.CustomerName = self.$scope.CustomerName;
-                ctm.Email = self.$scope.Email;
-                ctm.Password = self.$scope.Password;
-                dataSvc.addCustomer(ctm).then(function (res) {
-                    $cookies.put("sid", String(res.sid));
-                    $cookies.put("skey", String(res.skey));
-                    $cookies.put("cid", String(res.cid));
-                    $cookies.put("cname", String(res.cname));
-                    self.$scope.CustomerName = self.$cookies.get("cname");
-                    alert("Successful");
-                });
+                if (self.$scope.CustomerType == 1) {
+                    var ctm = new DataModels.Customer();
+                    ctm.CustomerName = self.$scope.NewCustomerName;
+                    ctm.Email = self.$scope.Email;
+                    ctm.Password = self.$scope.Password;
+                    dataSvc.addCustomer(ctm).then(function (res) {
+                        $cookies.put("ctype", String(1));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        alert("Successful");
+                    });
+                }
+                else {
+                    var phg = new DataModels.Photographer();
+                    phg.PhotographerName = self.$scope.NewCustomerName;
+                    phg.Email = self.$scope.Email;
+                    phg.Password = self.$scope.Password;
+                    dataSvc.addPhotographer(phg).then(function (res) {
+                        $cookies.put("ctype", String(2));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        alert("Successful");
+                    });
+                }
             };
             self.init();
         }
@@ -193,17 +284,34 @@ var Controllers;
             self.dataSvc = dataSvc;
             self.$location = $location;
             self.$scope.signOnCustomer = function () {
-                var ctm = new DataModels.Customer();
-                ctm.Email = self.$scope.Email;
-                ctm.Password = self.$scope.Password;
-                dataSvc.signOnCustomer(ctm).then(function (res) {
-                    $cookies.put("sid", String(res.sid));
-                    $cookies.put("skey", String(res.skey));
-                    $cookies.put("cid", String(res.cid));
-                    $cookies.put("cname", String(res.cname));
-                    self.$scope.CustomerName = self.$cookies.get("cname");
-                    self.$location.path("/");
-                });
+                if (self.$scope.CustomerType == 1) {
+                    var ctm = new DataModels.Customer();
+                    ctm.Email = self.$scope.Email;
+                    ctm.Password = self.$scope.Password;
+                    dataSvc.signOnCustomer(ctm).then(function (res) {
+                        $cookies.put("ctype", String(1));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$location.path("/");
+                    });
+                }
+                else {
+                    var phg = new DataModels.Photographer();
+                    phg.Email = self.$scope.Email;
+                    phg.Password = self.$scope.Password;
+                    dataSvc.signOnPhotographer(phg).then(function (res) {
+                        $cookies.put("ctype", String(2));
+                        $cookies.put("sid", String(res.sid));
+                        $cookies.put("skey", String(res.skey));
+                        $cookies.put("cid", String(res.cid));
+                        $cookies.put("cname", String(res.cname));
+                        self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$location.path("/");
+                    });
+                }
             };
             self.init();
         }
@@ -325,12 +433,81 @@ var Services;
     Services.OfferDetailsDataSvc = OfferDetailsDataSvc;
 })(Services || (Services = {}));
 
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var Order = (function () {
+        function Order() {
+        }
+        return Order;
+    }());
+    DataModels.Order = Order;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
+var Controllers;
+(function (Controllers) {
+    var OrderCtrl = (function () {
+        function OrderCtrl($scope, $cookies, $routeParams, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.CustomerName = $cookies.get("cname");
+            self.$scope.AcccountId = $cookies.get("cid");
+            self.$scope.CustomerType = $cookies.get("ctype");
+            self.init();
+        }
+        OrderCtrl.prototype.init = function () {
+            var self = this;
+            self.dataSvc.getOrderList(self.$scope.AcccountId, self.$scope.CustomerType, 1).then(function (data) {
+                self.$scope.Orders = data.OrderList;
+            });
+        };
+        return OrderCtrl;
+    }());
+    Controllers.OrderCtrl = OrderCtrl;
+})(Controllers || (Controllers = {}));
+
+/// <reference path="../all.ts" />
+var Services;
+(function (Services) {
+    var OrderDataSvc = (function () {
+        function OrderDataSvc($http, $q) {
+            this.getOrderListApiPath = "api/order/getorderlist";
+            this.OrderList = new Array();
+            this.httpService = $http;
+            this.qService = $q;
+        }
+        OrderDataSvc.prototype.getOrderList = function (accountId, accountType, active) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType + "/" + active)
+                .then(function (result) {
+                self.OrderList = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OrderDataSvc.OrderDataSvcFactory = function ($http, $q) {
+            return new OrderDataSvc($http, $q);
+        };
+        return OrderDataSvc;
+    }());
+    Services.OrderDataSvc = OrderDataSvc;
+})(Services || (Services = {}));
+
 /// <reference path="./scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="./scripts/typings/angularjs/angular-cookies.d.ts" />
 /// <reference path="./scripts/typings/angularjs/angular-route.d.ts" />
 /// <reference path="./customer/model/Customer.ts" />
+/// <reference path="./customer/model/Photographer.ts" />
 /// <reference path="./common/IBaseScope.ts" />
 /// <reference path="./customer/service/CustomerDataSvc.ts" />
+/// <reference path="./customer/controller/ManageAccountCtrl.ts" />
 /// <reference path="./customer/controller/AddCustomerCtrl.ts" />
 /// <reference path="./main/MainPageCtrl.ts" />
 /// <reference path="./main/MainPage.ts" />
@@ -339,7 +516,10 @@ var Services;
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
-/// <reference path="./offer/OfferDetailsDataSvc.ts" /> 
+/// <reference path="./offer/OfferDetailsDataSvc.ts" />
+/// <reference path="./order/Order.ts" />
+/// <reference path="./order/OrderCtrl.ts" />
+/// <reference path="./order/OrderDataSvc.ts" /> 
 
 /// <reference path="./all.ts" />
 var OneStopCustomerApp;
@@ -348,6 +528,8 @@ var OneStopCustomerApp;
         function Config($routeProvider) {
             $routeProvider
                 .when("/", { controller: "IndexPageCtrl" })
+                .when("/account", { templateUrl: "customer/view/account.html", controller: "ManageMyAccountCtrl" })
+                .when("/orderlist", { templateUrl: "order/orderlist.html", controller: "GetOrderListCtrl" })
                 .when("/signup", { templateUrl: "customer/view/signup.html", controller: "AddNewCustomerCtrl" })
                 .when("/signin", { templateUrl: "customer/view/signin.html", controller: "CustomerSignOnCtrl" })
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
@@ -360,9 +542,11 @@ var OneStopCustomerApp;
     Config.$inject = ['$routeProvider'];
     Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
     Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
+    Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$routeParams', 'offerDetailsDataSvc'];
+    Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
     app.config(Config);
@@ -370,11 +554,14 @@ var OneStopCustomerApp;
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);
     app.factory('photoTypeDataSvc', ['$http', '$q', Services.PhotoTypeDataSvc.PhotoTypeDataSvcFactory]);
     app.factory('offerDetailsDataSvc', ['$http', '$q', Services.OfferDetailsDataSvc.OfferDetailsDataSvcFactory]);
+    app.factory('orderDataSvc', ['$http', '$q', Services.OrderDataSvc.OrderDataSvcFactory]);
     app.controller('AddNewCustomerCtrl', Controllers.AddCustomerCtrl);
     app.controller('CustomerSignOnCtrl', Controllers.SignOnCustomerCtrl);
     app.controller('IndexPageCtrl', Controllers.MainPageCtrl);
     app.controller('GetPhotoTypeCtrl', Controllers.PhotoTypeCtrl);
     app.controller('GetOfferDetailsCtrl', Controllers.OfferDetailsCtrl);
+    app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
+    app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
 
 // Type definitions for Angular JS 1.4 (ngCookies module)

@@ -11,6 +11,8 @@ namespace HostMessage.Responses
         public long PhotographerId { get; set; }
         public string Email { get; set; }
         public long SessionId { get; set; }
+        public string SessionKey { get; set; }
+        public string PhotographerName { get; set; }
 
     }
 }

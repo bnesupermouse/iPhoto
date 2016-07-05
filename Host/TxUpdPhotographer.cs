@@ -258,6 +258,8 @@ namespace Host
                 resp.PhotographerId = NewPhotographer.PhotographerId;
                 resp.SessionId = NewSession.SessionId;
                 resp.Email = NewPhotographer.Email;
+                resp.SessionKey = NewSession.SessionKey;
+                resp.PhotographerName = NewPhotographer.PhotographerName;
             }
             else
             {
@@ -266,6 +268,8 @@ namespace Host
                 var s = Data.GetEntityListByType<PhotographerSession>().First();
                 resp.SessionId = (s.NewEntity as PhotographerSession).SessionId;
                 resp.Email = OldPhotographer.Email;
+                resp.SessionKey = (s.NewEntity as PhotographerSession).SessionKey;
+                resp.PhotographerName = NewPhotographer.PhotographerName;
             }
             response = resp;
             return Data.Validate();

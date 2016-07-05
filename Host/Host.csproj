@@ -144,11 +144,14 @@
     <Compile Include="Common\UpdEntity.cs" />
     <Compile Include="CustomContentTypeProvider.cs" />
     <Compile Include="CustomMiddleware.cs" />
+    <Compile Include="Interface\PhotographerController.cs" />
     <Compile Include="Interface\OfferController.cs" />
+    <Compile Include="Interface\OrderController.cs" />
     <Compile Include="Interface\PhotoTypeController.cs" />
     <Compile Include="Interface\MainPageController.cs" />
     <Compile Include="Interface\CustomerController.cs" />
     <Compile Include="Models\NavigationHeader.cs" />
+    <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\PhotoTypeInfo.cs" />
     <Compile Include="Models\OfferInfo.cs" />
     <Compile Include="NancyDemo.cs" />
@@ -322,6 +325,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebSrc\app\offer\details.html" />
+    <Content Include="WebSrc\app\order\orderlist.html" />
     <Content Include="WebSrc\app\phototype\phototype.html" />
     <Content Include="WebSrc\app\scripts\angular-mocks.js" />
     <Content Include="WebSrc\app\scripts\angular-route.js" />
@@ -349,8 +353,10 @@
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="WebSrc\app\all.ts" />
     <TypeScriptCompile Include="WebSrc\app\app.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\ManageAccountCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\SignOnCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\AddCustomerCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\model\Photographer.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\model\Customer.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPageDataSvc.ts" />
@@ -359,6 +365,9 @@
     <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\Order.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\OrderCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\OrderDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\phototype\PhotoTypeDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\phototype\PhotoTypeCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\scripts\typings\angularjs\angular-animate.d.ts" />

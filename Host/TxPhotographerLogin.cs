@@ -60,6 +60,8 @@ namespace Host
             resp.PhotographerId = PhotographerId;
             var s = Data.GetEntityListByType<PhotographerSession>().First();
             resp.SessionId = (s.NewEntity as PhotographerSession).SessionId;
+            resp.SessionKey = (s.NewEntity as PhotographerSession).SessionKey;
+            resp.PhotographerName = newPh.PhotographerName;
             response = resp;
             return Result.Success;
         }

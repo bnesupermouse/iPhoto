@@ -20,7 +20,7 @@
                     <form role="form" class="regForm">
                         <div class="form-group">
                             <label>Name</label>
-                            <input ng-model = "CustomerName" title="Please enter your username (at least 3 characters)" type="text"
+                            <input ng-model = "NewCustomerName" title="Please enter your username (at least 3 characters)" type="text"
                                    class="form-control" placeholder="Enter name" required minlength="3">
                         </div>
                         <div class="form-group">
@@ -33,6 +33,10 @@
                             <input ng-model = "Password" required minlength="5"
                                    title="Please enter your password, between 5 and 12 characters" type="password"
                                    class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label><input class="active" checked="" ng-model="CustomerType" value=1 type="radio" name="ctmType">Customer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                            <label><input type="radio" ng-model="CustomerType" value=2 name="ctmType">Photographer</label>
                         </div>
                         <div class="error">
                         </div>

@@ -9,9 +9,12 @@ module DataModels {
         SortOrder: number;
     }
     export interface IBaseScope extends ng.IScope {
+        AcccountId: number;
         CustomerName: string;
+        CustomerType: number;
     }
     export interface IAddCustomerScope extends IBaseScope {
+        NewCustomerName: string;
         Email: string;
         Password: string;
         addCustomer(): void;
@@ -37,5 +40,8 @@ module DataModels {
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
+    }
+    export interface IOrderListPageScope extends IBaseScope {
+        Orders: Array<Order>;
     }
 }
