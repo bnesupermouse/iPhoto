@@ -12,6 +12,14 @@ namespace Host
 {
     public class OfferController : ApiController
     {
+        [HttpPost]
+        public Response PlaceOrder(PlaceOrder placeOrder)
+        {
+            TxPlaceOrder txn = new TxPlaceOrder();
+            txn.request = placeOrder;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
         [HttpGet]
        
         public OfferInfo GetOfferDetails(int id)

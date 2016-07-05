@@ -21,10 +21,28 @@ namespace Host
         public override Result Validate()
         {
             var curReq = request as PlaceOrder;
-
+            //Check Offer
+            Offer offer = new Offer();
+            offer.OfferId = curReq.OfferId;
+            offer = offer.Fetch() as Offer;
+            if(offer == null)
+            {
+                return Result.Failed;
+            }
+            //Check OfferPhotographer
+            using (var dc = new HostDBDataContext())
+            {
+                var op = dc.OfferPhotographers.Where(o => o.OfferId == curReq.OfferId).FirstOrDefault();
+                if(op == null)
+                {
+                    return Result.Failed;
+                }
+                PhotographerId = op.PhotographerId;
+            }
+            CustomerId = curReq.CustomerId;
             //Construct new Order
             CustomerOrder order = new CustomerOrder();
-            order.PhotographerId = curReq.PhotographerId;
+            order.PhotographerId = PhotographerId;
             order.CustomerId = curReq.CustomerId;
             order.OfferId = curReq.OfferId;
             order.AppointmentTime = DateTime.Now;
@@ -45,10 +63,6 @@ namespace Host
             Photographer ph = new Photographer();
             ph.PhotographerId = order.PhotographerId;
             ph = ph.Fetch() as Photographer;
-            //Check Offer
-            Offer offer = new Offer();
-            offer.OfferId = curReq.OfferId;
-            offer = offer.Fetch() as Offer;
 
             order.Amount = offer.Price * 1;
             order.PhotographerPay = order.Amount * (decimal)((double)ph.PayRate / (double)100.0);
@@ -90,15 +104,15 @@ namespace Host
             newPa.PendingBalance += order.PhotographerPay.Value;
             Data.AddNew(pa, newPa);
 
-            try
-            {
-                var tokenId = Utility.GetTokenId(curReq.Payment);
-                var chargeId = Utility.ChargeCustomer(tokenId.Result, (int)(order.Amount*100));
-            }
-            catch (Exception e)
-            {
-                int x = 1;
-            }
+            //try
+            //{
+            //    var tokenId = Utility.GetTokenId(curReq.Payment);
+            //    var chargeId = Utility.ChargeCustomer(tokenId.Result, (int)(order.Amount*100));
+            //}
+            //catch (Exception e)
+            //{
+            //    int x = 1;
+            //}
             return Result.Success;
         }
         public override Result Prepare()

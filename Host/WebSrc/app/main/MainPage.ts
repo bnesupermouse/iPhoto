@@ -40,6 +40,7 @@ module DataModels {
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
+        placeOrder(): void;
     }
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;

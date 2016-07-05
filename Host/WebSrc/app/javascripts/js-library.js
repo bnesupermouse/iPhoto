@@ -385,11 +385,21 @@ var Services;
 var Controllers;
 (function (Controllers) {
     var OfferDetailsCtrl = (function () {
-        function OfferDetailsCtrl($scope, $routeParams, dataSvc) {
+        function OfferDetailsCtrl($scope, $cookies, $routeParams, dataSvc) {
             var self = this;
             self.$scope = $scope;
+            self.$cookies = $cookies;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
+            self.$scope.placeOrder = function () {
+                var placeOrder = new DataModels.PlaceOrder();
+                self.$scope.AcccountId = $cookies.get("cid");
+                placeOrder.CustomerId = self.$scope.AcccountId;
+                placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
+                dataSvc.placeOrder(placeOrder).then(function (res) {
+                    alert("Successful");
+                });
+            };
             self.init();
         }
         OfferDetailsCtrl.prototype.init = function () {
@@ -409,6 +419,7 @@ var Services;
     var OfferDetailsDataSvc = (function () {
         function OfferDetailsDataSvc($http, $q) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
+            this.placeOrderApiPath = "api/offer/placeorder";
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
             this.qService = $q;
@@ -417,6 +428,18 @@ var Services;
             var self = this;
             var deferred = self.qService.defer();
             self.httpService.get(self.getOfferDetailsApiPath + "/" + offerId)
+                .then(function (result) {
+                self.OfferDetails = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OfferDetailsDataSvc.prototype.placeOrder = function (placeOrder) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.placeOrderApiPath, placeOrder)
                 .then(function (result) {
                 self.OfferDetails = result.data;
                 deferred.resolve(self);
@@ -545,7 +568,7 @@ var OneStopCustomerApp;
     Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
-    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$routeParams', 'offerDetailsDataSvc'];
+    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
@@ -563,6 +586,17 @@ var OneStopCustomerApp;
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var PlaceOrder = (function () {
+        function PlaceOrder() {
+        }
+        return PlaceOrder;
+    }());
+    DataModels.PlaceOrder = PlaceOrder;
+})(DataModels || (DataModels = {}));
 
 // Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org

@@ -12,9 +12,8 @@ namespace Host
         {
             TxnId = 1;
         }
-        public PaymentInfo Payment { get; set; }
+        //public PaymentInfo Payment { get; set; }
         public long CustomerId { get; set; }
         public long OfferId { get; set; }
-        public long PhotographerId { get; set; }
     }
 }
