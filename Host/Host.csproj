@@ -159,6 +159,7 @@
     <Compile Include="TxConfirmRetouchedPhoto.cs" />
     <Compile Include="TxPhotographerLogin.cs" />
     <Compile Include="TxCancelOrder.cs" />
+    <Compile Include="TxPayOrder.cs" />
     <Compile Include="TxRemoveOfferPicture.cs" />
     <Compile Include="TxPhotographerWithdraw.cs" />
     <Compile Include="TxRemovePhotographerWorkPicture.cs" />
@@ -325,6 +326,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="WebSrc\app\offer\details.html" />
+    <Content Include="WebSrc\app\offer\orderpayment.html" />
     <Content Include="WebSrc\app\order\orderlist.html" />
     <Content Include="WebSrc\app\phototype\phototype.html" />
     <Content Include="WebSrc\app\scripts\angular-mocks.js" />
@@ -363,8 +365,11 @@
     <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\common\IBaseScope.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\PaymentDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\OrderPaymentCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\PayOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PlaceOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\OrderStatus.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\Order.ts" />

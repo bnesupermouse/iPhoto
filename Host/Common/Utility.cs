@@ -29,7 +29,7 @@ namespace Host
             }
         }
 
-        public static async Task<string> GetTokenId(PaymentInfo payment)
+        public static async Task<string> GetTokenId(PayOrder payment)
         {
             return await System.Threading.Tasks.Task.Run(() =>
             {
@@ -43,15 +43,22 @@ namespace Host
                 Number = payment.CardNumber,
                 ExpirationYear = payment.Year,
                 ExpirationMonth = payment.Month,
-                Cvc = payment.Cvc
+                Cvc = payment.CVC
             };
 
             // set this property if using a customer (stripe connect only)
             //myToken.CustomerId = *customerId *;
 
             var tokenService = new StripeTokenService();
-            StripeToken stripeToken = tokenService.Create(myToken);
-            return stripeToken.Id;
+                try
+                {
+                    StripeToken stripeToken = tokenService.Create(myToken);
+                    return stripeToken.Id;
+                }
+                catch(Exception ex)
+                {
+                    return null;
+                }
             });
         }
 

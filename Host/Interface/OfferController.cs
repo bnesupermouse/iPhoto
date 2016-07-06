@@ -20,22 +20,30 @@ namespace Host
             var res = TxnFunc.ProcessTxn(txn);
             return txn.response;
         }
+        [HttpPost]
+        public Response PayOrder(PayOrder payOrder)
+        {
+            TxPayOrder txn = new TxPayOrder();
+            txn.request = payOrder;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
         [HttpGet]
        
         public OfferInfo GetOfferDetails(int id)
         {
             using (var dc = new HostDBDataContext())
             {
-                var offer = from o in dc.Offers
-                join p in dc.OfferPhotographers on o.OfferId equals p.OfferId
-                join ph in dc.Photographers on p.PhotographerId equals ph.PhotographerId
+                var offer = from o in dc.Offer
+                join p in dc.OfferPhotographer on o.OfferId equals p.OfferId
+                join ph in dc.Photographer on p.PhotographerId equals ph.PhotographerId
                 where o.OfferId == id
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder};
                 var res = offer.ToList();
                 foreach(var of in res)
                 {
-                    of.OfferPics = dc.OfferPictures.Where(o => o.OfferId == of.OfferId).Select(o=>o.Path).ToList();
+                    of.OfferPics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o=>o.Path).ToList();
                 }
                 return res.FirstOrDefault();
 

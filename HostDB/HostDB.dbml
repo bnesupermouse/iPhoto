@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="iPhoto" Class="HostDBDataContext" Serialization="Unidirectional" EntityBase="Entity" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=.\;Initial Catalog=iPhoto;Integrated Security=True" SettingsObjectName="HostDB.Properties.Settings" SettingsPropertyName="iPhotoConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Account" Member="Accounts">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=TA030462;Initial Catalog=iPhoto;Integrated Security=True" SettingsObjectName="HostDB.Properties.Settings" SettingsPropertyName="iPhotoConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Account" Member="Account">
     <Type Name="Account">
       <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Balance" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
@@ -9,7 +9,7 @@
       <Column Name="Expense" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Venue" Member="Venues">
+  <Table Name="dbo.Venue" Member="Venue">
     <Type Name="Venue">
       <Column Name="VenueId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="VenueName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
@@ -17,14 +17,14 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.City" Member="Cities">
+  <Table Name="dbo.City" Member="City">
     <Type Name="City">
       <Column Name="CityId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CityName" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Customer" Member="Customers">
+  <Table Name="dbo.Customer" Member="Customer">
     <Type Name="Customer">
       <Column Name="CustomerId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
@@ -39,7 +39,7 @@
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.CustomerOrder" Member="CustomerOrders">
+  <Table Name="dbo.CustomerOrder" Member="CustomerOrder">
     <Type Name="CustomerOrder">
       <Column Name="SerialNo" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PhotographerId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
@@ -50,9 +50,10 @@
       <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
       <Column Name="PhotographerPay" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Paid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.CustomerSession" Member="CustomerSessions">
+  <Table Name="dbo.CustomerSession" Member="CustomerSession">
     <Type Name="CustomerSession">
       <Column Name="SessionId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SessionKey" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
@@ -61,7 +62,7 @@
       <Column Name="LastUseTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.ExpenseItem" Member="ExpenseItems">
+  <Table Name="dbo.ExpenseItem" Member="ExpenseItem">
     <Type Name="ExpenseItem">
       <Column Name="ItemId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="ItemName" Type="System.String" DbType="NVarChar(200) NOT NULL" CanBeNull="false" />
@@ -70,13 +71,13 @@
       <Column Name="Amount" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.GlobalValue" Member="GlobalValues">
+  <Table Name="dbo.GlobalValue" Member="GlobalValue">
     <Type Name="GlobalValue">
       <Column Name="GlbName" Type="System.String" DbType="NVarChar(150) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="GlbValue" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.NewsArticle" Member="NewsArticles">
+  <Table Name="dbo.NewsArticle" Member="NewsArticle">
     <Type Name="NewsArticle">
       <Column Name="NewsId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
@@ -86,7 +87,7 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Offer" Member="Offers">
+  <Table Name="dbo.Offer" Member="Offer">
     <Type Name="Offer">
       <Column Name="OfferId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="OfferName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
@@ -109,13 +110,13 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.OfferPhotographer" Member="OfferPhotographers">
+  <Table Name="dbo.OfferPhotographer" Member="OfferPhotographer">
     <Type Name="OfferPhotographer">
       <Column Name="OfferId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PhotographerId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.OfferPicture" Member="OfferPictures">
+  <Table Name="dbo.OfferPicture" Member="OfferPicture">
     <Type Name="OfferPicture">
       <Column Name="OfferPictureId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="OfferId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
@@ -125,13 +126,13 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.OfferVenue" Member="OfferVenues">
+  <Table Name="dbo.OfferVenue" Member="OfferVenue">
     <Type Name="OfferVenue">
       <Column Name="OfferId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="VenueId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Photo" Member="Photos">
+  <Table Name="dbo.Photo" Member="Photo">
     <Type Name="Photo">
       <Column Name="PhotoId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="CustomerOrderId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
@@ -145,7 +146,7 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Photographer" Member="Photographers">
+  <Table Name="dbo.Photographer" Member="Photographer">
     <Type Name="Photographer">
       <Column Name="PhotographerId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(150) NOT NULL" CanBeNull="false" />
@@ -166,7 +167,7 @@
       <Column Name="HeadPhoto" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PhotographerAccount" Member="PhotographerAccounts">
+  <Table Name="dbo.PhotographerAccount" Member="PhotographerAccount">
     <Type Name="PhotographerAccount">
       <Column Name="PhotographerId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TotalBalance" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
@@ -174,7 +175,7 @@
       <Column Name="PendingBalance" Type="System.Decimal" DbType="Money NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.PhotographerSession" Member="PhotographerSessions">
+  <Table Name="dbo.PhotographerSession" Member="PhotographerSession">
     <Type Name="PhotographerSession">
       <Column Name="SessionId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SessionKey" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
@@ -183,7 +184,7 @@
       <Column Name="LastUseTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.PhotographerWork" Member="PhotographerWorks">
+  <Table Name="dbo.PhotographerWork" Member="PhotographerWork">
     <Type Name="PhotographerWork">
       <Column Name="PhotographerWorkId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PhotographerId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
@@ -192,7 +193,7 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.PhotographerWorkPicture" Member="PhotographerWorkPictures">
+  <Table Name="dbo.PhotographerWorkPicture" Member="PhotographerWorkPicture">
     <Type Name="PhotographerWorkPicture">
       <Column Name="PhotographerPictureId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PhotographerWorkId" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
@@ -202,14 +203,14 @@
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.PhotoType" Member="PhotoTypes">
+  <Table Name="dbo.PhotoType" Member="PhotoType">
     <Type Name="PhotoType">
       <Column Name="PhotoTypeId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PhotoTypeName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="SortOrder" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Remark" Member="Remarks">
+  <Table Name="dbo.Remark" Member="Remark">
     <Type Name="Remark">
       <Column Name="RemarkId" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Details" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
@@ -217,7 +218,7 @@
       <Column Name="[Level]" Member="Level" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.Txn" Member="Txns">
+  <Table Name="dbo.Txn" Member="Txn">
     <Type Name="Txn">
       <Column Name="SerialNo" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TxnTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -227,7 +228,7 @@
       <Column Name="ErrorNo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="dbo.TxnRecord" Member="TxnRecords">
+  <Table Name="dbo.TxnRecord" Member="TxnRecord">
     <Type Name="TxnRecord">
       <Column Name="SerialNo" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="TxnType" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />

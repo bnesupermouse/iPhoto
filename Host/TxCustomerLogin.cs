@@ -32,7 +32,7 @@ namespace Host
             Customer ctm = null;
             using (var context = new HostDBDataContext())
             {
-                ctm = context.Customers.Where(c => c.Email == curReq.Email).FirstOrDefault();
+                ctm = context.Customer.Where(c => c.Email == curReq.Email).FirstOrDefault();
             }
             if (ctm == null)
             {

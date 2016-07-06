@@ -52,7 +52,7 @@ namespace Host
                 {
                     using (var dc = new HostDBDataContext())
                     {
-                        OldSession = dc.CustomerSessions.Where(s => s.CustomerId == CustomerId).FirstOrDefault();
+                        OldSession = dc.CustomerSession.Where(s => s.CustomerId == CustomerId).FirstOrDefault();
                     }
                 }
                 if (OldSession != null)
@@ -110,7 +110,7 @@ namespace Host
                 {
                     using (var dc = new HostDBDataContext())
                     {
-                        OldSession = dc.PhotographerSessions.Where(s => s.PhotographerId == PhotographerId).FirstOrDefault();
+                        OldSession = dc.PhotographerSession.Where(s => s.PhotographerId == PhotographerId).FirstOrDefault();
                     }
                 }
                 if (OldSession != null)
@@ -217,7 +217,7 @@ namespace Host
             string nextName = "Next" + typeof(T).Name + "Id";
             using (var dc = new HostDBDataContext())
             {
-                var global = dc.GlobalValues.Where(g=>g.GlbName == nextName).FirstOrDefault();
+                var global = dc.GlobalValue.Where(g=>g.GlbName == nextName).FirstOrDefault();
                 if(global == null)
                 {
                     global = new GlobalValue();

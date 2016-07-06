@@ -75,7 +75,7 @@ namespace Host
                 if (Action == 1)
                 {
                     var dc = new HostDBDataContext();
-                    bool exist = dc.Photographers.Where(c => c.Email == NewPhotographer.Email).Count() > 0;
+                    bool exist = dc.Photographer.Where(c => c.Email == NewPhotographer.Email).Count() > 0;
                     if (exist)
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Email already registered", Log4NetLevel.Error);

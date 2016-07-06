@@ -221,7 +221,7 @@ namespace Host
                     {
                         using (var dc = new HostDBDataContext())
                         {
-                            var venueList = dc.OfferVenues.Where(ov=>ov.OfferId == NewOffer.OfferId).ToList();
+                            var venueList = dc.OfferVenue.Where(ov=>ov.OfferId == NewOffer.OfferId).ToList();
                             foreach (var v in venueList)
                             {
                                 Data.AddNew(v, null);

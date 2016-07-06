@@ -17,6 +17,10 @@
 
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
 /// <reference path="./offer/OfferDetailsDataSvc.ts" />
+/// <reference path="./offer/OrderPaymentCtrl.ts" />
+/// <reference path="./offer/PaymentDataSvc.ts" />
+/// <reference path="./offer/PayOrder.ts" />
+/// <reference path="./offer/PlaceOrder.ts" />
 
 /// <reference path="./order/Order.ts" />
 /// <reference path="./order/OrderCtrl.ts" />

@@ -7,14 +7,16 @@ module Controllers {
         $scope: DataModels.IOfferPageScope;
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IOfferDetailsRouteParams;
+        $location: ng.ILocationService;
         dataSvc: Services.OfferDetailsDataSvc;
         PhotoTypeId: number;
 
-        constructor($scope: DataModels.IOfferPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferDetailsRouteParams, dataSvc: Services.OfferDetailsDataSvc) {
+        constructor($scope: DataModels.IOfferPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferDetailsRouteParams, $location: ng.ILocationService, dataSvc: Services.OfferDetailsDataSvc) {
             var self = this;
 
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.placeOrder = function () {
@@ -23,7 +25,8 @@ module Controllers {
                 placeOrder.CustomerId = self.$scope.AcccountId;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
-                    alert("Successful");
+                    let orderId = res;
+                    self.$location.path("/orderpayment/" + orderId);
                 });
             }
             self.init();

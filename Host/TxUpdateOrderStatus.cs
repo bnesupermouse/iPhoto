@@ -57,7 +57,7 @@ namespace Host
             }
             if (curReq.ToStatus == OrderStatus.OrderConfirmed)
             {
-                if (order.Status != (int)OrderStatus.OrderPending)
+                if (order.Status != (int)OrderStatus.OrderPending && !order.Paid)
                 {
                     return Result.Failed;
                 }

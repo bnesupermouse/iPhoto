@@ -45,4 +45,9 @@ module DataModels {
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;
     }
+
+    export interface IPaymentPageScope extends IBaseScope {
+        CardInfo: PayOrder;
+        payOrder(): void;
+    }
 }

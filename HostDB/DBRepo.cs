@@ -1360,8 +1360,9 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
             sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
 
-            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status)";
+            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status,Paid ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status,@Paid)";
 
             int rows = 0;
             try
@@ -1398,8 +1399,9 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
             sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
 
-            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status where SerialNo = @SerialNo ";
+            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status, Paid = @Paid where SerialNo = @SerialNo ";
 
             int rows = 0;
             try

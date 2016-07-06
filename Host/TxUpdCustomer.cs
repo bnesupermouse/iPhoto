@@ -67,7 +67,7 @@ namespace Host
                 if (Action == 1)
                 {
                     var dc = new HostDBDataContext();
-                    bool exist = dc.Customers.Where(c => c.Email == NewCustomer.Email).Count() > 0;
+                    bool exist = dc.Customer.Where(c => c.Email == NewCustomer.Email).Count() > 0;
                     if (exist)
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Email already registered", Log4NetLevel.Error);

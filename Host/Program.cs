@@ -2,6 +2,7 @@
 using System.ServiceProcess;
 using Microsoft.Owin.Hosting;
 using Topshelf;
+using Stripe;
 
 namespace Host
 {
@@ -14,6 +15,7 @@ namespace Host
 
         static void StartTopshelf()
         {
+            StripeConfiguration.SetApiKey("sk_test_kHY4ReMrtud46mggLvf1lFnh");
             HostFactory.Run(x =>
             {
                 x.Service<WebServer>(s =>

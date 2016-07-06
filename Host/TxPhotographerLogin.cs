@@ -32,7 +32,7 @@ namespace Host
             Photographer photographer = null;
             using (var context = new HostDBDataContext())
             {
-                photographer = context.Photographers.Where(c => c.Email == curReq.Email).FirstOrDefault();
+                photographer = context.Photographer.Where(c => c.Email == curReq.Email).FirstOrDefault();
             }
             if (photographer == null)
             {

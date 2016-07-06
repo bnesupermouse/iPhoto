@@ -19,10 +19,10 @@ namespace Host
             {
                 if (id2 == 1)
                 {
-                    var orders = from o in dc.CustomerOrders
-                                 join ph in dc.Photographers on o.PhotographerId equals ph.PhotographerId
-                                 join ctm in dc.Customers on o.CustomerId equals ctm.CustomerId
-                                 join of in dc.Offers on o.OfferId equals of.OfferId
+                    var orders = from o in dc.CustomerOrder
+                                 join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                 join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                 join of in dc.Offer on o.OfferId equals of.OfferId
                                  where o.CustomerId == id //&& o.Status == 0
                                  select new OrderInfo
                                  {
@@ -45,10 +45,10 @@ namespace Host
                 }
                 else
                 {
-                    var orders = from o in dc.CustomerOrders
-                                 join ph in dc.Photographers on o.PhotographerId equals ph.PhotographerId
-                                 join ctm in dc.Customers on o.CustomerId equals ctm.CustomerId
-                                 join of in dc.Offers on o.OfferId equals of.OfferId
+                    var orders = from o in dc.CustomerOrder
+                                 join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                 join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                 join of in dc.Offer on o.OfferId equals of.OfferId
                                  where o.PhotographerId == id //&& o.Status == 0
                                  select new OrderInfo
                                  {

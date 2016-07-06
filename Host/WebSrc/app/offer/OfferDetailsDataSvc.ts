@@ -6,6 +6,7 @@ module Services {
         public OfferDetails: DataModels.Offer;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
+        OrderId: number;
 
         getOfferDetails(offerId:number): ng.IPromise<any> {
             var self = this;
@@ -27,8 +28,8 @@ module Services {
 
             self.httpService.post(self.placeOrderApiPath, placeOrder)
                 .then(function (result: any) {
-                    self.OfferDetails = result.data;
-                    deferred.resolve(self);
+                    self.OrderId = result.data.OrderId;
+                    deferred.resolve(self.OrderId);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -40,6 +41,7 @@ module Services {
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
+            this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
             this.qService = $q;

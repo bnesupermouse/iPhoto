@@ -10,6 +10,7 @@ module OneStopCustomerApp {
                 .when("/signin", { templateUrl: "customer/view/signin.html", controller: "CustomerSignOnCtrl" })
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
+                .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }
@@ -19,7 +20,8 @@ module OneStopCustomerApp {
     Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
-    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
+    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
+    Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
@@ -28,12 +30,14 @@ module OneStopCustomerApp {
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);
     app.factory('photoTypeDataSvc', ['$http', '$q', Services.PhotoTypeDataSvc.PhotoTypeDataSvcFactory]);
     app.factory('offerDetailsDataSvc', ['$http', '$q', Services.OfferDetailsDataSvc.OfferDetailsDataSvcFactory]);
+    app.factory('paymentDataSvc', ['$http', '$q', Services.PaymentDataSvc.PaymentDataSvcFactory]);
     app.factory('orderDataSvc', ['$http', '$q', Services.OrderDataSvc.OrderDataSvcFactory]);
     app.controller('AddNewCustomerCtrl', Controllers.AddCustomerCtrl);
     app.controller('CustomerSignOnCtrl', Controllers.SignOnCustomerCtrl);
     app.controller('IndexPageCtrl', Controllers.MainPageCtrl);
     app.controller('GetPhotoTypeCtrl', Controllers.PhotoTypeCtrl);
     app.controller('GetOfferDetailsCtrl', Controllers.OfferDetailsCtrl);
+    app.controller('ProcessOrderPaymentCtrl', Controllers.OrderPaymentCtrl);
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
 }

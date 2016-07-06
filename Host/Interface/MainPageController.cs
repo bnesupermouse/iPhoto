@@ -18,7 +18,7 @@ namespace Host
             MainPageContent header = new MainPageContent();
             using (var dc = new HostDBDataContext())
             {
-                header.PhotoTypes = dc.PhotoTypes.ToList();
+                header.PhotoTypes = dc.PhotoType.ToList();
             }
             return header;
         }

@@ -54,11 +54,13 @@
     <Compile Include="Base\APIResponse.cs" />
     <Compile Include="PhotographerLogin.cs" />
     <Compile Include="CustomerCancelOrder.cs" />
+    <Compile Include="PayOrder.cs" />
     <Compile Include="RemoveOfferPicture.cs" />
     <Compile Include="PhotographerWithdraw.cs" />
     <Compile Include="RemovePhotographerWorkPicture.cs" />
     <Compile Include="Responses\PhotographerLoginResponse.cs" />
     <Compile Include="Responses\CustomerCancelOrderResponse.cs" />
+    <Compile Include="Responses\PayOrderResponse.cs" />
     <Compile Include="Responses\RemoveOfferPictureResponse.cs" />
     <Compile Include="Responses\PhotographerWithdrawResponse.cs" />
     <Compile Include="Responses\RemovePhotographerWorkPictureResponse.cs" />

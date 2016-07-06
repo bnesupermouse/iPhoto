@@ -87,7 +87,7 @@ namespace Host
             {
                 using (var dc = new HostDBDataContext())
                 {
-                    var picList = dc.PhotographerWorkPictures.Where(p => p.PhotographerWorkId == OldPhotographerWork.PhotographerWorkId).ToList();
+                    var picList = dc.PhotographerWorkPicture.Where(p => p.PhotographerWorkId == OldPhotographerWork.PhotographerWorkId).ToList();
                     foreach (var pic in picList)
                     {
                         Data.AddNew(pic, null);

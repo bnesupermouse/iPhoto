@@ -385,10 +385,11 @@ var Services;
 var Controllers;
 (function (Controllers) {
     var OfferDetailsCtrl = (function () {
-        function OfferDetailsCtrl($scope, $cookies, $routeParams, dataSvc) {
+        function OfferDetailsCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.placeOrder = function () {
@@ -397,7 +398,8 @@ var Controllers;
                 placeOrder.CustomerId = self.$scope.AcccountId;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
-                    alert("Successful");
+                    var orderId = res;
+                    self.$location.path("/orderpayment/" + orderId);
                 });
             };
             self.init();
@@ -420,6 +422,7 @@ var Services;
         function OfferDetailsDataSvc($http, $q) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
+            this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
             this.qService = $q;
@@ -441,8 +444,8 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.placeOrderApiPath, placeOrder)
                 .then(function (result) {
-                self.OfferDetails = result.data;
-                deferred.resolve(self);
+                self.OrderId = result.data.OrderId;
+                deferred.resolve(self.OrderId);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -455,6 +458,91 @@ var Services;
     }());
     Services.OfferDetailsDataSvc = OfferDetailsDataSvc;
 })(Services || (Services = {}));
+
+/// <reference path="../all.ts" />
+var Controllers;
+(function (Controllers) {
+    var OrderPaymentCtrl = (function () {
+        function OrderPaymentCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.$location = $location;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.payOrder = function () {
+                var payOrder = new DataModels.PayOrder();
+                self.$scope.AcccountId = $cookies.get("cid");
+                payOrder.CustomerId = self.$scope.AcccountId;
+                payOrder.OrderId = self.$routeParams.orderid;
+                payOrder.CardNumber = self.$scope.CardInfo.CardNumber;
+                payOrder.CVC = self.$scope.CardInfo.CVC;
+                payOrder.Month = self.$scope.CardInfo.Month;
+                payOrder.Name = self.$scope.CardInfo.Name;
+                payOrder.Year = self.$scope.CardInfo.Year;
+                dataSvc.payOrder(payOrder).then(function (res) {
+                    self.$location.path("/account");
+                });
+            };
+            self.init();
+        }
+        OrderPaymentCtrl.prototype.init = function () {
+            var self = this;
+        };
+        return OrderPaymentCtrl;
+    }());
+    Controllers.OrderPaymentCtrl = OrderPaymentCtrl;
+})(Controllers || (Controllers = {}));
+
+/// <reference path="../all.ts" />
+var Services;
+(function (Services) {
+    var PaymentDataSvc = (function () {
+        function PaymentDataSvc($http, $q) {
+            this.payOrderApiPath = "api/offer/payorder";
+            this.httpService = $http;
+            this.qService = $q;
+        }
+        PaymentDataSvc.prototype.payOrder = function (payOrder) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.payOrderApiPath, payOrder)
+                .then(function (result) {
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        PaymentDataSvc.PaymentDataSvcFactory = function ($http, $q) {
+            return new PaymentDataSvc($http, $q);
+        };
+        return PaymentDataSvc;
+    }());
+    Services.PaymentDataSvc = PaymentDataSvc;
+})(Services || (Services = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var PayOrder = (function () {
+        function PayOrder() {
+        }
+        return PayOrder;
+    }());
+    DataModels.PayOrder = PayOrder;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var PlaceOrder = (function () {
+        function PlaceOrder() {
+        }
+        return PlaceOrder;
+    }());
+    DataModels.PlaceOrder = PlaceOrder;
+})(DataModels || (DataModels = {}));
 
 /// <reference path="../all.ts" />
 var DataModels;
@@ -540,6 +628,10 @@ var Services;
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
 /// <reference path="./offer/OfferDetailsDataSvc.ts" />
+/// <reference path="./offer/OrderPaymentCtrl.ts" />
+/// <reference path="./offer/PaymentDataSvc.ts" />
+/// <reference path="./offer/PayOrder.ts" />
+/// <reference path="./offer/PlaceOrder.ts" />
 /// <reference path="./order/Order.ts" />
 /// <reference path="./order/OrderCtrl.ts" />
 /// <reference path="./order/OrderDataSvc.ts" /> 
@@ -557,6 +649,7 @@ var OneStopCustomerApp;
                 .when("/signin", { templateUrl: "customer/view/signin.html", controller: "CustomerSignOnCtrl" })
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
+                .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;
@@ -568,7 +661,8 @@ var OneStopCustomerApp;
     Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
-    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
+    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
+    Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
@@ -577,26 +671,17 @@ var OneStopCustomerApp;
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);
     app.factory('photoTypeDataSvc', ['$http', '$q', Services.PhotoTypeDataSvc.PhotoTypeDataSvcFactory]);
     app.factory('offerDetailsDataSvc', ['$http', '$q', Services.OfferDetailsDataSvc.OfferDetailsDataSvcFactory]);
+    app.factory('paymentDataSvc', ['$http', '$q', Services.PaymentDataSvc.PaymentDataSvcFactory]);
     app.factory('orderDataSvc', ['$http', '$q', Services.OrderDataSvc.OrderDataSvcFactory]);
     app.controller('AddNewCustomerCtrl', Controllers.AddCustomerCtrl);
     app.controller('CustomerSignOnCtrl', Controllers.SignOnCustomerCtrl);
     app.controller('IndexPageCtrl', Controllers.MainPageCtrl);
     app.controller('GetPhotoTypeCtrl', Controllers.PhotoTypeCtrl);
     app.controller('GetOfferDetailsCtrl', Controllers.OfferDetailsCtrl);
+    app.controller('ProcessOrderPaymentCtrl', Controllers.OrderPaymentCtrl);
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
-
-/// <reference path="../all.ts" />
-var DataModels;
-(function (DataModels) {
-    var PlaceOrder = (function () {
-        function PlaceOrder() {
-        }
-        return PlaceOrder;
-    }());
-    DataModels.PlaceOrder = PlaceOrder;
-})(DataModels || (DataModels = {}));
 
 /// <reference path="../all.ts" />
 var DataModels;

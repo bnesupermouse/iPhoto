@@ -55,7 +55,7 @@ namespace Host
         {
             using (var dc = new HostDBDataContext())
             {
-                return dc.Customers.Where(c => c.CustomerId == id).FirstOrDefault();
+                return dc.Customer.Where(c => c.CustomerId == id).FirstOrDefault();
             }
         }
     }
