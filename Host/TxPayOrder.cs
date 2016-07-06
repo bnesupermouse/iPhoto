@@ -39,7 +39,10 @@ namespace Host
             {
                 return Result.Failed;
             }
-
+            if(order.Status != (int)OrderStatus.OrderPending)
+            {
+                return Result.Failed;
+            }
             //Check Session
             var res = UpdateCustomerSession(true);
             if(res != Result.Success)
