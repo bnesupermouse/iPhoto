@@ -9,11 +9,9 @@ module Controllers {
         $routeParams: IOrderRouteParams;
         dataSvc: Services.OrderDataSvc;
         PhotoTypeId: number;
-        statusValues: DataModels.IDictionary;
 
         constructor($scope: DataModels.IOrderListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, dataSvc: Services.OrderDataSvc) {
             var self = this;
-
             self.$scope = $scope;
             self.$cookies = $cookies;
             self.dataSvc = dataSvc;

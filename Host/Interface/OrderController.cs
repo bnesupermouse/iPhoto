@@ -37,7 +37,8 @@ namespace Host
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
                                      Status = o.Status,
-                                     StatusString = StatusValue.GetStringValue(o.Status)
+                                     StatusString = StatusValue.GetStatusValue(o.Status),
+                                     LabelString = StatusValue.GetLabelValue(o.Status)
                                  };
                     var res = orders.ToList();
                     return res;
@@ -62,7 +63,8 @@ namespace Host
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
                                      Status = o.Status,
-                                     StatusString = StatusValue.GetStringValue(o.Status)
+                                     StatusString = StatusValue.GetStatusValue(o.Status),
+                                     LabelString = StatusValue.GetLabelValue(o.Status)
                                  };
                     var res =  orders.ToList();
                     return res;

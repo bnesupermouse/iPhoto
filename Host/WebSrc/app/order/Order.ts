@@ -13,5 +13,6 @@ module DataModels {
         Amount: number;
         Status: number;
         StatusString: string;
+        LabelString: string;
     }
 }
