@@ -28,8 +28,12 @@ namespace Host.Models
     {
         public static string[] Values = new string[20];
         public static string[] LabelValues = new string[20];
-        public static string GetStatusValue(int status)
+        public static string GetStatusValue(int status, bool paid)
         {
+            if(!paid)
+            {
+                return "NotPaid";
+            }
             Values[(int)OrderStatus.OrderCancelled] = "Cancelled";
             Values[(int)OrderStatus.OrderConfirmed] = "Confirmed";
             Values[(int)OrderStatus.OrderFinalised] = "Finalised";
@@ -45,8 +49,12 @@ namespace Host.Models
             return Values[status];
         }
 
-        public static string GetLabelValue(int status)
+        public static string GetLabelValue(int status, bool paid)
         {
+            if(!paid)
+            {
+                return "label-danger";
+            }
             LabelValues[(int)OrderStatus.OrderCancelled] = "label-default";
             LabelValues[(int)OrderStatus.OrderConfirmed] = "label-info";
             LabelValues[(int)OrderStatus.OrderFinalised] = "label-success";
