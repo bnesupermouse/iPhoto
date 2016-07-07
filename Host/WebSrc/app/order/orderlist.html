@@ -29,8 +29,8 @@
                                 <th data-class="expand" data-sort-initial="true">
                                     <span title="table sorted by this column on load">Order ID</span>
                                 </th>
-                                <th data-hide="phone" data-sort-ignore="true">Order Name</th>
-                                <th data-hide="phone"><strong>Appointment Time</strong></th>
+                                <th class="hidden-xs" data-sort-ignore="true">Order Name</th>
+                                <th class="hidden-xs"><strong>Appointment Time</strong></th>
                                 <th data-hide="default">Amount</th>
                                 <th data-hide="default" data-type="numeric">Status</th>
                             </tr>
@@ -38,8 +38,8 @@
                         <tbody>
                             <tr ng-repeat="o in Orders">
                                 <td>{{o.SerialNo}}</td>
-                                <td>{{o.OfferName}}</td>
-                                <td>{{o.AppointmentTime}}</td>
+                                <td class="hidden-xs">{{o.OfferName}}</td>
+                                <td class="hidden-xs">{{o.AppointmentTime}}</td>
                                 <td>{{o.Amount}}</td>
                                 <td data-value="3">
                                     <a href="#orderstatus"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>

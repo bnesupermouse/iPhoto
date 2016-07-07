@@ -15,7 +15,7 @@
         <div class="col-lg-9 col-md-9 col-sm-7">
             <h1 class="section-title-inner">
                 <span>
-                    <i class="glyphicon glyphicon-shopping-cart"></i> ONEPAGE CHECKOUT
+                    <i class="glyphicon glyphicon-shopping-cart"></i> CHECKOUT
                 </span>
             </h1>
         </div>
@@ -38,77 +38,99 @@
 
                             <div class="onepage-checkout col-lg-12">
 
-                                <div class="paymentInput">
-                                    <label for="CardNumber">Credit Card Number *</label>
-                                    <br>
-                                    <input ng-model="CardInfo.CardNumber" id="CardNumber" type="text" name="Number">
-                                </div>
-                                <!--paymentInput-->
-                                <div class="paymentInput">
-                                    <label for="CardNumber2">Name on Credit Card *</label>
-                                    <br>
-                                    <input ng-model="CardInfo.Name" type="text" name="CardNumber2" id="CardNumber2">
-                                </div>
-                                <!--paymentInput-->
-                                <div class="paymentInput">
-                                    <div class="form-group">
-                                        <label>Expiration date *</label>
-                                        <br>
-
-                                        <div class="col-lg-4 col-md-4 col-sm-4 no-margin-left no-padding">
-                                            <select ng-model="CardInfo.Month" required aria-required="true" name="expire">
-                                                <option value="">Month</option>
-                                                <option value="1">01 - January</option>
-                                                <option value="2">02 - February</option>
-                                                <option value="3">03 - March</option>
-                                                <option value="4">04 - April</option>
-                                                <option value="5">05 - May</option>
-                                                <option value="6">06 - June</option>
-                                                <option value="7">07 - July</option>
-                                                <option value="8">08 - August</option>
-                                                <option value="9">09 - September</option>
-                                                <option value="10">10 - October</option>
-                                                <option value="11">11 - November</option>
-                                                <option value="12">12 - December</option>
-                                            </select>
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                                   aria-expanded="true"
+                                                   aria-controls="PaymentInformation">
+                                                    Payment
+                                                </a>
+                                            </h4>
                                         </div>
-                                        <div class="col-lg-4 col-md-4 col-sm-4">
-                                            <select ng-model="CardInfo.Year" required aria-required="true" name="year">
-                                                <option value="">Year</option>
-                                                <option value="2013">2013</option>
-                                                <option value="2014">2014</option>
-                                                <option value="2015">2015</option>
-                                                <option value="2016">2016</option>
-                                                <option value="2017">2017</option>
-                                                <option value="2018">2018</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                            </select>
+                                        <div id="PaymentInformation" class="panel-collapse collapse in" role="tabpanel"
+                                             aria-labelledby="PaymentInformation">
+                                            <div class="panel-body">
+
+                                                <div id="creditCardCollapse8">
+
+                                                    <div class="paymentInput">
+                                                        <label for="CardNumber">Credit Card Number *</label>
+                                                        <br>
+                                                        <input ng-model="CardInfo.CardNumber" id="CardNumber" type="text" name="Number">
+                                                    </div>
+                                                    <!--paymentInput-->
+                                                    <div class="paymentInput">
+                                                        <label for="CardNumber2">Name on Credit Card *</label>
+                                                        <br>
+                                                        <input ng-model="CardInfo.Name"  type="text" name="CardNumber2" id="CardNumber2">
+                                                    </div>
+                                                    <!--paymentInput-->
+                                                    <div class="paymentInput">
+                                                        <div class="form-group">
+                                                            <label>Expiration date *</label>
+                                                            <br>
+
+                                                            <div class="col-lg-4 col-md-4 col-sm-4 no-margin-left no-padding">
+                                                                <select ng-model="CardInfo.Month"  required aria-required="true" name="expire">
+                                                                    <option value="">Month</option>
+                                                                    <option value="1">01 - January</option>
+                                                                    <option value="2">02 - February</option>
+                                                                    <option value="3">03 - March</option>
+                                                                    <option value="4">04 - April</option>
+                                                                    <option value="5">05 - May</option>
+                                                                    <option value="6">06 - June</option>
+                                                                    <option value="7">07 - July</option>
+                                                                    <option value="8">08 - August</option>
+                                                                    <option value="9">09 - September</option>
+                                                                    <option value="10">10 - October</option>
+                                                                    <option value="11">11 - November</option>
+                                                                    <option value="12">12 - December</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                                                <select ng-model="CardInfo.Year"  required aria-required="true" name="year">
+                                                                    <option value="">Year</option>
+                                                                    <option value="2013">2013</option>
+                                                                    <option value="2014">2014</option>
+                                                                    <option value="2015">2015</option>
+                                                                    <option value="2016">2016</option>
+                                                                    <option value="2017">2017</option>
+                                                                    <option value="2018">2018</option>
+                                                                    <option value="2019">2019</option>
+                                                                    <option value="2020">2020</option>
+                                                                    <option value="2021">2021</option>
+                                                                    <option value="2022">2022</option>
+                                                                    <option value="2023">2023</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--paymentInput-->
+
+                                                    <div style="clear:both"></div>
+                                                    <div class="paymentInput clearfix">
+                                                        <label for="VerificationCode">Verification Code *</label>
+                                                        <br>
+                                                        <input ng-model="CardInfo.CVC"  type="text" id="VerificationCode"
+                                                               name="VerificationCode" style="width:90px;">
+                                                        <br>
+                                                    </div>
+                                                    <!--paymentInput-->
+                                                </div>
+                                                <div class="pull-left">
+                                                    <a ng-click="payOrder()"
+                                                       class="btn btn-primary btn-lg ">
+                                                        Order &nbsp; <i class="fa fa-arrow-circle-right"></i>
+                                                    </a>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!--paymentInput-->
 
-                                <div style="clear:both"></div>
-                                <div class="paymentInput clearfix">
-                                    <label for="VerificationCode">Verification Code *</label>
-                                    <br>
-                                    <input  ng-model="CardInfo.CVC" type="text" id="VerificationCode"
-                                           name="VerificationCode" style="width:90px;">
-                                    <br>
-                                </div>
-                                <!--paymentInput-->
-
-
-                                <div class="pull-left">
-                                    <a ng-click="payOrder()"
-                                       class="btn btn-primary btn-lg ">
-                                        Order &nbsp; <i class="fa fa-arrow-circle-right"></i>
-                                    </a>
-                                </div>
 
                             </div>
                             <!--onepage-checkout-->
@@ -147,7 +169,7 @@
                         </tr>
                         <tr>
                             <td> Total</td>
-                            <td class=" site-color" id="total-price">$216.51</td>
+                            <td class="site-color" id="total-price">$216.51</td>
                         </tr>
                     </tbody>
                     <tbody></tbody>
@@ -165,4 +187,3 @@
 
     <div style="clear:both"></div>
 </div>
-<!-- /.main-container-->

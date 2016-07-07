@@ -569,6 +569,10 @@ var Controllers;
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
             self.init();
+            self.$scope.$on('$viewContentLoaded', function (event) {
+                console.log("content loaded");
+                eval('$(\'.footable\').footable()');
+            });
         }
         OrderCtrl.prototype.init = function () {
             var self = this;
