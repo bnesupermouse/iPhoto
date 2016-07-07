@@ -22,6 +22,7 @@ namespace Host.Models
 
         public string StatusString { get; set; }
         public string LabelString { get; set; }
+        public int Paid { get; set; }
     }
 
     public class StatusValue

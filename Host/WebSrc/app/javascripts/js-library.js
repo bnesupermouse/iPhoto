@@ -569,10 +569,10 @@ var Controllers;
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
             self.init();
-            self.$scope.$on('$viewContentLoaded', function (event) {
-                console.log("content loaded");
-                eval('$(\'.footable\').footable()');
-            });
+            //self.$scope.$on('$viewContentLoaded', function (event) {
+            //    console.log("content loaded");
+            //    eval('$(\'.footable\').footable()');
+            //});
         }
         OrderCtrl.prototype.init = function () {
             var self = this;
@@ -654,6 +654,7 @@ var OneStopCustomerApp;
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
                 .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
+                .when("/orderdetails-0-0", { templateUrl: "order/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;

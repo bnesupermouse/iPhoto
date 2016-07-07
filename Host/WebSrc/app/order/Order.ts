@@ -14,5 +14,6 @@ module DataModels {
         Status: number;
         StatusString: string;
         LabelString: string;
+        Paid: number;
     }
 }

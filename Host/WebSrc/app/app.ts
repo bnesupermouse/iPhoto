@@ -11,6 +11,7 @@ module OneStopCustomerApp {
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
                 .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
+                .when("/orderdetails-0-0", { templateUrl: "order/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }

@@ -69,6 +69,16 @@
                                                     <!--paymentInput-->
                                                     <div class="paymentInput">
                                                         <div class="form-group">
+                                                            <label for="VerificationCode">CVC*</label>
+                                                            <br>
+                                                            <input ng-model="CardInfo.CVC" type="text" id="VerificationCode"
+                                                                   name="VerificationCode" style="width:90px;">
+                                                            <br>
+                                                        </div>
+                                                    </div>
+                                                    <!--paymentInput-->
+                                                    <div class="paymentInput">
+                                                        <div class="form-group">
                                                             <label>Expiration date *</label>
                                                             <br>
 
@@ -108,21 +118,12 @@
                                                         </div>
                                                     </div>
                                                     <!--paymentInput-->
-
-                                                    <div style="clear:both"></div>
-                                                    <div class="paymentInput clearfix">
-                                                        <label for="VerificationCode">Verification Code *</label>
-                                                        <br>
-                                                        <input ng-model="CardInfo.CVC"  type="text" id="VerificationCode"
-                                                               name="VerificationCode" style="width:90px;">
-                                                        <br>
-                                                    </div>
-                                                    <!--paymentInput-->
                                                 </div>
+                                                <br />
                                                 <div class="pull-left">
                                                     <a ng-click="payOrder()"
                                                        class="btn btn-primary btn-lg ">
-                                                        Order &nbsp; <i class="fa fa-arrow-circle-right"></i>
+                                                        Pay Now &nbsp; <i class="fa fa-arrow-circle-right"></i>
                                                     </a>
                                                 </div>
 
