@@ -23,5 +23,9 @@
 /// <reference path="./offer/PlaceOrder.ts" />
 
 /// <reference path="./order/Order.ts" />
+/// <reference path="./order/OrderStatus.ts" />
+/// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />
+/// <reference path="./order/OrderDetailsCtrl.ts" />
+/// <reference path="./order/UpdateOrderStatus.ts" />
 /// <reference path="./order/OrderDataSvc.ts" />

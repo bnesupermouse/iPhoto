@@ -43,7 +43,7 @@
                                 <td>{{o.Amount}}</td>
                                 <td data-value="3">
                                     <a ng-if="o.Paid == 0" href="#orderpayment/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
-                                    <a ng-if="o.Paid == 1" href="#orderdetails-{{o.Status}}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
+                                    <a ng-if="o.Paid == 1" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
                                 </td>
                             </tr>
                         </tbody>

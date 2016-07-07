@@ -25,6 +25,13 @@ namespace Host.Models
         public int Paid { get; set; }
     }
 
+    public class OrderDetails:OrderInfo
+    {
+        public List<string> RawPhotos { get; set; }
+        public List<string> RetouchedPhotos { get; set; }
+
+    }
+
     public class StatusValue
     {
         public static string[] Values = new string[20];

@@ -50,4 +50,11 @@ module DataModels {
         CardInfo: PayOrder;
         payOrder(): void;
     }
+
+    export interface IOrderDetailsPageScope extends IBaseScope {
+        Details: OrderDetails;
+        confirmOrder(): void;
+        uploadRawPhotos(): number;
+        confirmRawPhotosUploaded(): void;
+    }
 }

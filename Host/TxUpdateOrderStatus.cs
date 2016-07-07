@@ -20,13 +20,22 @@ namespace Host
         public override Result Validate()
         {
             var curReq = request as UpdateOrderStatus;
+            //Check Order
+            CustomerOrder order = new CustomerOrder();
+            order.SerialNo = curReq.OrderId;
+            order = order.Fetch() as CustomerOrder;
+            if (order == null)
+            {
+                return Result.Failed;
+            }
+            PhotographerId = order.PhotographerId;
             //Check Session
             var res = Result.Success;
-            if (curReq.ToStatus == OrderStatus.PhotoSelected || curReq.ToStatus == OrderStatus.OrderFinalised)
+            if (curReq.ToStatus == (int)OrderStatus.PhotoSelected || curReq.ToStatus == (int)OrderStatus.OrderFinalised)
             {
                 res = UpdateCustomerSession(true);
             }
-            else if(curReq.ToStatus == OrderStatus.OrderConfirmed || curReq.ToStatus == OrderStatus.RawPhotoUploaded || curReq.ToStatus == OrderStatus.RetouchedPhotoUploaded)
+            else if(curReq.ToStatus == (int)OrderStatus.OrderConfirmed || curReq.ToStatus == (int)OrderStatus.RawPhotoUploaded || curReq.ToStatus == (int)OrderStatus.RetouchedPhotoUploaded)
             {
                 res = UpdatePhotographerSession(true);
             }
@@ -34,56 +43,48 @@ namespace Host
             {
                 return res;
             }
-            //Check Order
-            CustomerOrder order = new CustomerOrder();
-            order.SerialNo = curReq.OrderId;
-            order = order.Fetch() as CustomerOrder;
-            if(order == null)
-            {
-                return Result.Failed;
-            }
 
             res = ValidateOrderInfo(order);
             if(res!= Result.Success)
             {
                 return res;
             }
-            if (curReq.ToStatus == OrderStatus.OrderRejected)
+            if (curReq.ToStatus == (int)OrderStatus.OrderRejected)
             {
                 if (order.Status != (int)OrderStatus.OrderPending)
                 {
                     return Result.Failed;
                 }
             }
-            if (curReq.ToStatus == OrderStatus.OrderConfirmed)
+            if (curReq.ToStatus == (int)OrderStatus.OrderConfirmed)
             {
                 if (order.Status != (int)OrderStatus.OrderPending && !order.Paid)
                 {
                     return Result.Failed;
                 }
             }
-            if (curReq.ToStatus == OrderStatus.RawPhotoUploaded)
+            if (curReq.ToStatus == (int)OrderStatus.RawPhotoUploaded)
             {
                 if (order.Status != (int)OrderStatus.RawPhotoUploading)
                 {
                     return Result.Failed;
                 }
             }
-            if (curReq.ToStatus == OrderStatus.PhotoSelected)
+            if (curReq.ToStatus == (int)OrderStatus.PhotoSelected)
             {
                 if (order.Status != (int)OrderStatus.PhotoSelecting)
                 {
                     return Result.Failed;
                 }
             }
-            if (curReq.ToStatus == OrderStatus.RetouchedPhotoUploaded)
+            if (curReq.ToStatus == (int)OrderStatus.RetouchedPhotoUploaded)
             {
                 if (order.Status != (int)OrderStatus.RetouchedPhotoUploading)
                 {
                     return Result.Failed;
                 }
             }
-            if (curReq.ToStatus == OrderStatus.OrderFinalised)
+            if (curReq.ToStatus == (int)OrderStatus.OrderFinalised)
             {
                 if (order.Status != (int)OrderStatus.RetouchedPhotoConfirming)
                 {

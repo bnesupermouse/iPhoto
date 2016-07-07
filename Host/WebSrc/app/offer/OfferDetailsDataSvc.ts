@@ -3,6 +3,7 @@ module Services {
     export class OfferDetailsDataSvc {
         private getOfferDetailsApiPath: string;
         private placeOrderApiPath: string;
+        
         public OfferDetails: DataModels.Offer;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
@@ -38,9 +39,11 @@ module Services {
 
 
         }
+
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
+            
             this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;

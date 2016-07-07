@@ -13,6 +13,6 @@ namespace Host
         }
         public long OrderId { get; set; }
 
-        public OrderStatus ToStatus { get; set; }
+        public int ToStatus { get; set; }
     }
 }

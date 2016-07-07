@@ -11,7 +11,8 @@ module OneStopCustomerApp {
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
                 .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
-                .when("/orderdetails-0-0", { templateUrl: "order/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
+                .when("/orderdetails-0/:orderid", { templateUrl: "order/orderdetails-0.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-1/:orderid", { templateUrl: "order/orderdetails-1.html", controller: "ManageOrderCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }
@@ -24,6 +25,7 @@ module OneStopCustomerApp {
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
     app.config(Config);
@@ -41,4 +43,5 @@ module OneStopCustomerApp {
     app.controller('ProcessOrderPaymentCtrl', Controllers.OrderPaymentCtrl);
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
+    app.controller('ManageOrderCtrl', Controllers.OrderDetailsCtrl);
 }

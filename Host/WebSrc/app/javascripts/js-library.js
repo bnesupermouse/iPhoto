@@ -556,6 +556,44 @@ var DataModels;
 })(DataModels || (DataModels = {}));
 
 /// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    (function (OrderStatusValue) {
+        OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
+        OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
+        OrderStatusValue[OrderStatusValue["RawPhotoUploading"] = 2] = "RawPhotoUploading";
+        OrderStatusValue[OrderStatusValue["RawPhotoUploaded"] = 3] = "RawPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["PhotoSelecting"] = 4] = "PhotoSelecting";
+        OrderStatusValue[OrderStatusValue["PhotoSelected"] = 5] = "PhotoSelected";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploading"] = 6] = "RetouchedPhotoUploading";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploaded"] = 7] = "RetouchedPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoConfirming"] = 8] = "RetouchedPhotoConfirming";
+        OrderStatusValue[OrderStatusValue["OrderFinalised"] = 9] = "OrderFinalised";
+        OrderStatusValue[OrderStatusValue["OrderRejected"] = 10] = "OrderRejected";
+        OrderStatusValue[OrderStatusValue["OrderCancelled"] = 11] = "OrderCancelled"; //Ctm
+    })(DataModels.OrderStatusValue || (DataModels.OrderStatusValue = {}));
+    var OrderStatusValue = DataModels.OrderStatusValue;
+})(DataModels || (DataModels = {}));
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var OrderDetails = (function (_super) {
+        __extends(OrderDetails, _super);
+        function OrderDetails() {
+            _super.apply(this, arguments);
+        }
+        return OrderDetails;
+    }(DataModels.Order));
+    DataModels.OrderDetails = OrderDetails;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var OrderCtrl = (function () {
@@ -586,11 +624,55 @@ var Controllers;
 })(Controllers || (Controllers = {}));
 
 /// <reference path="../all.ts" />
+var Controllers;
+(function (Controllers) {
+    var OrderDetailsCtrl = (function () {
+        function OrderDetailsCtrl($scope, $cookies, $routeParams, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.CustomerName = $cookies.get("cname");
+            self.$scope.AcccountId = $cookies.get("cid");
+            self.$scope.CustomerType = $cookies.get("ctype");
+            self.$scope.confirmOrder = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            };
+            self.init();
+        }
+        OrderDetailsCtrl.prototype.init = function () {
+            var self = this;
+            self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
+                self.$scope.Details = data.Details;
+            });
+        };
+        return OrderDetailsCtrl;
+    }());
+    Controllers.OrderDetailsCtrl = OrderDetailsCtrl;
+})(Controllers || (Controllers = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
+    var UpdateOrderStatus = (function () {
+        function UpdateOrderStatus() {
+        }
+        return UpdateOrderStatus;
+    }());
+    DataModels.UpdateOrderStatus = UpdateOrderStatus;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var OrderDataSvc = (function () {
         function OrderDataSvc($http, $q) {
             this.getOrderListApiPath = "api/order/getorderlist";
+            this.getOrderDetailsApiPath = "api/order/getorderdetails";
+            this.updateOrderStatusApiPath = "api/order/updateorderstatus";
             this.OrderList = new Array();
             this.httpService = $http;
             this.qService = $q;
@@ -601,6 +683,33 @@ var Services;
             self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType + "/" + active)
                 .then(function (result) {
                 self.OrderList = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OrderDataSvc.prototype.getOrderDetails = function (orderId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOrderDetailsApiPath + "/" + orderId)
+                .then(function (result) {
+                self.Details = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OrderDataSvc.prototype.updateOrderStatus = function (orderId, toStatus) {
+            var self = this;
+            var deferred = self.qService.defer();
+            var updateOrder = new DataModels.UpdateOrderStatus;
+            updateOrder.OrderId = orderId;
+            updateOrder.ToStatus = toStatus;
+            self.httpService.post(self.updateOrderStatusApiPath, updateOrder)
+                .then(function (result) {
+                self.OrderId = result.data.OrderId;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -637,7 +746,11 @@ var Services;
 /// <reference path="./offer/PayOrder.ts" />
 /// <reference path="./offer/PlaceOrder.ts" />
 /// <reference path="./order/Order.ts" />
+/// <reference path="./order/OrderStatus.ts" />
+/// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />
+/// <reference path="./order/OrderDetailsCtrl.ts" />
+/// <reference path="./order/UpdateOrderStatus.ts" />
 /// <reference path="./order/OrderDataSvc.ts" /> 
 
 /// <reference path="./all.ts" />
@@ -654,7 +767,8 @@ var OneStopCustomerApp;
                 .when("/phototype/:phototypeid", { templateUrl: "phototype/phototype.html", controller: "GetPhotoTypeCtrl" })
                 .when("/offerdetails/:offerid", { templateUrl: "offer/details.html", controller: "GetOfferDetailsCtrl" })
                 .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
-                .when("/orderdetails-0-0", { templateUrl: "order/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
+                .when("/orderdetails-0/:orderid", { templateUrl: "order/orderdetails-0.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-1/:orderid", { templateUrl: "order/orderdetails-1.html", controller: "ManageOrderCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;
@@ -669,6 +783,7 @@ var OneStopCustomerApp;
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
     app.config(Config);
@@ -686,27 +801,8 @@ var OneStopCustomerApp;
     app.controller('ProcessOrderPaymentCtrl', Controllers.OrderPaymentCtrl);
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
+    app.controller('ManageOrderCtrl', Controllers.OrderDetailsCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
-
-/// <reference path="../all.ts" />
-var DataModels;
-(function (DataModels) {
-    (function (OrderStatusValue) {
-        OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
-        OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
-        OrderStatusValue[OrderStatusValue["RawPhotoUploading"] = 2] = "RawPhotoUploading";
-        OrderStatusValue[OrderStatusValue["RawPhotoUploaded"] = 3] = "RawPhotoUploaded";
-        OrderStatusValue[OrderStatusValue["PhotoSelecting"] = 4] = "PhotoSelecting";
-        OrderStatusValue[OrderStatusValue["PhotoSelected"] = 5] = "PhotoSelected";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploading"] = 6] = "RetouchedPhotoUploading";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploaded"] = 7] = "RetouchedPhotoUploaded";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoConfirming"] = 8] = "RetouchedPhotoConfirming";
-        OrderStatusValue[OrderStatusValue["OrderFinalised"] = 9] = "OrderFinalised";
-        OrderStatusValue[OrderStatusValue["OrderRejected"] = 10] = "OrderRejected";
-        OrderStatusValue[OrderStatusValue["OrderCancelled"] = 11] = "OrderCancelled"; //Ctm
-    })(DataModels.OrderStatusValue || (DataModels.OrderStatusValue = {}));
-    var OrderStatusValue = DataModels.OrderStatusValue;
-})(DataModels || (DataModels = {}));
 
 // Type definitions for Angular JS 1.4 (ngCookies module)
 // Project: http://angularjs.org

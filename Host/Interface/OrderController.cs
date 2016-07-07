@@ -12,6 +12,62 @@ namespace Host
 {
     public class OrderController : ApiController
     {
+        [HttpPost]
+        public Response UpdateOrderStatus(UpdateOrderStatus updOrder)
+        {
+            TxUpdateOrderStatus txn = new TxUpdateOrderStatus();
+            txn.request = updOrder;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
+
+        [HttpGet]
+        public OrderDetails GetOrderDetails(long id)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                var orders = from o in dc.CustomerOrder
+                             join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                             join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                             join of in dc.Offer on o.OfferId equals of.OfferId
+                             where o.SerialNo == id
+                             select new OrderDetails
+                             {
+                                 SerialNo = o.SerialNo,
+                                 CustomerId = ctm.CustomerId,
+                                 Amount = o.Amount,
+                                 AppointmentTime = o.AppointmentTime,
+                                 CustomerName = ctm.CustomerName,
+                                 OfferId = o.OfferId,
+                                 OfferName = of.OfferName,
+                                 OrderTime = o.OrderTime,
+                                 PhotographerId = ph.PhotographerId,
+                                 PhotographerName = ph.PhotographerName,
+                                 Status = o.Status,
+                                 StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
+                                 LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
+                                 Paid = o.Paid ? 1 : 0
+                             };
+                OrderDetails res = orders.ToList().FirstOrDefault();
+                if(res!=null)
+                {
+                    if(res.Status <= (int)OrderStatus.OrderConfirmed)
+                    {
+                        return res;
+                    }
+                    else
+                    {
+                        res.RawPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && !p.Retouched).Select(p => p.Path).ToList();
+                        res.RetouchedPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched).Select(p => p.Path).ToList();
+                        return res;
+                    }
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
         [HttpGet]
         public List<OrderInfo> GetOrderList(long id, int id2, int id3)
         {

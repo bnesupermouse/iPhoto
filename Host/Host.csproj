@@ -327,6 +327,8 @@
     </Content>
     <Content Include="WebSrc\app\offer\details.html" />
     <Content Include="WebSrc\app\offer\orderpayment.html" />
+    <Content Include="WebSrc\app\order\orderdetails-1.html" />
+    <Content Include="WebSrc\app\order\orderdetails-0.html" />
     <Content Include="WebSrc\app\order\orderlist.html" />
     <Content Include="WebSrc\app\phototype\phototype.html" />
     <Content Include="WebSrc\app\scripts\angular-mocks.js" />
@@ -371,6 +373,9 @@
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PayOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PlaceOrder.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\UpdateOrderStatus.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\OrderDetailsCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\OrderDetails.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\OrderStatus.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\Order.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\OrderCtrl.ts" />
