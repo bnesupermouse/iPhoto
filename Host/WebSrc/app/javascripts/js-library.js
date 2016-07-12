@@ -558,6 +558,17 @@ var DataModels;
 /// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
+    var Photo = (function () {
+        function Photo() {
+        }
+        return Photo;
+    }());
+    DataModels.Photo = Photo;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
     (function (OrderStatusValue) {
         OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
         OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
@@ -641,8 +652,70 @@ var Controllers;
                     //self.$scope.Details = data.Details;
                 });
             };
+            self.$scope.setFiles = function () {
+                self.$scope.PhotoList = new Array();
+                self.$scope.$apply();
+                var files = document.getElementById("fileupload").files;
+                for (var i = 0; i < files.length; i++) {
+                    var photo = new DataModels.Photo();
+                    photo.file = files[i];
+                    photo.name = files[i].name;
+                    photo.size = files[i].size;
+                    photo.type = files[i].type;
+                    self.$scope.PhotoList.push(photo);
+                }
+                self.$scope.$apply();
+            };
+            self.$scope.uploadPhotos = function () {
+                for (var i = 0; i < self.$scope.PhotoList.length; i++) {
+                    self.uploadIndividualPhoto(self.$scope.PhotoList[i], i, self.$scope.Details.Status);
+                }
+            };
             self.init();
         }
+        OrderDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index, status) {
+            var self = this;
+            //Create XMLHttpRequest Object
+            var reqObj = new XMLHttpRequest();
+            //event Handler
+            reqObj.upload.addEventListener("progress", uploadProgress, false);
+            reqObj.addEventListener("load", uploadComplete, false);
+            reqObj.addEventListener("error", uploadFailed, false);
+            reqObj.addEventListener("abort", uploadCanceled, false);
+            //open the object and set method of call(get/post), url to call, isasynchronous(true/False)
+            reqObj.open("POST", "/api/order/UploadPhoto", true);
+            //Set Other header like file name,size and type
+            reqObj.setRequestHeader('X-File-Name', photo.name);
+            reqObj.setRequestHeader('X-File-Type', photo.type);
+            reqObj.setRequestHeader('X-File-Size', photo.size.toString());
+            reqObj.setRequestHeader('X-Order-Status', status.toString());
+            reqObj.setRequestHeader('X-Order-Id', self.$scope.Details.SerialNo.toString());
+            // send the file
+            reqObj.send(photo.file);
+            //self.dataSvc.uploadAPhoto(fdata);
+            function uploadProgress(evt) {
+                if (evt.lengthComputable) {
+                    var uploadProgressCount = Math.round(evt.loaded * 100 / evt.total);
+                    document.getElementById("P" + index.toString()).innerHTML = uploadProgressCount.toString();
+                    if (uploadProgressCount == 100) {
+                        document.getElementById('P' + index).innerHTML =
+                            '<i class="fa fa-refresh fa-spin" style="color:maroon;"></i>';
+                    }
+                }
+            }
+            function uploadComplete(evt) {
+                /* This event is raised when the server  back a response */
+                document.getElementById('P' + index).innerHTML = 'Saved';
+                //$scope.NoOfFileSaved++;
+                //$scope.$apply();
+            }
+            function uploadFailed(evt) {
+                document.getElementById('P' + index).innerHTML = 'Upload Failed..';
+            }
+            function uploadCanceled(evt) {
+                document.getElementById('P' + index).innerHTML = 'Canceled....';
+            }
+        };
         OrderDetailsCtrl.prototype.init = function () {
             var self = this;
             self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
@@ -746,6 +819,7 @@ var Services;
 /// <reference path="./offer/PayOrder.ts" />
 /// <reference path="./offer/PlaceOrder.ts" />
 /// <reference path="./order/Order.ts" />
+/// <reference path="./order/Photo.ts" />
 /// <reference path="./order/OrderStatus.ts" />
 /// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />

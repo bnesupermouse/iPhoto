@@ -23,6 +23,7 @@
 /// <reference path="./offer/PlaceOrder.ts" />
 
 /// <reference path="./order/Order.ts" />
+/// <reference path="./order/Photo.ts" />
 /// <reference path="./order/OrderStatus.ts" />
 /// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />

@@ -33,7 +33,6 @@ namespace Host
                 routeTemplate: "api/{controller}/{action}/{id}/{id2}/{id3}",
                 defaults: new { id = RouteParameter.Optional, id2 = RouteParameter.Optional, id3 = RouteParameter.Optional }
             );
-
             // Web Api
             app.UseWebApi(config);
 

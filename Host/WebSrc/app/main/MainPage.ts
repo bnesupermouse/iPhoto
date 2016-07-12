@@ -52,9 +52,12 @@ module DataModels {
     }
 
     export interface IOrderDetailsPageScope extends IBaseScope {
+        Selector: string;
         Details: OrderDetails;
+        PhotoList: Array<Photo>;
         confirmOrder(): void;
-        uploadRawPhotos(): number;
         confirmRawPhotosUploaded(): void;
+        setFiles(): void;
+        uploadPhotos(): void;
     }
 }

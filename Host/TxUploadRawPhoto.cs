@@ -20,12 +20,6 @@ namespace Host
         public override Result Validate()
         {
             var curReq = request as UploadRawPhoto;
-            //Check Session
-            var res = UpdatePhotographerSession(true);
-            if(res != Result.Success)
-            {
-                return res;
-            }
 
             //Check Order
             CustomerOrder order = new CustomerOrder();
@@ -34,6 +28,13 @@ namespace Host
             if(order == null)
             {
                 return Result.Failed;
+            }
+            PhotographerId = order.PhotographerId;
+            //Check Session
+            var res = UpdatePhotographerSession(true);
+            if (res != Result.Success)
+            {
+                return res;
             }
             res = ValidateOrderInfo(order);
             if (order == null)
