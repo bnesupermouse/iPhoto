@@ -86,8 +86,8 @@
                 <thead>
                     <tr>
                         <th>File Name</th>
-                        <th>File Type</th>
-                        <th>File Size</th>
+                        <th class="hidden-xs">File Type</th>
+                        <th class="hidden-xs">File Size</th>
                         <th>Status</th>
                     </tr>
                 </thead>
@@ -95,8 +95,8 @@
                     <tr ng-repeat="file in PhotoList">
 
                         <td>{{file.name}}</td>
-                        <td>{{file.type}}</td>
-                        <td>{{file.size}}</td>
+                        <td class="hidden-xs">{{file.type}}</td>
+                        <td class="hidden-xs">{{file.size}}</td>
                         <td>
                             <div id="{{'P'+$index}}">
 
