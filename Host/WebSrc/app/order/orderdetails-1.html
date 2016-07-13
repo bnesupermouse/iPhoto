@@ -62,7 +62,11 @@
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>
     <!--/row-->
-
+    <div class="row">
+        <div class="col-md-12" margin-bottom:10px;">
+            <button ng-click="confirmRawPhotosUploaded()" class="btn btn-danger">Confirm All Raw Photos Uploaded</button>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <h2 class="block-title-2"> Upload Raw Photos </h2>
@@ -79,7 +83,7 @@
         </div>
 
     </div>
-    <div class="row">
+    <div id="photosToUpLoad" class="row">
         <div class="col-md-12" style="padding-top:10px;">
 
             <table class="table table-bordered table-striped">
@@ -109,6 +113,42 @@
 
         </div>
     </div>
-    <div style="clear:both"></div>
-</div>
+    <div class="row">
+        <div class="col-sm-12 clearfix">
+            <div class="order-box">
+                <div class="order-box-header">
+
+                    Raw Photos
+                </div>
+
+
+                <div class="order-box-content">
+                    <div class="table-responsive">
+                        <table>
+                            <tbody infinite-scroll='loadMore(1)'>
+                                <tr ng-repeat="r in Details.RawPhotos">
+                                    <td style="width:100%">
+                                        <label>{{r.PhotoName}}</label>
+                                        <br />
+                                        <div>
+                                            <a href="product-details.html">
+                                                <img class="img-responsive" alt="img"
+                                                     src="{{r.Path}}">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="hidden-xs" style="width:10%"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <!--/row end-->
+        <div style="clear:both"></div>
+    </div>
 <!-- /main-container -->

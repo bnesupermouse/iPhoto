@@ -59,5 +59,6 @@ module DataModels {
         confirmRawPhotosUploaded(): void;
         setFiles(): void;
         uploadPhotos(): void;
+        loadMore(photoType: number): void;
     }
 }

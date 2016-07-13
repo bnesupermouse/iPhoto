@@ -25,7 +25,7 @@ namespace Host
         {
             //var uriPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().GetName().CodeBase);
             //var path = new Uri(uriPath).LocalPath;
-            var path = new PhysicalFileSystem(@"../../WebSrc/app/images/customer/");
+            var path = new PhysicalFileSystem(@"../../WebSrc/app");
             var fileName = Request.Headers.GetValues("X-File-Name").FirstOrDefault();
             var fileSize = Request.Headers.GetValues("X-File-Size").FirstOrDefault();
             var fileType = Request.Headers.GetValues("X-File-Type").FirstOrDefault();
@@ -35,16 +35,24 @@ namespace Host
             long OrderId = long.Parse(orderId);
             int OrderStatus = int.Parse(orderStatus);
             string root = "";
-            if (OrderStatus == (int)Host.OrderStatus.OrderConfirmed || int.Parse(orderStatus) == (int)Host.OrderStatus.RawPhotoUploading)
+            bool uploadRaw = int.Parse(orderStatus) < (int)Host.OrderStatus.PhotoSelected && int.Parse(orderStatus) > (int)Host.OrderStatus.OrderPending;
+            bool uploadRetouched = int.Parse(orderStatus) < (int)Host.OrderStatus.OrderFinalised && int.Parse(orderStatus) > (int)Host.OrderStatus.RawPhotoUploaded;
+            string photoPath = "";
+            string photoDir = "";
+            if (uploadRaw)
             {
-                root = path.Root + orderId + @"/"+@"raw/";
+                photoDir = path.Root + @"/images/customer/" + orderId + @"/" + @"raw";
+                photoPath = @"/images/customer/" + orderId + @"/" + @"raw/" + fileName;
+
             }
-            else if (int.Parse(orderStatus) == (int)Host.OrderStatus.PhotoSelected || int.Parse(orderStatus) == (int)Host.OrderStatus.RetouchedPhotoUploading || int.Parse(orderStatus) == (int)Host.OrderStatus.RetouchedPhotoConfirming)
+            else if (uploadRetouched)
             {
-                root = path.Root + orderId + @"/" + @"retouched/";
+                photoDir = path.Root + @"/images/customer/" + orderId + @"/" + @"retouched";
+                photoPath = @"/images/customer/" + orderId + @"/" + @"retouched/" + fileName;
             }
-            Directory.CreateDirectory(root);
-            var saveToFileLoc = root + fileName;
+            root = path.Root + photoPath;
+            Directory.CreateDirectory(photoDir);
+            var saveToFileLoc = root;
             var task = this.Request.Content.ReadAsStreamAsync();
             task.Wait();
             Stream requestStream = task.Result;
@@ -56,46 +64,26 @@ namespace Host
                 fileStream.Close();
                 requestStream.Close();
 
-                if (int.Parse(orderStatus) == (int)Host.OrderStatus.OrderConfirmed || int.Parse(orderStatus) == (int)Host.OrderStatus.RawPhotoUploading)
+                if (uploadRaw)
                 {
                     UploadRawPhoto upRaw = new UploadRawPhoto();
                     upRaw.OrderId = OrderId;
                     upRaw.RawPhotos = new List<Photo>();
-                    upRaw.RawPhotos.Add(new Photo { Path = saveToFileLoc, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = false, Selected = false, Confirmed = false, SortOrder = 0 });
+                    upRaw.RawPhotos.Add(new Photo { Path = photoPath, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = false, Selected = false, Confirmed = false, SortOrder = 0 });
                     TxUploadRawPhoto txn = new TxUploadRawPhoto();
                     txn.request = upRaw;
                     TxnFunc.ProcessTxn(txn);
                 }
-                else if (int.Parse(orderStatus) == (int)Host.OrderStatus.PhotoSelected || int.Parse(orderStatus) == (int)Host.OrderStatus.RetouchedPhotoUploading || int.Parse(orderStatus) == (int)Host.OrderStatus.RetouchedPhotoConfirming)
+                else if (uploadRetouched)
                 {
                     UploadRetouchedPhoto upRetouched = new UploadRetouchedPhoto();
                     upRetouched.OrderId = OrderId;
                     upRetouched.RetouchedPhotos = new List<Photo>();
-                    upRetouched.RetouchedPhotos.Add(new Photo { Path = saveToFileLoc, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = true, Selected = false, Confirmed = false, SortOrder = 0 });
+                    upRetouched.RetouchedPhotos.Add(new Photo { Path = photoPath, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = true, Selected = false, Confirmed = false, SortOrder = 0 });
                     TxUploadRetouchedPhoto txn = new TxUploadRetouchedPhoto();
                     txn.request = upRetouched;
                     TxnFunc.ProcessTxn(txn);
                 }
-
-                if (int.Parse(orderStatus) == (int)Host.OrderStatus.OrderConfirmed)
-                {
-                    UpdateOrderStatus updOrder = new Host.UpdateOrderStatus();
-                    updOrder.OrderId = long.Parse(orderId);
-                    updOrder.ToStatus = (int)Host.OrderStatus.RawPhotoUploading;
-                    TxUpdateOrderStatus txn = new TxUpdateOrderStatus();
-                    txn.request = updOrder;
-                    TxnFunc.ProcessTxn(txn);
-                }
-                if (int.Parse(orderStatus) == (int)Host.OrderStatus.PhotoSelected)
-                {
-                    UpdateOrderStatus updOrder = new Host.UpdateOrderStatus();
-                    updOrder.OrderId = long.Parse(orderId);
-                    updOrder.ToStatus = (int)Host.OrderStatus.RetouchedPhotoUploading;
-                    TxUpdateOrderStatus txn = new TxUpdateOrderStatus();
-                    txn.request = updOrder;
-                    TxnFunc.ProcessTxn(txn);
-                }
-                
             }
             catch (IOException)
             {
@@ -144,16 +132,22 @@ namespace Host
                                  Paid = o.Paid ? 1 : 0
                              };
                 OrderDetails res = orders.ToList().FirstOrDefault();
-                if(res!=null)
+                if (res != null)
                 {
-                    if(res.Status <= (int)OrderStatus.OrderConfirmed)
+                    if (res.Status < (int)OrderStatus.OrderConfirmed)
                     {
                         return res;
                     }
                     else
                     {
-                        res.RawPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && !p.Retouched).Select(p => p.Path).ToList();
-                        res.RetouchedPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched).Select(p => p.Path).ToList();
+                        if (res.Status <= (int)OrderStatus.PhotoSelected)
+                        {
+                            //res.RawPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && !p.Retouched).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
+                        }
+                        if (res.Status > (int)OrderStatus.PhotoSelected)
+                        {
+                            //res.RetouchedPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
+                        }
                         return res;
                     }
                 }
@@ -217,10 +211,25 @@ namespace Host
                                      Status = o.Status,
                                      StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
                                      LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
-                                     Paid = o.Paid?1:0
+                                     Paid = o.Paid ? 1 : 0
                                  };
-                    var res =  orders.ToList();
+                    var res = orders.ToList();
                     return res;
+                }
+            }
+        }
+        [HttpGet]
+        public List<PhotoInfo> GetOrderPhotos(long id, int id2, long id3)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                if (id2 == 1)
+                {
+                    return dc.Photo.Where(p => p.CustomerOrderId == id && !p.Retouched && p.PhotoId > id3).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
+                }
+                else
+                {
+                    return dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched && p.PhotoId > id3).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
                 }
             }
         }

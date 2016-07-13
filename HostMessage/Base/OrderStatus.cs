@@ -11,13 +11,9 @@ namespace Host
     {
         OrderPending,// -- Ctm
         OrderConfirmed,// --Ph
-        RawPhotoUploading,// --Ph
         RawPhotoUploaded,// --Ph
-        PhotoSelecting,// --Ctm
         PhotoSelected,// --Ctm
-        RetouchedPhotoUploading,// --Ph
         RetouchedPhotoUploaded,// --Ph
-        RetouchedPhotoConfirming,// --Ctm
         OrderFinalised,// --Ctm
         OrderRejected,//Ph
         OrderCancelled//Ctm

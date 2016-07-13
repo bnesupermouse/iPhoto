@@ -27,8 +27,8 @@ namespace Host.Models
 
     public class OrderDetails:OrderInfo
     {
-        public List<string> RawPhotos { get; set; }
-        public List<string> RetouchedPhotos { get; set; }
+        public List<PhotoInfo> RawPhotos { get; set; }
+        public List<PhotoInfo> RetouchedPhotos { get; set; }
 
     }
 
@@ -47,13 +47,9 @@ namespace Host.Models
             Values[(int)OrderStatus.OrderFinalised] = "Finalised";
             Values[(int)OrderStatus.OrderPending] = "Pending";
             Values[(int)OrderStatus.OrderRejected] = "Rejected";
-            Values[(int)OrderStatus.PhotoSelected] = "InProgress";
-            Values[(int)OrderStatus.PhotoSelecting] = "InProgress";
-            Values[(int)OrderStatus.RawPhotoUploaded] = "InProgress";
-            Values[(int)OrderStatus.RawPhotoUploading] = "InProgress";
-            Values[(int)OrderStatus.RetouchedPhotoConfirming] = "InProgress";
-            Values[(int)OrderStatus.RetouchedPhotoUploaded] = "InProgress";
-            Values[(int)OrderStatus.RetouchedPhotoUploading] = "InProgress";
+            Values[(int)OrderStatus.PhotoSelected] = "RawSelected";
+            Values[(int)OrderStatus.RawPhotoUploaded] = "RawUploaded";
+            Values[(int)OrderStatus.RetouchedPhotoUploaded] = "RetouchedUploaded";
             return Values[status];
         }
 
@@ -69,12 +65,8 @@ namespace Host.Models
             LabelValues[(int)OrderStatus.OrderPending] = "label-warning";
             LabelValues[(int)OrderStatus.OrderRejected] = "label-danger";
             LabelValues[(int)OrderStatus.PhotoSelected] = "label-primary";
-            LabelValues[(int)OrderStatus.PhotoSelecting] = "label-primary";
             LabelValues[(int)OrderStatus.RawPhotoUploaded] = "label-primary";
-            LabelValues[(int)OrderStatus.RawPhotoUploading] = "label-primary";
-            LabelValues[(int)OrderStatus.RetouchedPhotoConfirming] = "label-primary";
             LabelValues[(int)OrderStatus.RetouchedPhotoUploaded] = "label-primary";
-            LabelValues[(int)OrderStatus.RetouchedPhotoUploading] = "label-primary";
 
             return LabelValues[status];
         }

@@ -152,6 +152,7 @@
     <Compile Include="Interface\CustomerController.cs" />
     <Compile Include="Models\NavigationHeader.cs" />
     <Compile Include="Models\OrderInfo.cs" />
+    <Compile Include="Models\PhotoInfo.cs" />
     <Compile Include="Models\PhotoTypeInfo.cs" />
     <Compile Include="Models\OfferInfo.cs" />
     <Compile Include="NancyDemo.cs" />
@@ -373,6 +374,7 @@
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PayOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PlaceOrder.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\PhotoInfo.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\Photo.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\UpdateOrderStatus.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\OrderDetailsCtrl.ts" />

@@ -569,19 +569,26 @@ var DataModels;
 /// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
+    var PhotoInfo = (function () {
+        function PhotoInfo() {
+        }
+        return PhotoInfo;
+    }());
+    DataModels.PhotoInfo = PhotoInfo;
+})(DataModels || (DataModels = {}));
+
+/// <reference path="../all.ts" />
+var DataModels;
+(function (DataModels) {
     (function (OrderStatusValue) {
         OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
         OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
-        OrderStatusValue[OrderStatusValue["RawPhotoUploading"] = 2] = "RawPhotoUploading";
-        OrderStatusValue[OrderStatusValue["RawPhotoUploaded"] = 3] = "RawPhotoUploaded";
-        OrderStatusValue[OrderStatusValue["PhotoSelecting"] = 4] = "PhotoSelecting";
-        OrderStatusValue[OrderStatusValue["PhotoSelected"] = 5] = "PhotoSelected";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploading"] = 6] = "RetouchedPhotoUploading";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploaded"] = 7] = "RetouchedPhotoUploaded";
-        OrderStatusValue[OrderStatusValue["RetouchedPhotoConfirming"] = 8] = "RetouchedPhotoConfirming";
-        OrderStatusValue[OrderStatusValue["OrderFinalised"] = 9] = "OrderFinalised";
-        OrderStatusValue[OrderStatusValue["OrderRejected"] = 10] = "OrderRejected";
-        OrderStatusValue[OrderStatusValue["OrderCancelled"] = 11] = "OrderCancelled"; //Ctm
+        OrderStatusValue[OrderStatusValue["RawPhotoUploaded"] = 2] = "RawPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["PhotoSelected"] = 3] = "PhotoSelected";
+        OrderStatusValue[OrderStatusValue["RetouchedPhotoUploaded"] = 4] = "RetouchedPhotoUploaded";
+        OrderStatusValue[OrderStatusValue["OrderFinalised"] = 5] = "OrderFinalised";
+        OrderStatusValue[OrderStatusValue["OrderRejected"] = 6] = "OrderRejected";
+        OrderStatusValue[OrderStatusValue["OrderCancelled"] = 7] = "OrderCancelled"; //Ctm
     })(DataModels.OrderStatusValue || (DataModels.OrderStatusValue = {}));
     var OrderStatusValue = DataModels.OrderStatusValue;
 })(DataModels || (DataModels = {}));
@@ -650,6 +657,55 @@ var Controllers;
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
+                });
+            };
+            self.$scope.confirmRawPhotosUploaded = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            };
+            self.$scope.loadMore = function (photoType) {
+                var lastPhotoId = 0;
+                if (self.$scope.Details == null) {
+                    self.$scope.Details = new DataModels.OrderDetails();
+                }
+                if (photoType == 1) {
+                    if (self.$scope.Details.RawPhotos == null) {
+                        self.$scope.Details.RawPhotos = new Array();
+                    }
+                    else {
+                        if (self.$scope.Details.RawPhotos.length > 0) {
+                            lastPhotoId = self.$scope.Details.RawPhotos[self.$scope.Details.RawPhotos.length - 1].PhotoId;
+                        }
+                    }
+                }
+                else {
+                    if (self.$scope.Details.RetouchedPhotos == null) {
+                        self.$scope.Details.RetouchedPhotos = new Array();
+                    }
+                    else {
+                        if (self.$scope.Details.RetouchedPhotos.length > 0) {
+                            lastPhotoId = self.$scope.Details.RetouchedPhotos[self.$scope.Details.RetouchedPhotos.length - 1].PhotoId;
+                        }
+                    }
+                }
+                self.dataSvc.getMorePhotos(self.$routeParams.orderid, photoType, lastPhotoId).then(function (data) {
+                    if (photoType == 1) {
+                        if (self.$scope.Details.RawPhotos == null) {
+                            self.$scope.Details.RawPhotos = new Array();
+                        }
+                        for (var i = 0; i < data.Photos.length; i++) {
+                            self.$scope.Details.RawPhotos.push(data.Photos[i]);
+                        }
+                    }
+                    else {
+                        if (self.$scope.Details.RetouchedPhotos == null) {
+                            self.$scope.Details.RetouchedPhotos = new Array();
+                        }
+                        for (var i = 0; i < data.Photos.length; i++) {
+                            self.$scope.Details.RetouchedPhotos.push(data.Photos[i]);
+                        }
+                    }
                 });
             };
             self.$scope.setFiles = function () {
@@ -746,6 +802,7 @@ var Services;
             this.getOrderListApiPath = "api/order/getorderlist";
             this.getOrderDetailsApiPath = "api/order/getorderdetails";
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
+            this.getOrderPhotos = "api/order/getorderphotos";
             this.OrderList = new Array();
             this.httpService = $http;
             this.qService = $q;
@@ -768,6 +825,18 @@ var Services;
             self.httpService.get(self.getOrderDetailsApiPath + "/" + orderId)
                 .then(function (result) {
                 self.Details = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OrderDataSvc.prototype.getMorePhotos = function (orderId, photoType, lastPhotoId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOrderPhotos + "/" + orderId + "/" + photoType + "/" + lastPhotoId)
+                .then(function (result) {
+                self.Photos = result.data;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -820,6 +889,7 @@ var Services;
 /// <reference path="./offer/PlaceOrder.ts" />
 /// <reference path="./order/Order.ts" />
 /// <reference path="./order/Photo.ts" />
+/// <reference path="./order/PhotoInfo.ts" />
 /// <reference path="./order/OrderStatus.ts" />
 /// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />
@@ -859,7 +929,7 @@ var OneStopCustomerApp;
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
-    var app = angular.module("webApp", ['ngRoute', 'ngCookies']);
+    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);

@@ -65,28 +65,28 @@ namespace Host
             }
             if (curReq.ToStatus == (int)OrderStatus.RawPhotoUploaded)
             {
-                if (order.Status != (int)OrderStatus.RawPhotoUploading)
+                if (order.Status != (int)OrderStatus.OrderConfirmed)
                 {
                     return Result.Failed;
                 }
             }
             if (curReq.ToStatus == (int)OrderStatus.PhotoSelected)
             {
-                if (order.Status != (int)OrderStatus.PhotoSelecting)
+                if (order.Status != (int)OrderStatus.RawPhotoUploaded)
                 {
                     return Result.Failed;
                 }
             }
             if (curReq.ToStatus == (int)OrderStatus.RetouchedPhotoUploaded)
             {
-                if (order.Status != (int)OrderStatus.RetouchedPhotoUploading)
+                if (order.Status != (int)OrderStatus.PhotoSelected)
                 {
                     return Result.Failed;
                 }
             }
             if (curReq.ToStatus == (int)OrderStatus.OrderFinalised)
             {
-                if (order.Status != (int)OrderStatus.RetouchedPhotoConfirming)
+                if (order.Status != (int)OrderStatus.RetouchedPhotoUploaded)
                 {
                     return Result.Failed;
                 }

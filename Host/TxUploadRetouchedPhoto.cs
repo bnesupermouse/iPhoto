@@ -40,17 +40,9 @@ namespace Host
             {
                 return Result.Failed;
             }
-            if(order.Status != (int)OrderStatus.PhotoSelected && order.Status != (int)OrderStatus.RetouchedPhotoConfirming)
+            if(order.Status != (int)OrderStatus.PhotoSelected)
             {
                 return Result.Failed;
-            }
-
-            if (order.Status == (int)OrderStatus.PhotoSelected)
-            {
-                //Construct new Order
-                CustomerOrder newOrder = order.Clone() as CustomerOrder;
-                newOrder.Status = curReq.LastPhoto ? (int)OrderStatus.RetouchedPhotoUploaded : (int)OrderStatus.RetouchedPhotoUploading;
-                Data.AddNew(order, newOrder);
             }
 
             //Validate Photo Info

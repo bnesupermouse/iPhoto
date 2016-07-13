@@ -41,16 +41,9 @@ namespace Host
             {
                 return Result.Failed;
             }
-            if(order.Status != (int)OrderStatus.OrderConfirmed && order.Status != (int)OrderStatus.RawPhotoUploading)
+            if(order.Status != (int)OrderStatus.OrderConfirmed)
             {
                 return Result.Failed;
-            }
-            if (order.Status == (int)OrderStatus.OrderConfirmed)
-            {
-                //Construct new Order
-                CustomerOrder newOrder = order.Clone() as CustomerOrder;
-                newOrder.Status = (int)OrderStatus.RawPhotoUploading;
-                Data.AddNew(order, newOrder);
             }
 
             //Validate Photo Info

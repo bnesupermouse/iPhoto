@@ -4,11 +4,13 @@ module Services {
         private getOrderListApiPath: string;
         private getOrderDetailsApiPath: string;
         private updateOrderStatusApiPath: string;
+        private getOrderPhotos: string;
 
         public OrderList: Array<DataModels.Order>;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
         public Details: DataModels.OrderDetails;
+        public Photos: DataModels.PhotoInfo;
         OrderId: number;
 
         getOrderList(accountId:number, accountType:number, active:number): ng.IPromise<any> {
@@ -45,6 +47,23 @@ module Services {
 
         }
 
+        getMorePhotos(orderId: number, photoType: number, lastPhotoId: number): ng.IPromise<any> {
+            var self = this;
+            var deferred = self.qService.defer();
+
+            self.httpService.get(self.getOrderPhotos + "/" + orderId + "/" + photoType + "/" + lastPhotoId)
+                .then(function (result: any) {
+                    self.Photos = result.data;
+                    deferred.resolve(self);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+
+
+        }
+
         updateOrderStatus(orderId: number, toStatus:number): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
@@ -68,6 +87,7 @@ module Services {
             this.getOrderListApiPath = "api/order/getorderlist";
             this.getOrderDetailsApiPath = "api/order/getorderdetails";
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
+            this.getOrderPhotos = "api/order/getorderphotos";
             this.OrderList = new Array<DataModels.Order>();
             this.httpService = $http;
             this.qService = $q;

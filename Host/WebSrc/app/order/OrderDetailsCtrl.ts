@@ -5,7 +5,6 @@ module Controllers {
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IOrderRouteParams;
         dataSvc: Services.OrderDataSvc;
-        Details: DataModels.OrderDetails;
 
         constructor($scope: DataModels.IOrderDetailsPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, dataSvc: Services.OrderDataSvc) {
             var self = this;
@@ -16,9 +15,63 @@ module Controllers {
             self.$scope.CustomerName = $cookies.get("cname");
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
+
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
+                });
+            }
+
+            self.$scope.confirmRawPhotosUploaded = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            }
+            self.$scope.loadMore = function (photoType) {
+                let lastPhotoId = 0;
+                if (self.$scope.Details == null) {
+                    self.$scope.Details = new DataModels.OrderDetails();
+                }
+                if (photoType == 1) {
+                    if (self.$scope.Details.RawPhotos == null) {
+                        self.$scope.Details.RawPhotos = new Array<DataModels.PhotoInfo>();
+                    }
+                    else {
+                        if (self.$scope.Details.RawPhotos.length > 0) {
+                            lastPhotoId = self.$scope.Details.RawPhotos[self.$scope.Details.RawPhotos.length - 1].PhotoId;
+                        }
+                    }
+                }
+                else {
+                    if (self.$scope.Details.RetouchedPhotos == null) {
+                        self.$scope.Details.RetouchedPhotos = new Array<DataModels.PhotoInfo>();
+                    }
+                    else {
+                        if (self.$scope.Details.RetouchedPhotos.length > 0) {
+                            lastPhotoId = self.$scope.Details.RetouchedPhotos[self.$scope.Details.RetouchedPhotos.length - 1].PhotoId;
+                        }
+                    }
+                }
+                self.dataSvc.getMorePhotos(self.$routeParams.orderid, photoType, lastPhotoId).then(function (data) {
+                    if (photoType == 1) {
+                        if (self.$scope.Details.RawPhotos == null) {
+                            self.$scope.Details.RawPhotos = new Array<DataModels.PhotoInfo>();
+                        }
+                        for (var i = 0; i < data.Photos.length; i++) {
+                            self.$scope.Details.RawPhotos.push(data.Photos[i]);
+                        }
+                        
+                    }
+                    else {
+                        if (self.$scope.Details.RetouchedPhotos == null) {
+                            self.$scope.Details.RetouchedPhotos = new Array<DataModels.PhotoInfo>();
+                        }
+                        for (var i = 0; i < data.Photos.length; i++) {
+                            self.$scope.Details.RetouchedPhotos.push(data.Photos[i]);
+                        }
+                        
+                    }
+                    
                 });
             }
             self.$scope.setFiles = function () {
