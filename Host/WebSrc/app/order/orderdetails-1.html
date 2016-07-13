@@ -125,7 +125,7 @@
                 <div class="order-box-content">
                     <div class="table-responsive">
                         <table>
-                            <tbody infinite-scroll='loadMore(1)'>
+                            <tbody infinite-scroll='loadMore(1)' infinite-scroll-disabled='busy'>
                                 <tr ng-repeat="r in Details.RawPhotos">
                                     <td style="width:100%">
                                         <label>{{r.PhotoName}}</label>

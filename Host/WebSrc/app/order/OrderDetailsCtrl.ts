@@ -14,7 +14,7 @@
             self.$scope.CustomerName = $cookies.get("cname");
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
-
+            self.$scope.busy = false;
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
@@ -27,6 +27,7 @@
                 });
             }
             self.$scope.loadMore = function (photoType) {
+                self.$scope.busy = true;
                 let lastPhotoId = 0;
                 if (self.$scope.Details == null) {
                     self.$scope.Details = new DataModels.OrderDetails();
@@ -70,7 +71,7 @@
                         }
                         
                     }
-                    
+                    self.$scope.busy = false;
                 });
             }
             self.$scope.setFiles = function () {
@@ -155,8 +156,10 @@
         }
         private init(): void {
             var self = this;
+            self.$scope.busy = true;
             self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
                 self.$scope.Details = data.Details;
+                self.$scope.busy = false;
             });
         }
     }

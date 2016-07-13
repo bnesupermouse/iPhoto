@@ -629,6 +629,7 @@ var Controllers;
             self.$scope.CustomerName = $cookies.get("cname");
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
+            self.$scope.busy = false;
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
@@ -640,6 +641,7 @@ var Controllers;
                 });
             };
             self.$scope.loadMore = function (photoType) {
+                self.$scope.busy = true;
                 var lastPhotoId = 0;
                 if (self.$scope.Details == null) {
                     self.$scope.Details = new DataModels.OrderDetails();
@@ -681,6 +683,7 @@ var Controllers;
                             self.$scope.Details.RetouchedPhotos.push(data.Photos[i]);
                         }
                     }
+                    self.$scope.busy = false;
                 });
             };
             self.$scope.setFiles = function () {
@@ -749,8 +752,10 @@ var Controllers;
         };
         OrderDetailsCtrl.prototype.init = function () {
             var self = this;
+            self.$scope.busy = true;
             self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
                 self.$scope.Details = data.Details;
+                self.$scope.busy = false;
             });
         };
         return OrderDetailsCtrl;
@@ -870,6 +875,7 @@ var Services;
 /// <reference path="./order/UpdateOrderStatus.ts" />
 /// <reference path="./order/OrderDataSvc.ts" /> 
 
+/// <reference path="./all.ts" />
 var OneStopCustomerApp;
 (function (OneStopCustomerApp) {
     var Config = (function () {

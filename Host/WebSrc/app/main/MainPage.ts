@@ -59,5 +59,6 @@
         setFiles(): void;
         uploadPhotos(): void;
         loadMore(photoType: number): void;
+        busy: boolean;
     }
 }
