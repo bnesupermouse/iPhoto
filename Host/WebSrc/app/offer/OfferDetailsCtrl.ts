@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Controllers {
+﻿module Controllers {
     export interface IOfferDetailsRouteParams extends ng.route.IRouteParamsService {
         offerid: number;
     }

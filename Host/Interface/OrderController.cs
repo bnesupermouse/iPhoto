@@ -160,6 +160,7 @@ namespace Host
         [HttpGet]
         public List<OrderInfo> GetOrderList(long id, int id2, int id3)
         {
+            Console.WriteLine("GetOrderList: "+id + " : " + id2 + " : " + id3);
             using (var dc = new HostDBDataContext())
             {
                 if (id2 == 1)
@@ -221,6 +222,7 @@ namespace Host
         [HttpGet]
         public List<PhotoInfo> GetOrderPhotos(long id, int id2, long id3)
         {
+            Console.WriteLine(id + " : "+id2+" : "+id3);
             using (var dc = new HostDBDataContext())
             {
                 if (id2 == 1)

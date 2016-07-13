@@ -1,5 +1,4 @@
-﻿/// <reference path="../../all.ts" />
-module Services {
+﻿module Services {
     export class CustomerDataSvc {
         private techCtmApiPath: string;
         private signOnApiPath: string;

@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Controllers {
+﻿module Controllers {
     export interface IPhotoTypeRouteParams extends ng.route.IRouteParamsService {
         phototypeid: number;
     }

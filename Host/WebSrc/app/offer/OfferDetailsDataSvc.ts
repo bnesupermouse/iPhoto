@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Services {
+﻿module Services {
     export class OfferDetailsDataSvc {
         private getOfferDetailsApiPath: string;
         private placeOrderApiPath: string;

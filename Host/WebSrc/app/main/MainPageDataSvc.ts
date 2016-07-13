@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Services {
+﻿module Services {
     export class MainPageDataSvc {
         private indexApiPath: string;
         public OfferList: Array<DataModels.Offer>;

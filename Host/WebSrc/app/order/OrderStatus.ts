@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module DataModels {
+﻿module DataModels {
     export enum OrderStatusValue {
         OrderPending,// -- Ctm
         OrderConfirmed,// --Ph

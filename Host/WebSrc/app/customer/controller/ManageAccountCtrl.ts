@@ -1,5 +1,4 @@
-﻿/// <reference path="../../all.ts" />
-module Controllers {
+﻿module Controllers {
     export class ManageAccountCtrl {
         $scope: DataModels.IBaseScope;
         $cookies: ng.cookies.ICookieStoreService;

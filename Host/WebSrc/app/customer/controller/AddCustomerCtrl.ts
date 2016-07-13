@@ -1,5 +1,4 @@
-﻿/// <reference path="../../all.ts" />
-module Controllers {
+﻿module Controllers {
     export class AddCustomerCtrl {
         $scope: DataModels.IAddCustomerScope;
         $cookies: ng.cookies.ICookieStoreService;

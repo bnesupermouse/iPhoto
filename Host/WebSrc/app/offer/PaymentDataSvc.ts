@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Services {
+﻿module Services {
     export class PaymentDataSvc {
         private payOrderApiPath: string;
         private httpService: ng.IHttpService;

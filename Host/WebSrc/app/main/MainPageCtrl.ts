@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module Controllers {
+﻿module Controllers {
     export class MainPageCtrl {
         $scope: DataModels.IMainPageScope;
         $cookies: ng.cookies.ICookieStoreService;

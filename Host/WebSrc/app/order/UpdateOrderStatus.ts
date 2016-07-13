@@ -1,5 +1,4 @@
-﻿/// <reference path="../all.ts" />
-module DataModels {
+﻿module DataModels {
 
     export class UpdateOrderStatus {
         OrderId: number;

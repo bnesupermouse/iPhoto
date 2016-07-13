@@ -1,4 +1,3 @@
-/// <reference path="../../all.ts" />
 var DataModels;
 (function (DataModels) {
     var Customer = (function () {
@@ -15,7 +14,6 @@ var DataModels;
     DataModels.CookieInfo = CookieInfo;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../../all.ts" />
 var DataModels;
 (function (DataModels) {
     var Photographer = (function () {
@@ -26,7 +24,6 @@ var DataModels;
     DataModels.Photographer = Photographer;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var PhotoType = (function () {
@@ -37,7 +34,6 @@ var DataModels;
     DataModels.PhotoType = PhotoType;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../../all.ts" />
 var Services;
 (function (Services) {
     var CustomerDataSvc = (function () {
@@ -118,7 +114,6 @@ var Services;
     Services.CustomerDataSvc = CustomerDataSvc;
 })(Services || (Services = {}));
 
-/// <reference path="../../all.ts" />
 var Controllers;
 (function (Controllers) {
     var ManageAccountCtrl = (function () {
@@ -148,7 +143,6 @@ var Controllers;
     Controllers.ManageAccountCtrl = ManageAccountCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../../all.ts" />
 var Controllers;
 (function (Controllers) {
     var AddCustomerCtrl = (function () {
@@ -199,7 +193,6 @@ var Controllers;
     Controllers.AddCustomerCtrl = AddCustomerCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var MainPageCtrl = (function () {
@@ -223,7 +216,6 @@ var Controllers;
     Controllers.MainPageCtrl = MainPageCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var Offer = (function () {
@@ -240,7 +232,6 @@ var DataModels;
     DataModels.MainContent = MainContent;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var MainPageDataSvc = (function () {
@@ -272,7 +263,6 @@ var Services;
     Services.MainPageDataSvc = MainPageDataSvc;
 })(Services || (Services = {}));
 
-/// <reference path="../../all.ts" />
 var Controllers;
 (function (Controllers) {
     var SignOnCustomerCtrl = (function () {
@@ -323,7 +313,6 @@ var Controllers;
     Controllers.SignOnCustomerCtrl = SignOnCustomerCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var PhotoTypeCtrl = (function () {
@@ -347,7 +336,6 @@ var Controllers;
     Controllers.PhotoTypeCtrl = PhotoTypeCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var PhotoTypeDataSvc = (function () {
@@ -381,7 +369,6 @@ var Services;
     Services.PhotoTypeDataSvc = PhotoTypeDataSvc;
 })(Services || (Services = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var OfferDetailsCtrl = (function () {
@@ -415,7 +402,6 @@ var Controllers;
     Controllers.OfferDetailsCtrl = OfferDetailsCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var OfferDetailsDataSvc = (function () {
@@ -459,7 +445,6 @@ var Services;
     Services.OfferDetailsDataSvc = OfferDetailsDataSvc;
 })(Services || (Services = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var OrderPaymentCtrl = (function () {
@@ -494,7 +479,6 @@ var Controllers;
     Controllers.OrderPaymentCtrl = OrderPaymentCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var PaymentDataSvc = (function () {
@@ -522,7 +506,6 @@ var Services;
     Services.PaymentDataSvc = PaymentDataSvc;
 })(Services || (Services = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var PayOrder = (function () {
@@ -533,7 +516,6 @@ var DataModels;
     DataModels.PayOrder = PayOrder;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var PlaceOrder = (function () {
@@ -544,7 +526,6 @@ var DataModels;
     DataModels.PlaceOrder = PlaceOrder;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var Order = (function () {
@@ -555,7 +536,6 @@ var DataModels;
     DataModels.Order = Order;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var Photo = (function () {
@@ -566,7 +546,6 @@ var DataModels;
     DataModels.Photo = Photo;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var PhotoInfo = (function () {
@@ -577,7 +556,6 @@ var DataModels;
     DataModels.PhotoInfo = PhotoInfo;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     (function (OrderStatusValue) {
@@ -598,7 +576,6 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var OrderDetails = (function (_super) {
@@ -611,7 +588,6 @@ var DataModels;
     DataModels.OrderDetails = OrderDetails;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var OrderCtrl = (function () {
@@ -641,7 +617,6 @@ var Controllers;
     Controllers.OrderCtrl = OrderCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var Controllers;
 (function (Controllers) {
     var OrderDetailsCtrl = (function () {
@@ -783,7 +758,6 @@ var Controllers;
     Controllers.OrderDetailsCtrl = OrderDetailsCtrl;
 })(Controllers || (Controllers = {}));
 
-/// <reference path="../all.ts" />
 var DataModels;
 (function (DataModels) {
     var UpdateOrderStatus = (function () {
@@ -794,7 +768,6 @@ var DataModels;
     DataModels.UpdateOrderStatus = UpdateOrderStatus;
 })(DataModels || (DataModels = {}));
 
-/// <reference path="../all.ts" />
 var Services;
 (function (Services) {
     var OrderDataSvc = (function () {
@@ -897,7 +870,6 @@ var Services;
 /// <reference path="./order/UpdateOrderStatus.ts" />
 /// <reference path="./order/OrderDataSvc.ts" /> 
 
-/// <reference path="./all.ts" />
 var OneStopCustomerApp;
 (function (OneStopCustomerApp) {
     var Config = (function () {
