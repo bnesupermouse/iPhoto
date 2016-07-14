@@ -11,10 +11,9 @@ namespace Host
         public SelectRawPhoto()
         {
             TxnId = 1;
-            LastPhoto = false;
         }
         public long OrderId { get; set; }
-        public List<long> PhotoIds { get; set; }
-        public bool LastPhoto { get; set; }
+        public List<long> SelectedPhotoIds { get; set; }
+        public List<long> DeselectedPhotoIds { get; set; }
     }
 }

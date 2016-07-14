@@ -104,6 +104,15 @@ namespace Host
             return txn.response;
         }
 
+        [HttpPost]
+        public Response SelectRawPhotos(SelectRawPhoto select)
+        {
+            TxSelectRawPhoto txn = new TxSelectRawPhoto();
+            txn.request = select;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
+
         [HttpGet]
         public OrderDetails GetOrderDetails(long id)
         {
@@ -222,7 +231,6 @@ namespace Host
         [HttpGet]
         public List<PhotoInfo> GetOrderPhotos(long id, int id2, long id3)
         {
-            Console.WriteLine(id + " : "+id2+" : "+id3);
             using (var dc = new HostDBDataContext())
             {
                 if (id2 == 1)

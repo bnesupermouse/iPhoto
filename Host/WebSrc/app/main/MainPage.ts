@@ -58,6 +58,8 @@
         confirmRawPhotosUploaded(): void;
         setFiles(): void;
         uploadPhotos(): void;
+        selectRawPhotos(): void;
+        confirmPhotoSelected(): void;
         loadMore(photoType: number): void;
         busy: boolean;
     }

@@ -30,8 +30,8 @@ namespace Host
             var config = new HttpConfiguration();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{action}/{id}/{id2}/{id3}",
-                defaults: new { id = RouteParameter.Optional, id2 = RouteParameter.Optional, id3 = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{action}/{id}/{id2}/{id3}/{id4}",
+                defaults: new { id = RouteParameter.Optional, id2 = RouteParameter.Optional, id3 = RouteParameter.Optional, id4 = RouteParameter.Optional }
             );
             // Web Api
             app.UseWebApi(config);

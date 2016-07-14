@@ -6,5 +6,7 @@
         Selected: boolean;
         Retouched: boolean;
         Confirmed: boolean;
+        NewSelected: boolean;
+        NewConfirmed: boolean;
     }
 }

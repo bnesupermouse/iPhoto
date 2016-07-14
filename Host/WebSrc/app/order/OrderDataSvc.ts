@@ -4,6 +4,7 @@
         private getOrderDetailsApiPath: string;
         private updateOrderStatusApiPath: string;
         private getOrderPhotos: string;
+        private selectRawPhotosPath: string;
 
         public OrderList: Array<DataModels.Order>;
         private httpService: ng.IHttpService;
@@ -82,11 +83,29 @@
 
         }
 
+        selectRawPhotos(orderId: number, selectedPhotoIds:Array<number>, deSelectedPhotoIds:Array<number>): ng.IPromise<any> {
+            var self = this;
+            var deferred = self.qService.defer();
+            let selectPhotos = new DataModels.SelectPhotos();
+            selectPhotos.OrderId = orderId;
+            selectPhotos.SelectedPhotoIds = selectedPhotoIds;
+            selectPhotos.DeselectedPhotoIds = deSelectedPhotoIds;
+            self.httpService.post(self.selectRawPhotosPath, selectPhotos)
+                .then(function (result: any) {
+                    deferred.resolve(self);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.getOrderListApiPath = "api/order/getorderlist";
             this.getOrderDetailsApiPath = "api/order/getorderdetails";
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
             this.getOrderPhotos = "api/order/getorderphotos";
+            this.selectRawPhotosPath = "api/order/selectrawphotos";
             this.OrderList = new Array<DataModels.Order>();
             this.httpService = $http;
             this.qService = $q;

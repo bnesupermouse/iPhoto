@@ -26,6 +26,13 @@
                     //self.$scope.Details = data.Details;
                 });
             }
+
+            self.$scope.confirmPhotoSelected = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            }
+
             self.$scope.loadMore = function (photoType) {
                 self.$scope.busy = true;
                 let lastPhotoId = 0;
@@ -95,6 +102,27 @@
                     self.uploadIndividualPhoto(self.$scope.PhotoList[i], i, self.$scope.Details.Status);
                 }
             }
+
+            self.$scope.selectRawPhotos = function () {
+                let selectedPhotoIds = new Array<number>();
+                for (var i = 0; i < self.$scope.Details.RawPhotos.length; i++) {
+                    if (!self.$scope.Details.RawPhotos[i].Selected && self.$scope.Details.RawPhotos[i].NewSelected) {
+                        selectedPhotoIds.push(self.$scope.Details.RawPhotos[i].PhotoId);
+                    }
+                    
+                }
+                let deSelectedPhotoIds = new Array<number>();
+                for (var i = 0; i < self.$scope.Details.RawPhotos.length; i++) {
+                    if (self.$scope.Details.RawPhotos[i].Selected && !self.$scope.Details.RawPhotos[i].NewSelected) {
+                        deSelectedPhotoIds.push(self.$scope.Details.RawPhotos[i].PhotoId);
+                    }
+
+                }
+                self.dataSvc.selectRawPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            }
+
             self.init();
         }
         private uploadIndividualPhoto(photo: DataModels.Photo, index: number, status: number) {

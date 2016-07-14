@@ -328,6 +328,7 @@
     </Content>
     <Content Include="WebSrc\app\offer\details.html" />
     <Content Include="WebSrc\app\offer\orderpayment.html" />
+    <Content Include="WebSrc\app\order\orderdetails-2.html" />
     <Content Include="WebSrc\app\order\orderdetails-1.html" />
     <Content Include="WebSrc\app\order\orderdetails-0.html" />
     <Content Include="WebSrc\app\order\orderlist.html" />
@@ -374,6 +375,7 @@
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PayOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PlaceOrder.ts" />
+    <TypeScriptCompile Include="WebSrc\app\order\SelectPhotos.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\PhotoInfo.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\Photo.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\UpdateOrderStatus.ts" />

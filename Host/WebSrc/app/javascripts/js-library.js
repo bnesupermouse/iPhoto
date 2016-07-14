@@ -558,6 +558,16 @@ var DataModels;
 
 var DataModels;
 (function (DataModels) {
+    var SelectPhotos = (function () {
+        function SelectPhotos() {
+        }
+        return SelectPhotos;
+    }());
+    DataModels.SelectPhotos = SelectPhotos;
+})(DataModels || (DataModels = {}));
+
+var DataModels;
+(function (DataModels) {
     (function (OrderStatusValue) {
         OrderStatusValue[OrderStatusValue["OrderPending"] = 0] = "OrderPending";
         OrderStatusValue[OrderStatusValue["OrderConfirmed"] = 1] = "OrderConfirmed";
@@ -640,6 +650,11 @@ var Controllers;
                     //self.$scope.Details = data.Details;
                 });
             };
+            self.$scope.confirmPhotoSelected = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            };
             self.$scope.loadMore = function (photoType) {
                 self.$scope.busy = true;
                 var lastPhotoId = 0;
@@ -704,6 +719,23 @@ var Controllers;
                 for (var i = 0; i < self.$scope.PhotoList.length; i++) {
                     self.uploadIndividualPhoto(self.$scope.PhotoList[i], i, self.$scope.Details.Status);
                 }
+            };
+            self.$scope.selectRawPhotos = function () {
+                var selectedPhotoIds = new Array();
+                for (var i = 0; i < self.$scope.Details.RawPhotos.length; i++) {
+                    if (!self.$scope.Details.RawPhotos[i].Selected && self.$scope.Details.RawPhotos[i].NewSelected) {
+                        selectedPhotoIds.push(self.$scope.Details.RawPhotos[i].PhotoId);
+                    }
+                }
+                var deSelectedPhotoIds = new Array();
+                for (var i = 0; i < self.$scope.Details.RawPhotos.length; i++) {
+                    if (self.$scope.Details.RawPhotos[i].Selected && !self.$scope.Details.RawPhotos[i].NewSelected) {
+                        deSelectedPhotoIds.push(self.$scope.Details.RawPhotos[i].PhotoId);
+                    }
+                }
+                self.dataSvc.selectRawPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
             };
             self.init();
         }
@@ -781,6 +813,7 @@ var Services;
             this.getOrderDetailsApiPath = "api/order/getorderdetails";
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
             this.getOrderPhotos = "api/order/getorderphotos";
+            this.selectRawPhotosPath = "api/order/selectrawphotos";
             this.OrderList = new Array();
             this.httpService = $http;
             this.qService = $q;
@@ -836,6 +869,21 @@ var Services;
             });
             return deferred.promise;
         };
+        OrderDataSvc.prototype.selectRawPhotos = function (orderId, selectedPhotoIds, deSelectedPhotoIds) {
+            var self = this;
+            var deferred = self.qService.defer();
+            var selectPhotos = new DataModels.SelectPhotos();
+            selectPhotos.OrderId = orderId;
+            selectPhotos.SelectedPhotoIds = selectedPhotoIds;
+            selectPhotos.DeselectedPhotoIds = deSelectedPhotoIds;
+            self.httpService.post(self.selectRawPhotosPath, selectPhotos)
+                .then(function (result) {
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
         OrderDataSvc.OrderDataSvcFactory = function ($http, $q) {
             return new OrderDataSvc($http, $q);
         };
@@ -868,6 +916,7 @@ var Services;
 /// <reference path="./order/Order.ts" />
 /// <reference path="./order/Photo.ts" />
 /// <reference path="./order/PhotoInfo.ts" />
+/// <reference path="./order/SelectPhotos.ts" />
 /// <reference path="./order/OrderStatus.ts" />
 /// <reference path="./order/OrderDetails.ts" />
 /// <reference path="./order/OrderCtrl.ts" />
@@ -891,6 +940,7 @@ var OneStopCustomerApp;
                 .when("/orderpayment/:orderid", { templateUrl: "offer/orderpayment.html", controller: "ProcessOrderPaymentCtrl" })
                 .when("/orderdetails-0/:orderid", { templateUrl: "order/orderdetails-0.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-1/:orderid", { templateUrl: "order/orderdetails-1.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;
