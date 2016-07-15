@@ -28,7 +28,7 @@ module OneStopCustomerApp {
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
-    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll']);
+    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);

@@ -374,6 +374,7 @@
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PayOrder.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\PicInfo.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PlaceOrder.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\SelectPhotos.ts" />
     <TypeScriptCompile Include="WebSrc\app\order\PhotoInfo.ts" />

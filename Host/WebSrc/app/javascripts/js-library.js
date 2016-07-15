@@ -384,9 +384,34 @@ var Controllers;
                 self.$scope.AcccountId = $cookies.get("cid");
                 placeOrder.CustomerId = self.$scope.AcccountId;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
+                placeOrder.AppointmentDate = self.$scope.AppointmentDate;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
                     var orderId = res;
                     self.$location.path("/orderpayment/" + orderId);
+                });
+            };
+            self.$scope.loadMorePhotoPics = function () {
+                self.$scope.busy = true;
+                var lastPicId = 0;
+                if (self.$scope.OfferDetails == null) {
+                    self.$scope.OfferDetails = new DataModels.Offer();
+                }
+                if (self.$scope.OfferDetails.OfferPics == null) {
+                    self.$scope.OfferDetails.OfferPics = new Array();
+                }
+                else {
+                    if (self.$scope.OfferDetails.OfferPics.length > 0) {
+                        lastPicId = self.$scope.OfferDetails.OfferPics[self.$scope.OfferDetails.OfferPics.length - 1].PictureId;
+                    }
+                }
+                self.dataSvc.getMoreOfferPics(self.$routeParams.offerid, lastPicId).then(function (data) {
+                    if (self.$scope.OfferDetails.OfferPics == null) {
+                        self.$scope.OfferDetails.OfferPics = new Array();
+                    }
+                    for (var i = 0; i < data.Pics.length; i++) {
+                        self.$scope.OfferDetails.OfferPics.push(data.Pics[i]);
+                    }
+                    self.$scope.busy = false;
                 });
             };
             self.init();
@@ -408,6 +433,7 @@ var Services;
         function OfferDetailsDataSvc($http, $q) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
+            this.getOfferPicApiPath = "api/offer/getofferpics";
             this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
@@ -432,6 +458,18 @@ var Services;
                 .then(function (result) {
                 self.OrderId = result.data.OrderId;
                 deferred.resolve(self.OrderId);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OfferDetailsDataSvc.prototype.getMoreOfferPics = function (offerId, lastPicId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOfferPicApiPath + "/" + offerId + "/" + lastPicId)
+                .then(function (result) {
+                self.Pics = result.data;
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -514,6 +552,16 @@ var DataModels;
         return PayOrder;
     }());
     DataModels.PayOrder = PayOrder;
+})(DataModels || (DataModels = {}));
+
+var DataModels;
+(function (DataModels) {
+    var PicInfo = (function () {
+        function PicInfo() {
+        }
+        return PicInfo;
+    }());
+    DataModels.PicInfo = PicInfo;
 })(DataModels || (DataModels = {}));
 
 var DataModels;
@@ -912,6 +960,7 @@ var Services;
 /// <reference path="./offer/OrderPaymentCtrl.ts" />
 /// <reference path="./offer/PaymentDataSvc.ts" />
 /// <reference path="./offer/PayOrder.ts" />
+/// <reference path="./offer/PicInfo.ts" />
 /// <reference path="./offer/PlaceOrder.ts" />
 /// <reference path="./order/Order.ts" />
 /// <reference path="./order/Photo.ts" />
@@ -957,7 +1006,7 @@ var OneStopCustomerApp;
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     //test
-    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll']);
+    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);

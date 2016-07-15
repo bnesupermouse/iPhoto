@@ -4,7 +4,7 @@
         OfferId: number;
         Description: string;
         Price: number;
-        OfferPics: Array<string>;
+        OfferPics: Array<PicInfo>;
         SortOrder: number;
     }
     export interface IBaseScope extends ng.IScope {
@@ -39,7 +39,10 @@
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
+        AppointmentDate: Date;
         placeOrder(): void;
+        loadMorePhotoPics(): void;
+        busy: boolean;
     }
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;

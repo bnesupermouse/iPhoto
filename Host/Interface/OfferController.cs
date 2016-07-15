@@ -41,12 +41,18 @@ namespace Host
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder};
                 var res = offer.ToList();
-                foreach(var of in res)
-                {
-                    of.OfferPics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o=>o.Path).ToList();
-                }
                 return res.FirstOrDefault();
 
+            }
+        }
+
+        [HttpGet]
+
+        public List<PicInfo> GetOfferPics(long id, long id2)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                return dc.OfferPicture.Where(p => p.OfferId == id && p.OfferPictureId > id2).Take(10).Select(p => new PicInfo { PictureId = p.OfferPictureId, Path = p.Path }).ToList();
             }
         }
     }

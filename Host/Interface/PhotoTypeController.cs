@@ -34,7 +34,7 @@ namespace Host
                 var res = offers.ToList();
                 foreach(var of in res)
                 {
-                    var pics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o => o.Path).ToList();
+                    var pics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o => new PicInfo { PictureId = o.OfferPictureId, Path = o.Path }).ToList();
                     of.OfferPics = pics;
                 }
                 var pt = dc.PhotoType.Where(p => p.PhotoTypeId == id).FirstOrDefault();

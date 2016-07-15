@@ -45,7 +45,7 @@ namespace Host
             order.PhotographerId = PhotographerId;
             order.CustomerId = curReq.CustomerId;
             order.OfferId = curReq.OfferId;
-            order.AppointmentTime = DateTime.Now;
+            order.AppointmentTime = curReq.AppointmentDate;
             order.OrderTime = DateTime.Now;
             order.Status = (int)OrderStatus.OrderPending;
 

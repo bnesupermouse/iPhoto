@@ -14,6 +14,7 @@
     "typescript": "^1.8.10"
   },
   "dependencies": {
+    "angular-bootstrap-datetimepicker": "^1.0.1",
     "gulp-concat": "^2.6.0"
   }
 }

@@ -15,5 +15,6 @@ namespace Host
         //public PaymentInfo Payment { get; set; }
         public long CustomerId { get; set; }
         public long OfferId { get; set; }
+        public DateTime AppointmentDate { get; set; }
     }
 }

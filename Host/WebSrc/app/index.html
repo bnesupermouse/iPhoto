@@ -32,6 +32,8 @@
     <link href="assets/css/footable-0.1.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/footable.sortable-0.1.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/file-uploader.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="assets/css/datetimepicker.css" />
+
 </head>
 
 <body ng-controller="IndexPageCtrl">
@@ -79,7 +81,7 @@
 
         <div id="collNav" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#"> Home </a></li>
+                <li><a href="#"> Home </a></li>
                 <li data-toggle="collapse" data-target=".navbar-collapse" ng-repeat="x in PhotoTypes" class="dropdown megamenu-fullwidth"><a href="#phototype/{{x.PhotoTypeId}}"> {{x.PhotoTypeName}} </a></li>
             </ul>
             <!--/.navbar-nav hidden-xs-->
@@ -236,5 +238,8 @@
 <script src="assets/js/script.js"></script>
 <script src="assets/js/photostatusfilter.js"></script>   
 <script src="assets/js/infinitescrolling.js"></script>
+    <script type="text/javascript" src="assets/js/moment.js"></script>
+    <script type="text/javascript" src="assets/js/datetimepicker.js"></script>
+    <script type="text/javascript" src="assets/js/datetimepicker.templates.js"></script>
 </body>
 </html>
