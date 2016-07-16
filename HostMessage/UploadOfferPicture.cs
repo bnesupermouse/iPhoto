@@ -13,6 +13,7 @@ namespace Host
             TxnId = 1;
         }
         public long OfferId { get; set; }
+        public long PhotographerId { get; set; }
         public List<OfferPicture> Pictures { get; set; }
     }
 }

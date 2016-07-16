@@ -1,0 +1,191 @@
+﻿
+    <!-- /.Fixed navbar  -->
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <div class="breadcrumbDiv col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="account.html">My Account</a></li>
+                    <li class="active"> My information</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7">
+                <h1 class="section-title-inner">
+                    <span>
+                        <i class="glyphicon glyphicon-user"></i>New Offer information
+                    </span>
+                </h1>
+
+                <div class="row userInfo">
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2">
+                            Please be sure to update your personal information if it has
+                            changed.
+                        </h2>
+
+                        <p class="required"><sup>*</sup> Required field</p>
+                    </div>
+                    <form>
+                        <div class="col-xs-12 col-sm-6">
+
+                            <div class="form-group required">
+                                <label for="InputName">Photo Type <sup>*</sup> </label>
+                                <select class="form-control" ng-options="item.PhotoTypeId as item.PhotoTypeName for item in PhotoTypes track by item.PhotoTypeId" ng-model="OfferDetails.PhotoTypeId"></select>
+                            </div>
+                            
+                            <div class="form-group required">
+                                <label for="InputName">Offer Name <sup>*</sup> </label>
+                                <input ng-model="OfferDetails.OfferName" required type="text" class="form-control" id="InputName" placeholder="Offer Name">
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputLastName">Description<sup>*</sup> </label>
+                                <textarea ng-model="OfferDetails.Description" required type="text" class="form-control" rows="4" cols="50"></textarea>
+                           </div>
+                            <div class="form-group">
+                                <label for="InputEmail"> Price </label>
+                                <input ng-model="OfferDetails.Price"  class="form-control" type="number" min="0.01" step="50" max="2500"/>
+                            </div>
+                            <div class="form-group">
+                                <label>Valid From</label>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+                                            <div class="input-append">
+                                                <input type="text" class="input-large" ng-model="OfferDetails.StartTime" ><span class="add-on">
+                                                    <i class="icon-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                            <datetimepicker ng-model="OfferDetails.StartTime" 
+                                                            data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                                        </ul>
+                                    </div>
+                             </div>
+                            <div class="form-group">
+                                <label>Valid To</label>
+                                <div class="dropdown">
+                                    <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
+                                        <div class="input-append">
+                                            <input type="text" class="input-large" ng-model="OfferDetails.EndTime" ><span class="add-on">
+                                                <i class="icon-calendar"></i>
+                                            </span>
+                                        </div>
+                                    </a>
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                        <datetimepicker ng-model="OfferDetails.EndTime" 
+                                                        data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> Duration Hours <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.DurationHour" class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Servicer <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoServicer"  class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> Max People <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.MaxPeople"  class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Raw Photos <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoRawPhoto" class="form-control" type="number" min="1" step="10" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Retouched Photos <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoRetouchedPhoto" class="form-control" type="number" min="1" step="5" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Makeup <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoMakeup" class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Costume <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoCostume" class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+                            <div class="form-group required">
+                                <label for="InputPasswordCurrent"> No Venues <sup> * </sup> </label>
+                                <input ng-model="OfferDetails.NoVenue" class="form-control" type="number" min="1" step="1" max="2500" />
+                            </div>
+                 
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group ">
+                                <p class=" clearfix">
+                                    <input type="checkbox" value="1" name="newsletter" id="newsletter">
+                                    <label for="newsletter">Sign up for our newsletter!</label>
+                                </p>
+                                <p class="clearfix">
+                                    <input type="checkbox" value="1" id="optin" name="optin">
+                                    <label for="optin">Receive special offers from our partners!</label>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <button type="button" ng-click="addOffer()" class="btn   btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
+                        </div>
+                    </form>
+                </div>
+                <!--/row end-->
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5"></div>
+        </div>
+        <!--/row-->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="block-title-2"> Upload Raw Photos </h2>
+            </div>
+            <div class="col-md-12" margin-bottom:10px;">
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Add files...</span>
+                    <!-- The file input field used as target for the file upload widget -->
+                    <input type="file" id="fileupload" onchange="angular.element(this).scope().setFiles()" multiple>
+                </span>
+            </div>
+
+        </div>
+        <div id="photosToUpLoad" class="row">
+            <div class="col-md-12" style="padding-top:10px;">
+
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>File Name</th>
+                            <th class="hidden-xs">File Type</th>
+                            <th class="hidden-xs">File Size</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="file in OfferDetails.OfferPics">
+
+                            <td>{{file.PictureName}}</td>
+                            <td class="hidden-xs">{{file.type}}</td>
+                            <td class="hidden-xs">{{file.size}}</td>
+                            <td>
+                                <div id="{{'P'+$index}}">
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div style="clear:both"></div>
+    </div>
+    <!-- /main-container -->

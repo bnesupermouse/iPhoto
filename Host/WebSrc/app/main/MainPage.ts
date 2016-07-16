@@ -1,9 +1,22 @@
 ﻿module DataModels {
     export class Offer {
         OfferName: string;
+        PhotographerId: number;
         OfferId: number;
         Description: string;
         Price: number;
+        AdditionalRetouchPrice: number;
+        StartTime: Date;
+        EndTime: Date;
+        NoServicer: number;
+        MaxPeople: number;
+        NoRawPhoto: number;
+        NoRetouchedPhoto: number;
+        NoMakeup: number;
+        NoCostume: number;
+        NoVenue: number;
+        DurationHour: number;
+        Comment: string;
         OfferPics: Array<PicInfo>;
         SortOrder: number;
     }
@@ -40,8 +53,12 @@
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
         AppointmentDate: Date;
+        PhotoTypes: Array<PhotoType>;
         placeOrder(): void;
         loadMorePhotoPics(): void;
+        addOffer(): void;
+        setFiles(): void;
+        uploadPhotos(): void;
         busy: boolean;
     }
     export interface IOrderListPageScope extends IBaseScope {

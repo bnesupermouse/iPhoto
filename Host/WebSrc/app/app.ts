@@ -16,6 +16,7 @@ module OneStopCustomerApp {
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
+                .when("/addoffer", { templateUrl: "offer/addoffer.html", controller: "GetOfferDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }

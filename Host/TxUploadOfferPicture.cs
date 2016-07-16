@@ -21,12 +21,7 @@ namespace Host
         {
             var curReq = request as UploadOfferPicture;
             //Check Session
-            var res = UpdatePhotographerSession(true);
-            if(res != Result.Success)
-            {
-                return res;
-            }
-
+            
             //Check Offer
             Offer offer = new Offer();
             offer.OfferId = curReq.OfferId;
@@ -35,7 +30,7 @@ namespace Host
             {
                 return Result.Failed;
             }
-
+            PhotographerId = curReq.PhotographerId;
             //Check OfferPhotographer
             OfferPhotographer op = new OfferPhotographer();
             op.OfferId = offer.OfferId;
@@ -45,9 +40,16 @@ namespace Host
             {
                 return Result.Failed;
             }
+            PhotographerId = op.PhotographerId;
+
+            var res = UpdatePhotographerSession(true);
+            if (res != Result.Success)
+            {
+                return res;
+            }
 
             //Validate Pic Info
-            if(curReq.Pictures.Count <=0)
+            if (curReq.Pictures.Count <=0)
             {
                 return Result.Failed;
             }

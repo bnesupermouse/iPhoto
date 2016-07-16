@@ -390,6 +390,40 @@ var Controllers;
                     self.$location.path("/orderpayment/" + orderId);
                 });
             };
+            self.$scope.addOffer = function () {
+                var ctype = $cookies.get("ctype");
+                if (ctype == 2) {
+                    self.$scope.OfferDetails.PhotographerId = $cookies.get("cid");
+                    dataSvc.addOffer(self.$scope.OfferDetails).then(function (res) {
+                        self.$scope.OfferDetails.OfferId = res;
+                        if (self.$scope.OfferDetails.OfferPics.length > 0) {
+                            self.$scope.uploadPhotos();
+                        }
+                    });
+                }
+            };
+            self.$scope.setFiles = function () {
+                if (self.$scope.OfferDetails == null) {
+                    self.$scope.OfferDetails = new DataModels.Offer;
+                }
+                self.$scope.OfferDetails.OfferPics = new Array();
+                self.$scope.$apply();
+                var files = document.getElementById("fileupload").files;
+                for (var i = 0; i < files.length; i++) {
+                    var photo = new DataModels.PicInfo();
+                    photo.file = files[i];
+                    photo.PictureName = files[i].name;
+                    photo.size = files[i].size;
+                    photo.type = files[i].type;
+                    self.$scope.OfferDetails.OfferPics.push(photo);
+                }
+                self.$scope.$apply();
+            };
+            self.$scope.uploadPhotos = function () {
+                for (var i = 0; i < self.$scope.OfferDetails.OfferPics.length; i++) {
+                    self.uploadIndividualPhoto(self.$scope.OfferDetails.OfferPics[i], i);
+                }
+            };
             self.$scope.loadMorePhotoPics = function () {
                 self.$scope.busy = true;
                 var lastPicId = 0;
@@ -416,11 +450,60 @@ var Controllers;
             };
             self.init();
         }
+        OfferDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index) {
+            var self = this;
+            //Create XMLHttpRequest Object
+            var reqObj = new XMLHttpRequest();
+            //event Handler
+            reqObj.upload.addEventListener("progress", uploadProgress, false);
+            reqObj.addEventListener("load", uploadComplete, false);
+            reqObj.addEventListener("error", uploadFailed, false);
+            reqObj.addEventListener("abort", uploadCanceled, false);
+            //open the object and set method of call(get/post), url to call, isasynchronous(true/False)
+            reqObj.open("POST", "/api/offer/UploadPhoto", true);
+            //Set Other header like file name,size and type
+            reqObj.setRequestHeader('X-File-Name', photo.PictureName);
+            reqObj.setRequestHeader('X-File-Type', photo.type);
+            reqObj.setRequestHeader('X-File-Size', photo.size.toString());
+            reqObj.setRequestHeader('X-Order-Id', self.$scope.OfferDetails.OfferId.toString());
+            // send the file
+            reqObj.send(photo.file);
+            //self.dataSvc.uploadAPhoto(fdata);
+            function uploadProgress(evt) {
+                if (evt.lengthComputable) {
+                    var uploadProgressCount = Math.round(evt.loaded * 100 / evt.total);
+                    document.getElementById("P" + index.toString()).innerHTML = uploadProgressCount.toString();
+                    if (uploadProgressCount == 100) {
+                        document.getElementById('P' + index).innerHTML =
+                            '<i class="fa fa-refresh fa-spin" style="color:maroon;"></i>';
+                    }
+                }
+            }
+            function uploadComplete(evt) {
+                /* This event is raised when the server  back a response */
+                document.getElementById('P' + index).innerHTML = 'Saved';
+                //$scope.NoOfFileSaved++;
+                //$scope.$apply();
+            }
+            function uploadFailed(evt) {
+                document.getElementById('P' + index).innerHTML = 'Upload Failed..';
+            }
+            function uploadCanceled(evt) {
+                document.getElementById('P' + index).innerHTML = 'Canceled....';
+            }
+        };
         OfferDetailsCtrl.prototype.init = function () {
             var self = this;
-            self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
-                self.$scope.OfferDetails = data.OfferDetails;
-            });
+            if (self.$routeParams.offerid != null) {
+                self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
+                    self.$scope.OfferDetails = data.OfferDetails;
+                });
+            }
+            else {
+                self.dataSvc.getPhotoTypes().then(function (data) {
+                    self.$scope.PhotoTypes = data.PhotoTypes;
+                });
+            }
         };
         return OfferDetailsCtrl;
     }());
@@ -434,6 +517,8 @@ var Services;
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
             this.getOfferPicApiPath = "api/offer/getofferpics";
+            this.addOfferApiPath = "api/offer/addnewoffer";
+            this.getPhotoTypesApiPath = "api/offer/getphototypes";
             this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
@@ -463,12 +548,36 @@ var Services;
             });
             return deferred.promise;
         };
+        OfferDetailsDataSvc.prototype.addOffer = function (offer) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.addOfferApiPath, offer)
+                .then(function (result) {
+                self.OfferDetails.OfferId = result.data.OfferId;
+                deferred.resolve(self.OfferDetails.OfferId);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
         OfferDetailsDataSvc.prototype.getMoreOfferPics = function (offerId, lastPicId) {
             var self = this;
             var deferred = self.qService.defer();
             self.httpService.get(self.getOfferPicApiPath + "/" + offerId + "/" + lastPicId)
                 .then(function (result) {
                 self.Pics = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OfferDetailsDataSvc.prototype.getPhotoTypes = function () {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getPhotoTypesApiPath)
+                .then(function (result) {
+                self.PhotoTypes = result.data;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -1042,6 +1151,7 @@ var OneStopCustomerApp;
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
+                .when("/addoffer", { templateUrl: "offer/addoffer.html", controller: "GetOfferDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;

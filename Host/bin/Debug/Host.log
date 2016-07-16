@@ -1339,3 +1339,13 @@
 [2016-07-03 10:32:00,785]  15 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
 [2016-07-03 10:33:23,919]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email Validation Failed
 [2016-07-04 20:13:52,801]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Customer Name cannot be NULL
+[2016-07-16 16:24:07,266]  14 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:33:56,486]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:36:25,824]  15 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:37:37,248]  3 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:57:14,904]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:57:38,852]  10 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 16:58:19,074]  15 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 17:05:46,376]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 19:24:18,945]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 19:27:04,427]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
