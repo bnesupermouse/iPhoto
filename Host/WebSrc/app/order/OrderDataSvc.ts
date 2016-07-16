@@ -5,6 +5,7 @@
         private updateOrderStatusApiPath: string;
         private getOrderPhotos: string;
         private selectRawPhotosPath: string;
+        private selectRetouchedPhotosPath: string;
 
         public OrderList: Array<DataModels.Order>;
         private httpService: ng.IHttpService;
@@ -73,6 +74,9 @@
             self.httpService.post(self.updateOrderStatusApiPath, updateOrder)
                 .then(function (result: any) {
                     self.OrderId = result.data.OrderId;
+                    self.Details.Status = result.data.Status;
+                    self.Details.StatusString = result.data.StatusString;
+                    self.Details.LabelString = result.data.LabelString;
                     deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
@@ -100,12 +104,30 @@
             return deferred.promise;
         }
 
+        selectRetouchedPhotos(orderId: number, selectedPhotoIds: Array<number>, deSelectedPhotoIds: Array<number>): ng.IPromise<any> {
+            var self = this;
+            var deferred = self.qService.defer();
+            let selectPhotos = new DataModels.SelectPhotos();
+            selectPhotos.OrderId = orderId;
+            selectPhotos.SelectedPhotoIds = selectedPhotoIds;
+            selectPhotos.DeselectedPhotoIds = deSelectedPhotoIds;
+            self.httpService.post(self.selectRetouchedPhotosPath, selectPhotos)
+                .then(function (result: any) {
+                    deferred.resolve(self);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.getOrderListApiPath = "api/order/getorderlist";
             this.getOrderDetailsApiPath = "api/order/getorderdetails";
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
             this.getOrderPhotos = "api/order/getorderphotos";
             this.selectRawPhotosPath = "api/order/selectrawphotos";
+            this.selectRetouchedPhotosPath = "api/order/selectretouchedphotos";
             this.OrderList = new Array<DataModels.Order>();
             this.httpService = $http;
             this.qService = $q;

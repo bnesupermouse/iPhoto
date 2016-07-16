@@ -19,22 +19,22 @@ namespace Host
 
         public override Result Validate()
         {
-            var curReq = request as ConfirmRetouchedPhoto;
+            var curReq = request as SelectPhoto;
+            CustomerOrder order = new CustomerOrder();
+            order.SerialNo = curReq.OrderId;
+            order = order.Fetch() as CustomerOrder;
+            if (order == null)
+            {
+                return Result.Failed;
+            }
+            CustomerId = order.CustomerId;
             //Check Session
             var res = UpdateCustomerSession(true);
             if(res != Result.Success)
             {
                 return res;
             }
-
             //Check Order
-            CustomerOrder order = new CustomerOrder();
-            order.SerialNo = curReq.OrderId;
-            order = order.Fetch() as CustomerOrder;
-            if(order == null)
-            {
-                return Result.Failed;
-            }
             res = ValidateOrderInfo(order);
             if (order == null)
             {
@@ -45,14 +45,14 @@ namespace Host
                 return Result.Failed;
             }
             //Validate Photo Info
-            if(curReq.PhotoIds.Count <=0)
+            if(curReq.SelectedPhotoIds.Count <=0)
             {
                 return Result.Failed;
             }
             var resp = new ConfirmRetouchedPhotoResponse();
             resp.OrderId = order.SerialNo;
             resp.PhotoIds = new List<long>();
-            foreach (var photo in curReq.PhotoIds)
+            foreach (var photo in curReq.SelectedPhotoIds)
             {
                 Photo ph = new Photo();
                 ph.PhotoId = photo;
@@ -71,6 +71,25 @@ namespace Host
                 }
                 var newPh = ph.Clone() as Photo;
                 newPh.Confirmed = true;
+                Data.AddNew(ph, newPh);
+
+                resp.PhotoIds.Add(photo);
+            }
+            foreach (var photo in curReq.DeselectedPhotoIds)
+            {
+                Photo ph = new Photo();
+                ph.PhotoId = photo;
+                ph = ph.Fetch() as Photo;
+                if (ph == null)
+                {
+                    return Result.Failed;
+                }
+                if (!ph.Confirmed)
+                {
+                    return Result.Failed;
+                }
+                var newPh = ph.Clone() as Photo;
+                newPh.Confirmed = false;
                 Data.AddNew(ph, newPh);
 
                 resp.PhotoIds.Add(photo);

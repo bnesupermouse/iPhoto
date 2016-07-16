@@ -698,9 +698,23 @@ var Controllers;
                     //self.$scope.Details = data.Details;
                 });
             };
+            self.$scope.confirmRetouchedPhotosUploaded = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            };
             self.$scope.confirmPhotoSelected = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                    self.$scope.Details.Status = data.Details.Status;
+                    self.$scope.Details.StatusString = data.Details.StatusString;
+                    self.$scope.Details.LabelString = data.Details.LabelString;
+                });
+            };
+            self.$scope.finaliseOrder = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderFinalised).then(function (data) {
+                    self.$scope.Details.Status = data.Details.Status;
+                    self.$scope.Details.StatusString = data.Details.StatusString;
+                    self.$scope.Details.LabelString = data.Details.LabelString;
                 });
             };
             self.$scope.loadMore = function (photoType) {
@@ -785,6 +799,23 @@ var Controllers;
                     //self.$scope.Details = data.Details;
                 });
             };
+            self.$scope.selectRetouchedPhotos = function () {
+                var selectedPhotoIds = new Array();
+                for (var i = 0; i < self.$scope.Details.RetouchedPhotos.length; i++) {
+                    if (!self.$scope.Details.RetouchedPhotos[i].Confirmed && self.$scope.Details.RetouchedPhotos[i].NewConfirmed) {
+                        selectedPhotoIds.push(self.$scope.Details.RetouchedPhotos[i].PhotoId);
+                    }
+                }
+                var deSelectedPhotoIds = new Array();
+                for (var i = 0; i < self.$scope.Details.RetouchedPhotos.length; i++) {
+                    if (self.$scope.Details.RetouchedPhotos[i].Confirmed && !self.$scope.Details.RetouchedPhotos[i].NewConfirmed) {
+                        deSelectedPhotoIds.push(self.$scope.Details.RetouchedPhotos[i].PhotoId);
+                    }
+                }
+                self.dataSvc.selectRetouchedPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            };
             self.init();
         }
         OrderDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index, status) {
@@ -862,6 +893,7 @@ var Services;
             this.updateOrderStatusApiPath = "api/order/updateorderstatus";
             this.getOrderPhotos = "api/order/getorderphotos";
             this.selectRawPhotosPath = "api/order/selectrawphotos";
+            this.selectRetouchedPhotosPath = "api/order/selectretouchedphotos";
             this.OrderList = new Array();
             this.httpService = $http;
             this.qService = $q;
@@ -911,6 +943,9 @@ var Services;
             self.httpService.post(self.updateOrderStatusApiPath, updateOrder)
                 .then(function (result) {
                 self.OrderId = result.data.OrderId;
+                self.Details.Status = result.data.Status;
+                self.Details.StatusString = result.data.StatusString;
+                self.Details.LabelString = result.data.LabelString;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -925,6 +960,21 @@ var Services;
             selectPhotos.SelectedPhotoIds = selectedPhotoIds;
             selectPhotos.DeselectedPhotoIds = deSelectedPhotoIds;
             self.httpService.post(self.selectRawPhotosPath, selectPhotos)
+                .then(function (result) {
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OrderDataSvc.prototype.selectRetouchedPhotos = function (orderId, selectedPhotoIds, deSelectedPhotoIds) {
+            var self = this;
+            var deferred = self.qService.defer();
+            var selectPhotos = new DataModels.SelectPhotos();
+            selectPhotos.OrderId = orderId;
+            selectPhotos.SelectedPhotoIds = selectedPhotoIds;
+            selectPhotos.DeselectedPhotoIds = deSelectedPhotoIds;
+            self.httpService.post(self.selectRetouchedPhotosPath, selectPhotos)
                 .then(function (result) {
                 deferred.resolve(self);
             }, function (error) {
@@ -990,6 +1040,8 @@ var OneStopCustomerApp;
                 .when("/orderdetails-0/:orderid", { templateUrl: "order/orderdetails-0.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-1/:orderid", { templateUrl: "order/orderdetails-1.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;

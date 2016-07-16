@@ -9,5 +9,8 @@ namespace HostMessage.Responses
     public class UpdateOrderStatusResponse:Response
     {
         public long OrderId { get; set; }
+        public int Status { get; set; }
+        public string StatusString { get; set; }
+        public string LabelString { get; set; }
     }
 }

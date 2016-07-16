@@ -19,7 +19,7 @@ namespace Host
 
         public override Result Validate()
         {
-            var curReq = request as SelectRawPhoto;
+            var curReq = request as SelectPhoto;
             //Check Order
             CustomerOrder order = new CustomerOrder();
             order.SerialNo = curReq.OrderId;

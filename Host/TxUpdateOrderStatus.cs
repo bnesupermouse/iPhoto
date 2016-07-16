@@ -7,6 +7,7 @@ using Host;
 using HostDB;
 using HostMessage.Responses;
 using Host.Common;
+using Host.Models;
 
 namespace Host
 {
@@ -29,6 +30,7 @@ namespace Host
                 return Result.Failed;
             }
             PhotographerId = order.PhotographerId;
+            CustomerId = order.CustomerId;
             //Check Session
             var res = Result.Success;
             if (curReq.ToStatus == (int)OrderStatus.PhotoSelected || curReq.ToStatus == (int)OrderStatus.OrderFinalised)
@@ -126,6 +128,9 @@ namespace Host
             Data.AddNew(order, newOrder);
             var resp = new UpdateOrderStatusResponse();
             resp.OrderId = newOrder.SerialNo;
+            resp.Status = curReq.ToStatus;
+            resp.StatusString = StatusValue.GetStatusValue(newOrder.Status, newOrder.Paid);
+            resp.LabelString = StatusValue.GetLabelValue(newOrder.Status, newOrder.Paid);
             response = resp;
             return Result.Success;
         }

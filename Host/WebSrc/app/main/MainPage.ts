@@ -62,8 +62,11 @@
         setFiles(): void;
         uploadPhotos(): void;
         selectRawPhotos(): void;
+        selectRetouchedPhotos(): void;
         confirmPhotoSelected(): void;
         loadMore(photoType: number): void;
+        confirmRetouchedPhotosUploaded(): void;
+        finaliseOrder(): void;
         busy: boolean;
     }
 }

@@ -31,22 +31,11 @@
                                 <div class="details-description">
                                     <p>{{OfferDetails.Description}} </p>
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="order-box">
-                            <div class="order-box-header">
-                               Order Details
-                            </div>
-                            <div class="order-box-content">
                                 <p><strong>Appointment Time:</strong> {{AppointmentDate | date:'M/d/yyyy HH:mm:ss'}}</p>
-                                
-
                                 <div class="dropdown">
                                     <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                                        Click here to show calendar
+                                        Show calendar
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                                         <datetimepicker ng-model="AppointmentDate"
@@ -60,8 +49,7 @@
                         </div>
 
                     </div>
-
-                    </div>
+                 </div>
             </div>
             <!--/row end-->
 
@@ -72,6 +60,9 @@
     <div class="row">
         <div class="col-sm-12 clearfix">
             <div class="order-box">
+                <div class="order-box-header">
+                  Offer Pictures
+                </div>
                 <div class="order-box-content">
                     <div class="table-responsive">
                         <table>

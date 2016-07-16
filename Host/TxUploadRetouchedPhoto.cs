@@ -50,7 +50,7 @@ namespace Host
             {
                 return Result.Failed;
             }
-            var resp = new UploadRawPhotoResponse();
+            var resp = new UploadRetouchedPhotoResponse();
             resp.OrderId = order.SerialNo;
             resp.PhotoPaths = new List<string>();
             foreach (var photo in curReq.RetouchedPhotos)

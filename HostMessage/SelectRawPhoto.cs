@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Host
 {
-    public class SelectRawPhoto : Request
+    public class SelectPhoto : Request
     {
-        public SelectRawPhoto()
+        public SelectPhoto()
         {
             TxnId = 1;
         }

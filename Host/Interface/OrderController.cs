@@ -79,7 +79,7 @@ namespace Host
                     UploadRetouchedPhoto upRetouched = new UploadRetouchedPhoto();
                     upRetouched.OrderId = OrderId;
                     upRetouched.RetouchedPhotos = new List<Photo>();
-                    upRetouched.RetouchedPhotos.Add(new Photo { Path = photoPath, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = true, Selected = false, Confirmed = false, SortOrder = 0 });
+                    upRetouched.RetouchedPhotos.Add(new Photo { Path = photoPath, CustomerOrderId = OrderId, PhotoName = fileName, Retouched = true, Selected = true, Confirmed = false, SortOrder = 0 });
                     TxUploadRetouchedPhoto txn = new TxUploadRetouchedPhoto();
                     txn.request = upRetouched;
                     TxnFunc.ProcessTxn(txn);
@@ -105,9 +105,18 @@ namespace Host
         }
 
         [HttpPost]
-        public Response SelectRawPhotos(SelectRawPhoto select)
+        public Response SelectRawPhotos(SelectPhoto select)
         {
             TxSelectRawPhoto txn = new TxSelectRawPhoto();
+            txn.request = select;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
+
+        [HttpPost]
+        public Response SelectRetouchedPhotos(SelectPhoto select)
+        {
+            TxConfirmRetouchedPhoto txn = new TxConfirmRetouchedPhoto();
             txn.request = select;
             var res = TxnFunc.ProcessTxn(txn);
             return txn.response;
@@ -239,7 +248,8 @@ namespace Host
                 }
                 else
                 {
-                    return dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched && p.PhotoId > id3).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
+                    var res =  dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched && p.PhotoId > id3).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
+                    return res;
                 }
             }
         }

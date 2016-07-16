@@ -27,9 +27,25 @@
                 });
             }
 
+            self.$scope.confirmRetouchedPhotosUploaded = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            }
+
             self.$scope.confirmPhotoSelected = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                    self.$scope.Details.Status = data.Details.Status;
+                    self.$scope.Details.StatusString = data.Details.StatusString;
+                    self.$scope.Details.LabelString = data.Details.LabelString;
+                });
+            }
+
+            self.$scope.finaliseOrder = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderFinalised).then(function (data) {
+                    self.$scope.Details.Status = data.Details.Status;
+                    self.$scope.Details.StatusString = data.Details.StatusString;
+                    self.$scope.Details.LabelString = data.Details.LabelString;
                 });
             }
 
@@ -119,6 +135,26 @@
 
                 }
                 self.dataSvc.selectRawPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                });
+            }
+
+            self.$scope.selectRetouchedPhotos = function () {
+                let selectedPhotoIds = new Array<number>();
+                for (var i = 0; i < self.$scope.Details.RetouchedPhotos.length; i++) {
+                    if (!self.$scope.Details.RetouchedPhotos[i].Confirmed && self.$scope.Details.RetouchedPhotos[i].NewConfirmed) {
+                        selectedPhotoIds.push(self.$scope.Details.RetouchedPhotos[i].PhotoId);
+                    }
+
+                }
+                let deSelectedPhotoIds = new Array<number>();
+                for (var i = 0; i < self.$scope.Details.RetouchedPhotos.length; i++) {
+                    if (self.$scope.Details.RetouchedPhotos[i].Confirmed && !self.$scope.Details.RetouchedPhotos[i].NewConfirmed) {
+                        deSelectedPhotoIds.push(self.$scope.Details.RetouchedPhotos[i].PhotoId);
+                    }
+
+                }
+                self.dataSvc.selectRetouchedPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
                     //self.$scope.Details = data.Details;
                 });
             }

@@ -1,0 +1,153 @@
+﻿<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="breadcrumbDiv col-lg-12">
+            <ul class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="account.html">My Account</a></li>
+                <li class="active"> Order List</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-7">
+            <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Order Status </span></h1>
+
+            <div class="row userInfo">
+                <div class="col-lg-12">
+                    <h2 class="block-title-2"> Your Order Status </h2>
+                </div>
+
+
+                <div class="statusContent">
+
+
+                    <div class="col-sm-12">
+                        <div class=" statusTop">
+                            <p><strong>Status:</strong> {{Details.StatusString}}</p>
+
+                            <p><strong>Order Date:</strong> {{Details.OrderTime}}</p>
+
+                            <p><strong>Order Number:</strong> {{Details.SerialNo}} </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="order-box">
+                            <div class="order-box-header">
+
+                                Order Details
+                            </div>
+
+
+                            <div class="order-box-content">
+                                <div class="address">
+                                    <p><strong>TITLE </strong></p>
+
+                                    <p><strong>Ruth F. Burns </strong></p>
+
+                                    <div class="adr">
+                                        4894 Burke Street
+                                        North Billerica, MA 01862
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--/row end-->
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-5"></div>
+    </div>
+    <!--/row-->
+    <div class="row">
+        <div class="col-md-12" margin-bottom:10px;">
+            <button ng-click="confirmRetouchedPhotosUploaded()" class="btn btn-danger">Confirm All Retouched Photos Uploaded</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="block-title-2"> Upload Retouched Photos </h2>
+        </div>
+        <div class="col-md-12" margin-bottom:10px;">
+            <span class="btn btn-success fileinput-button">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add files...</span>
+                <!-- The file input field used as target for the file upload widget -->
+                <input type="file" id="fileupload" onchange="angular.element(this).scope().setFiles()" multiple>
+            </span>
+            <button ng-click="uploadPhotos()" class="btn btn-info">Upload Photos</button>
+            <!--<input type="file" id="photoSelector" onchange="angular.element(this).scope().setFiles()" multiple accept="image/*" class="btn btn-warning" />-->
+        </div>
+
+    </div>
+    <div id="photosToUpLoad" class="row">
+        <div class="col-md-12" style="padding-top:10px;">
+
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>File Name</th>
+                        <th class="hidden-xs">File Type</th>
+                        <th class="hidden-xs">File Size</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="file in PhotoList">
+
+                        <td>{{file.name}}</td>
+                        <td class="hidden-xs">{{file.type}}</td>
+                        <td class="hidden-xs">{{file.size}}</td>
+                        <td>
+                            <div id="{{'P'+$index}}">
+
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 clearfix">
+            <div class="order-box">
+                <div class="order-box-header">
+                    Retouched Photos
+                </div>
+
+
+                <div class="order-box-content">
+                    <div class="table-responsive">
+                        <table>
+                            <tbody infinite-scroll='loadMore(2)' infinite-scroll-disabled='busy'>
+                                <tr ng-repeat="r in Details.RetouchedPhotos">
+                                    <td style="width:100%">
+                                        <label>{{r.PhotoName}}</label>
+                                        <br />
+                                        <div>
+                                            <a href="product-details.html">
+                                                <img class="img-responsive" alt="img"
+                                                     src="{{r.Path}}">
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td class="hidden-xs" style="width:10%"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        </div>
+        <!--/row end-->
+        <div style="clear:both"></div>
+    </div>
+<!-- /main-container -->
