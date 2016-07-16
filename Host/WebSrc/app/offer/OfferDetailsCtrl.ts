@@ -29,13 +29,13 @@
                 });
             }
 
-            self.$scope.addOffer = function () {
+            self.$scope.updateOffer = function () {
                 let ctype = $cookies.get("ctype");
                 if (ctype == 2) {
                     self.$scope.OfferDetails.PhotographerId = $cookies.get("cid");
-                    dataSvc.addOffer(self.$scope.OfferDetails).then(function (res) {
+                    dataSvc.updateOffer(self.$scope.OldOffer, self.$scope.OfferDetails).then(function (res) {
                         self.$scope.OfferDetails.OfferId = res;
-                        if (self.$scope.OfferDetails.OfferPics.length > 0) {
+                        if (self.$scope.OfferDetails.OfferPics != null && self.$scope.OfferDetails.OfferPics.length > 0) {
                             self.$scope.uploadPhotos();
                         }
                     });
@@ -46,8 +46,7 @@
                 if (self.$scope.OfferDetails == null) {
                     self.$scope.OfferDetails = new DataModels.Offer;
                 }
-                self.$scope.OfferDetails.OfferPics = new Array<DataModels.PicInfo>();
-                self.$scope.$apply();
+                self.$scope.OfferDetails.PicList = new Array<DataModels.PicInfo>();
                 let files = (<HTMLInputElement>document.getElementById("fileupload")).files;
                 for (var i = 0; i < files.length; i++) {
                     let photo = new DataModels.PicInfo();
@@ -55,15 +54,15 @@
                     photo.PictureName = files[i].name;
                     photo.size = files[i].size;
                     photo.type = files[i].type;
-                    self.$scope.OfferDetails.OfferPics.push(photo);
+                    self.$scope.OfferDetails.PicList.push(photo);
                 }
                 self.$scope.$apply();
             }
 
 
             self.$scope.uploadPhotos = function () {
-                for (var i = 0; i < self.$scope.OfferDetails.OfferPics.length; i++) {
-                    self.uploadIndividualPhoto(self.$scope.OfferDetails.OfferPics[i], i);
+                for (var i = 0; i < self.$scope.OfferDetails.PicList.length; i++) {
+                    self.uploadIndividualPhoto(self.$scope.OfferDetails.PicList[i], i);
                 }
             }
 
@@ -160,6 +159,10 @@
             if (self.$routeParams.offerid != null) {
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
+                    self.$scope.OldOffer = self.$scope.OfferDetails;
+                });
+                self.dataSvc.getPhotoTypes().then(function (data) {
+                    self.$scope.PhotoTypes = data.PhotoTypes;
                 });
             }
             else {

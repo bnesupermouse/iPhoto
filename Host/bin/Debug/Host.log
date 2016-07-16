@@ -1349,3 +1349,4 @@
 [2016-07-16 17:05:46,376]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
 [2016-07-16 19:24:18,945]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
 [2016-07-16 19:27:04,427]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId
+[2016-07-16 21:57:41,425]  14 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotoTypeId

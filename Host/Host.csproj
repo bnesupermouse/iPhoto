@@ -326,8 +326,9 @@
     <Content Include="WebSrc\app\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebSrc\app\offer\addoffer.html" />
+    <Content Include="WebSrc\app\offer\updoffer.html" />
     <Content Include="WebSrc\app\offer\details.html" />
+    <Content Include="WebSrc\app\offer\offerlist.html" />
     <Content Include="WebSrc\app\offer\orderpayment.html" />
     <Content Include="WebSrc\app\order\orderdetails-4.html" />
     <Content Include="WebSrc\app\order\orderdetails-3.html" />
@@ -372,6 +373,7 @@
     <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\common\IBaseScope.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
+    <TypeScriptCompile Include="WebSrc\app\offer\OfferManCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PaymentDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OrderPaymentCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferDetailsCtrl.ts" />

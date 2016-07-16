@@ -3,6 +3,7 @@
         OfferName: string;
         PhotographerId: number;
         OfferId: number;
+        PhotoTypeId: number;
         Description: string;
         Price: number;
         AdditionalRetouchPrice: number;
@@ -18,6 +19,7 @@
         DurationHour: number;
         Comment: string;
         OfferPics: Array<PicInfo>;
+        PicList: Array<PicInfo>;
         SortOrder: number;
     }
     export interface IBaseScope extends ng.IScope {
@@ -52,14 +54,18 @@
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
+        OldOffer: Offer;
         AppointmentDate: Date;
         PhotoTypes: Array<PhotoType>;
         placeOrder(): void;
         loadMorePhotoPics(): void;
-        addOffer(): void;
+        updateOffer(): void;
         setFiles(): void;
         uploadPhotos(): void;
         busy: boolean;
+    }
+    export interface IOfferListPageScope extends IBaseScope {
+        Offers: Array<Offer>;
     }
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;

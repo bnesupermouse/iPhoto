@@ -15,6 +15,7 @@
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
 
+/// <reference path="./offer/OfferManCtrl.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
 /// <reference path="./offer/OfferDetailsDataSvc.ts" />
 /// <reference path="./offer/OrderPaymentCtrl.ts" />

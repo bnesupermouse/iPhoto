@@ -21,6 +21,18 @@ namespace Host.Models
         public long PhotographerId { get; set; }
         public string PhotographerName { get; set; }
         public int SortOrder { get; set; }
-
+        public long PhotoTypeId { get; set; }
+        public decimal AdditionalRetouchPrice { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public int NoServicer { get; set; }
+        public int MaxPeople { get; set; }
+        public int NoRawPhoto { get; set; }
+        public int NoRetouchedPhoto { get; set; }
+        public int NoMakeup { get; set; }
+        public int NoCostume { get; set; }
+        public int NoVenue { get; set; }
+        public int DurationHour { get; set; }
+        public string Comment { get; set; }
     }
 }

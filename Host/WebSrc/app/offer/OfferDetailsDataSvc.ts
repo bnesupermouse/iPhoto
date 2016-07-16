@@ -3,8 +3,9 @@
         private getOfferDetailsApiPath: string;
         private placeOrderApiPath: string;
         private getOfferPicApiPath: string;
-        private addOfferApiPath: string;
+        private updateOfferApiPath: string;
         private getPhotoTypesApiPath: string;
+        private getOfferListApiPath: string;
         
         public OfferDetails: DataModels.Offer;
         private httpService: ng.IHttpService;
@@ -12,6 +13,7 @@
         OrderId: number;
         Pics: Array<DataModels.PicInfo>;
         PhotoTypes: Array<DataModels.PhotoType>;
+        Offers: Array<DataModels.Offer>;
 
         getOfferDetails(offerId:number): ng.IPromise<any> {
             var self = this;
@@ -45,11 +47,11 @@
         }
 
 
-        addOffer(offer: DataModels.Offer): ng.IPromise<any> {
+        updateOffer(oldOffer: DataModels.Offer, offer: DataModels.Offer): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
 
-            self.httpService.post(self.addOfferApiPath, offer)
+            self.httpService.post(self.updateOfferApiPath, offer)
                 .then(function (result: any) {
                     self.OfferDetails.OfferId = result.data.OfferId;
                     deferred.resolve(self.OfferDetails.OfferId);
@@ -93,12 +95,27 @@
             return deferred.promise;
         }
 
+        getOfferList(): ng.IPromise<any> {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOfferListApiPath)
+                .then(function (result: any) {
+                    self.Offers = result.data;
+                    deferred.resolve(self);
+                }, function (error) {
+                    deferred.reject(error);
+                });
+
+            return deferred.promise;
+        }
+
         constructor($http: ng.IHttpService, $q: ng.IQService) {
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
             this.getOfferPicApiPath = "api/offer/getofferpics";
-            this.addOfferApiPath = "api/offer/addnewoffer";
+            this.updateOfferApiPath = "api/offer/updateoffer";
             this.getPhotoTypesApiPath = "api/offer/getphototypes";
+            this.getOfferListApiPath = "api/offer/getofferlist";
             
             this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();

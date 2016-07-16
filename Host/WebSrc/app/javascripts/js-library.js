@@ -371,6 +371,31 @@ var Services;
 
 var Controllers;
 (function (Controllers) {
+    var OfferManCtrl = (function () {
+        function OfferManCtrl($scope, $cookies, $routeParams, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.CustomerName = $cookies.get("cname");
+            self.$scope.AcccountId = $cookies.get("cid");
+            self.$scope.CustomerType = $cookies.get("ctype");
+            self.init();
+        }
+        OfferManCtrl.prototype.init = function () {
+            var self = this;
+            self.dataSvc.getOfferList().then(function (data) {
+                self.$scope.Offers = data.Offers;
+            });
+        };
+        return OfferManCtrl;
+    }());
+    Controllers.OfferManCtrl = OfferManCtrl;
+})(Controllers || (Controllers = {}));
+
+var Controllers;
+(function (Controllers) {
     var OfferDetailsCtrl = (function () {
         function OfferDetailsCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
@@ -390,13 +415,13 @@ var Controllers;
                     self.$location.path("/orderpayment/" + orderId);
                 });
             };
-            self.$scope.addOffer = function () {
+            self.$scope.updateOffer = function () {
                 var ctype = $cookies.get("ctype");
                 if (ctype == 2) {
                     self.$scope.OfferDetails.PhotographerId = $cookies.get("cid");
-                    dataSvc.addOffer(self.$scope.OfferDetails).then(function (res) {
+                    dataSvc.updateOffer(self.$scope.OldOffer, self.$scope.OfferDetails).then(function (res) {
                         self.$scope.OfferDetails.OfferId = res;
-                        if (self.$scope.OfferDetails.OfferPics.length > 0) {
+                        if (self.$scope.OfferDetails.OfferPics != null && self.$scope.OfferDetails.OfferPics.length > 0) {
                             self.$scope.uploadPhotos();
                         }
                     });
@@ -406,8 +431,7 @@ var Controllers;
                 if (self.$scope.OfferDetails == null) {
                     self.$scope.OfferDetails = new DataModels.Offer;
                 }
-                self.$scope.OfferDetails.OfferPics = new Array();
-                self.$scope.$apply();
+                self.$scope.OfferDetails.PicList = new Array();
                 var files = document.getElementById("fileupload").files;
                 for (var i = 0; i < files.length; i++) {
                     var photo = new DataModels.PicInfo();
@@ -415,13 +439,13 @@ var Controllers;
                     photo.PictureName = files[i].name;
                     photo.size = files[i].size;
                     photo.type = files[i].type;
-                    self.$scope.OfferDetails.OfferPics.push(photo);
+                    self.$scope.OfferDetails.PicList.push(photo);
                 }
                 self.$scope.$apply();
             };
             self.$scope.uploadPhotos = function () {
-                for (var i = 0; i < self.$scope.OfferDetails.OfferPics.length; i++) {
-                    self.uploadIndividualPhoto(self.$scope.OfferDetails.OfferPics[i], i);
+                for (var i = 0; i < self.$scope.OfferDetails.PicList.length; i++) {
+                    self.uploadIndividualPhoto(self.$scope.OfferDetails.PicList[i], i);
                 }
             };
             self.$scope.loadMorePhotoPics = function () {
@@ -497,6 +521,10 @@ var Controllers;
             if (self.$routeParams.offerid != null) {
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
+                    self.$scope.OldOffer = self.$scope.OfferDetails;
+                });
+                self.dataSvc.getPhotoTypes().then(function (data) {
+                    self.$scope.PhotoTypes = data.PhotoTypes;
                 });
             }
             else {
@@ -517,8 +545,9 @@ var Services;
             this.getOfferDetailsApiPath = "api/offer/getofferdetails";
             this.placeOrderApiPath = "api/offer/placeorder";
             this.getOfferPicApiPath = "api/offer/getofferpics";
-            this.addOfferApiPath = "api/offer/addnewoffer";
+            this.updateOfferApiPath = "api/offer/updateoffer";
             this.getPhotoTypesApiPath = "api/offer/getphototypes";
+            this.getOfferListApiPath = "api/offer/getofferlist";
             this.OrderId = 0;
             this.OfferDetails = new DataModels.Offer();
             this.httpService = $http;
@@ -548,10 +577,10 @@ var Services;
             });
             return deferred.promise;
         };
-        OfferDetailsDataSvc.prototype.addOffer = function (offer) {
+        OfferDetailsDataSvc.prototype.updateOffer = function (oldOffer, offer) {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.post(self.addOfferApiPath, offer)
+            self.httpService.post(self.updateOfferApiPath, offer)
                 .then(function (result) {
                 self.OfferDetails.OfferId = result.data.OfferId;
                 deferred.resolve(self.OfferDetails.OfferId);
@@ -578,6 +607,18 @@ var Services;
             self.httpService.get(self.getPhotoTypesApiPath)
                 .then(function (result) {
                 self.PhotoTypes = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        OfferDetailsDataSvc.prototype.getOfferList = function () {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOfferListApiPath)
+                .then(function (result) {
+                self.Offers = result.data;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -1114,6 +1155,7 @@ var Services;
 /// <reference path="./customer/controller/SignOnCustomerCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
+/// <reference path="./offer/OfferManCtrl.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
 /// <reference path="./offer/OfferDetailsDataSvc.ts" />
 /// <reference path="./offer/OrderPaymentCtrl.ts" />
@@ -1151,7 +1193,9 @@ var OneStopCustomerApp;
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
-                .when("/addoffer", { templateUrl: "offer/addoffer.html", controller: "GetOfferDetailsCtrl" })
+                .when("/addoffer", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
+                .when("/offerlist", { templateUrl: "offer/offerlist.html", controller: "GetOfferListCtrl" })
+                .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;
@@ -1167,6 +1211,7 @@ var OneStopCustomerApp;
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);
     app.config(Config);
@@ -1185,6 +1230,7 @@ var OneStopCustomerApp;
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
     app.controller('ManageOrderCtrl', Controllers.OrderDetailsCtrl);
+    app.controller('GetOfferListCtrl', Controllers.OfferManCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
 
 // Type definitions for Angular JS 1.4 (ngCookies module)

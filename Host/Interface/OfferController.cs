@@ -33,13 +33,20 @@ namespace Host
         }
 
         [HttpPost]
-        public Response AddNewOffer(Offer offer)
+        public Response UpdateOffer(Offer oldOffer, Offer newOffer)
         {
             CookieHeaderValue cookie = Request.Headers.GetCookies("cid").FirstOrDefault();
             UpdOffer updOffer = new UpdOffer();
-            updOffer.OldOffer = null;
-            updOffer.NewOffer = offer;
-            updOffer.Action = 1;
+            updOffer.OldOffer = oldOffer;
+            updOffer.NewOffer = newOffer;
+            if (newOffer.OfferId != 0)
+            {
+                updOffer.Action = 2;
+            }
+            else
+            {
+                updOffer.Action = 1;
+            }
             updOffer.PhotographerId = long.Parse(cookie["cid"].Value);
             TxUpdOffer txn = new TxUpdOffer();
             txn.request = updOffer;
@@ -57,7 +64,11 @@ namespace Host
                 join ph in dc.Photographer on p.PhotographerId equals ph.PhotographerId
                 where o.OfferId == id
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
-                , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder};
+                , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder
+                , AdditionalRetouchPrice = o.AdditionalRetouchPrice, Comment = o.Comment,
+                 DurationHour = o.DurationHour, EndTime = o.EndTime.Value, MaxPeople = o.MaxPeople.Value, NoCostume = o.NoCostume,
+                 NoMakeup = o.NoMakeup, NoRawPhoto = o.NoRawPhoto, NoRetouchedPhoto = o.NoRetouchedPhoto,
+                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime.Value, PhotoTypeId = o.PhotoTypeId };
                 var res = offer.ToList();
                 return res.FirstOrDefault();
 
@@ -133,6 +144,22 @@ namespace Host
             HttpResponseMessage response = new HttpResponseMessage();
             response.StatusCode = HttpStatusCode.Created;
             return response;
+        }
+
+        [HttpGet]
+        public List<Offer> GetOfferList()
+        {
+            CookieHeaderValue cookie = Request.Headers.GetCookies("cid").FirstOrDefault();
+            long PhotographerId = long.Parse(cookie["cid"].Value);
+            using (var dc = new HostDBDataContext())
+            {
+                var orders = from op in dc.OfferPhotographer
+                             join of in dc.Offer on op.OfferId equals of.OfferId
+                             where op.PhotographerId == PhotographerId 
+                             select of;
+                var res = orders.ToList();
+                return res;
+            }
         }
     }
 }

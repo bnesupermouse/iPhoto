@@ -16,7 +16,9 @@ module OneStopCustomerApp {
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
-                .when("/addoffer", { templateUrl: "offer/addoffer.html", controller: "GetOfferDetailsCtrl" })
+                .when("/addoffer", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
+                .when("/offerlist", { templateUrl: "offer/offerlist.html", controller: "GetOfferListCtrl" })
+                .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }
@@ -30,6 +32,7 @@ module OneStopCustomerApp {
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);
     app.config(Config);
@@ -48,4 +51,5 @@ module OneStopCustomerApp {
     app.controller('ManageMyAccountCtrl', Controllers.ManageAccountCtrl);
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
     app.controller('ManageOrderCtrl', Controllers.OrderDetailsCtrl);
+    app.controller('GetOfferListCtrl', Controllers.OfferManCtrl);
 }
