@@ -33,21 +33,8 @@ namespace Host
         }
 
         [HttpPost]
-        public Response UpdateOffer(Offer oldOffer, Offer newOffer)
+        public Response UpdateOffer(UpdOffer updOffer)
         {
-            CookieHeaderValue cookie = Request.Headers.GetCookies("cid").FirstOrDefault();
-            UpdOffer updOffer = new UpdOffer();
-            updOffer.OldOffer = oldOffer;
-            updOffer.NewOffer = newOffer;
-            if (newOffer.OfferId != 0)
-            {
-                updOffer.Action = 2;
-            }
-            else
-            {
-                updOffer.Action = 1;
-            }
-            updOffer.PhotographerId = long.Parse(cookie["cid"].Value);
             TxUpdOffer txn = new TxUpdOffer();
             txn.request = updOffer;
             var res = TxnFunc.ProcessTxn(txn);

@@ -47,11 +47,11 @@
         }
 
 
-        updateOffer(oldOffer: DataModels.Offer, offer: DataModels.Offer): ng.IPromise<any> {
+        updateOffer(updOffer: DataModels.UpdOffer): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
 
-            self.httpService.post(self.updateOfferApiPath, offer)
+            self.httpService.post(self.updateOfferApiPath, updOffer)
                 .then(function (result: any) {
                     self.OfferDetails.OfferId = result.data.OfferId;
                     deferred.resolve(self.OfferDetails.OfferId);

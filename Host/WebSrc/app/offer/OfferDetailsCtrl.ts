@@ -32,8 +32,20 @@
             self.$scope.updateOffer = function () {
                 let ctype = $cookies.get("ctype");
                 if (ctype == 2) {
-                    self.$scope.OfferDetails.PhotographerId = $cookies.get("cid");
-                    dataSvc.updateOffer(self.$scope.OldOffer, self.$scope.OfferDetails).then(function (res) {
+                    let updOffer = new DataModels.UpdOffer();
+                    updOffer.OldOffer = self.$scope.OldOffer;
+                    updOffer.NewOffer = self.$scope.OfferDetails;
+                    if (updOffer.OldOffer != null && updOffer.NewOffer != null) {
+                        updOffer.Action = 2;
+                    }
+                    else if (updOffer.NewOffer != null) {
+                        updOffer.Action = 1;
+                    }
+                    else {
+                        updOffer.Action = 3;
+                    }
+                    updOffer.PhotographerId = $cookies.get("cid");
+                    dataSvc.updateOffer(updOffer).then(function (res) {
                         self.$scope.OfferDetails.OfferId = res;
                         if (self.$scope.OfferDetails.OfferPics != null && self.$scope.OfferDetails.OfferPics.length > 0) {
                             self.$scope.uploadPhotos();
@@ -159,7 +171,8 @@
             if (self.$routeParams.offerid != null) {
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
-                    self.$scope.OldOffer = self.$scope.OfferDetails;
+                    self.$scope.OldOffer = self.clone(self.$scope.OfferDetails);
+                    let x = 1;
                 });
                 self.dataSvc.getPhotoTypes().then(function (data) {
                     self.$scope.PhotoTypes = data.PhotoTypes;
@@ -171,5 +184,10 @@
                 });
             }
         }
+        public clone<T>(obj: T): T {
+        var newObj: any = {};
+        for (var k in obj) newObj[k] = (<any>obj)[k];
+        return newObj;
+    }
     }
 }

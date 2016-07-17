@@ -369,6 +369,16 @@ var Services;
     Services.PhotoTypeDataSvc = PhotoTypeDataSvc;
 })(Services || (Services = {}));
 
+var DataModels;
+(function (DataModels) {
+    var UpdOffer = (function () {
+        function UpdOffer() {
+        }
+        return UpdOffer;
+    }());
+    DataModels.UpdOffer = UpdOffer;
+})(DataModels || (DataModels = {}));
+
 var Controllers;
 (function (Controllers) {
     var OfferManCtrl = (function () {
@@ -418,8 +428,20 @@ var Controllers;
             self.$scope.updateOffer = function () {
                 var ctype = $cookies.get("ctype");
                 if (ctype == 2) {
-                    self.$scope.OfferDetails.PhotographerId = $cookies.get("cid");
-                    dataSvc.updateOffer(self.$scope.OldOffer, self.$scope.OfferDetails).then(function (res) {
+                    var updOffer = new DataModels.UpdOffer();
+                    updOffer.OldOffer = self.$scope.OldOffer;
+                    updOffer.NewOffer = self.$scope.OfferDetails;
+                    if (updOffer.OldOffer != null && updOffer.NewOffer != null) {
+                        updOffer.Action = 2;
+                    }
+                    else if (updOffer.NewOffer != null) {
+                        updOffer.Action = 1;
+                    }
+                    else {
+                        updOffer.Action = 3;
+                    }
+                    updOffer.PhotographerId = $cookies.get("cid");
+                    dataSvc.updateOffer(updOffer).then(function (res) {
                         self.$scope.OfferDetails.OfferId = res;
                         if (self.$scope.OfferDetails.OfferPics != null && self.$scope.OfferDetails.OfferPics.length > 0) {
                             self.$scope.uploadPhotos();
@@ -521,7 +543,8 @@ var Controllers;
             if (self.$routeParams.offerid != null) {
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
-                    self.$scope.OldOffer = self.$scope.OfferDetails;
+                    self.$scope.OldOffer = self.clone(self.$scope.OfferDetails);
+                    var x = 1;
                 });
                 self.dataSvc.getPhotoTypes().then(function (data) {
                     self.$scope.PhotoTypes = data.PhotoTypes;
@@ -532,6 +555,12 @@ var Controllers;
                     self.$scope.PhotoTypes = data.PhotoTypes;
                 });
             }
+        };
+        OfferDetailsCtrl.prototype.clone = function (obj) {
+            var newObj = {};
+            for (var k in obj)
+                newObj[k] = obj[k];
+            return newObj;
         };
         return OfferDetailsCtrl;
     }());
@@ -577,10 +606,10 @@ var Services;
             });
             return deferred.promise;
         };
-        OfferDetailsDataSvc.prototype.updateOffer = function (oldOffer, offer) {
+        OfferDetailsDataSvc.prototype.updateOffer = function (updOffer) {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.post(self.updateOfferApiPath, offer)
+            self.httpService.post(self.updateOfferApiPath, updOffer)
                 .then(function (result) {
                 self.OfferDetails.OfferId = result.data.OfferId;
                 deferred.resolve(self.OfferDetails.OfferId);
@@ -1155,6 +1184,7 @@ var Services;
 /// <reference path="./customer/controller/SignOnCustomerCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
+/// <reference path="./offer/UpdOffer.ts" />
 /// <reference path="./offer/OfferManCtrl.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />
 /// <reference path="./offer/OfferDetailsDataSvc.ts" />

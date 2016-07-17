@@ -98,7 +98,7 @@ namespace Host
                 }
 
                 //Check PhotoTypeId
-                if (NewOffer.PhotoTypeId == null || NewOffer.PhotoTypeId <= 0)
+                if (NewOffer.PhotoTypeId <= 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotoTypeId", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
@@ -118,7 +118,7 @@ namespace Host
                 }
 
                 //Check NoServicer
-                if (NewOffer.NoServicer == null || NewOffer.NoServicer <= 0 || NewOffer.NoServicer > 5)
+                if (NewOffer.NoServicer <= 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoServicer", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
@@ -152,7 +152,7 @@ namespace Host
                     return Result.Failed;
                 }
                 //Check NoMakeup
-                if (NewOffer.NoMakeup < 0 || NewOffer.NoMakeup > 2)
+                if (NewOffer.NoMakeup < 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoMakeup", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
@@ -160,14 +160,14 @@ namespace Host
                 }
 
                 //Check NoCostume
-                if (NewOffer.NoCostume < 0 || NewOffer.NoCostume > 2)
+                if (NewOffer.NoCostume < 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoCostume", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
                     return Result.Failed;
                 }
                 //Check NoPlaces
-                if (NewOffer.NoVenue < 0 || NewOffer.NoVenue > 2)
+                if (NewOffer.NoVenue < 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoPlaces", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
@@ -182,7 +182,7 @@ namespace Host
                 }
 
                 //Check DurationHour
-                if (NewOffer.DurationHour <= 0 || NewOffer.DurationHour > 8)
+                if (NewOffer.DurationHour <= 0)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid DurationHour", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
