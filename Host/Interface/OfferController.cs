@@ -53,9 +53,9 @@ namespace Host
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder
                 , AdditionalRetouchPrice = o.AdditionalRetouchPrice, Comment = o.Comment,
-                 DurationHour = o.DurationHour, EndTime = o.EndTime.Value, MaxPeople = o.MaxPeople.Value, NoCostume = o.NoCostume,
+                 DurationHour = o.DurationHour, EndTime = o.EndTime, MaxPeople = o.MaxPeople, NoCostume = o.NoCostume,
                  NoMakeup = o.NoMakeup, NoRawPhoto = o.NoRawPhoto, NoRetouchedPhoto = o.NoRetouchedPhoto,
-                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime.Value, PhotoTypeId = o.PhotoTypeId };
+                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime, PhotoTypeId = o.PhotoTypeId };
                 var res = offer.ToList();
                 return res.FirstOrDefault();
 

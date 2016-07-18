@@ -23,10 +23,10 @@ namespace Host.Models
         public int SortOrder { get; set; }
         public long PhotoTypeId { get; set; }
         public decimal AdditionalRetouchPrice { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime? StartTime { get; set; }
+        public DateTime? EndTime { get; set; }
         public int NoServicer { get; set; }
-        public int MaxPeople { get; set; }
+        public int? MaxPeople { get; set; }
         public int NoRawPhoto { get; set; }
         public int NoRetouchedPhoto { get; set; }
         public int NoMakeup { get; set; }
