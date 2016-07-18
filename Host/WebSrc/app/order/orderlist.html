@@ -39,10 +39,11 @@
                             <tr ng-repeat="o in Orders">
                                 <td>{{o.SerialNo}}</td>
                                 <td class="hidden-xs">{{o.OfferName}}</td>
-                                <td class="hidden-xs">{{o.AppointmentTime}}</td>
+                                <td class="hidden-xs">{{o.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</td>
                                 <td>{{o.Amount}}</td>
                                 <td data-value="3">
-                                    <a ng-if="o.Paid == 0" href="#orderpayment/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
+                                    <a ng-if="o.Paid == 0 && CustomerType==1" href="#orderpayment/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
+                                    <span ng-if="o.Paid == 0 && CustomerType==2" class="label {{o.LabelString}}">{{o.StatusString}}</span>
                                     <a ng-if="o.Paid == 1" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
                                 </td>
                             </tr>

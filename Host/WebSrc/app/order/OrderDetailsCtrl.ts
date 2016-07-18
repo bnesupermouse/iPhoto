@@ -3,12 +3,14 @@
         $scope: DataModels.IOrderDetailsPageScope;
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IOrderRouteParams;
+        $location: ng.ILocationService;
         dataSvc: Services.OrderDataSvc;
 
-        constructor($scope: DataModels.IOrderDetailsPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, dataSvc: Services.OrderDataSvc) {
+        constructor($scope: DataModels.IOrderDetailsPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, $location: ng.ILocationService, dataSvc: Services.OrderDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -18,18 +20,21 @@
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             }
 
             self.$scope.confirmRawPhotosUploaded = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             }
 
             self.$scope.confirmRetouchedPhotosUploaded = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             }
 
@@ -38,6 +43,7 @@
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
+                    self.$location.path("/orderlist");
                 });
             }
 
@@ -46,6 +52,7 @@
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
+                    self.$location.path("/orderlist");
                 });
             }
 

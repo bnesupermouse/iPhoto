@@ -857,10 +857,11 @@ var Controllers;
 var Controllers;
 (function (Controllers) {
     var OrderDetailsCtrl = (function () {
-        function OrderDetailsCtrl($scope, $cookies, $routeParams, dataSvc) {
+        function OrderDetailsCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -870,16 +871,19 @@ var Controllers;
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             };
             self.$scope.confirmRawPhotosUploaded = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             };
             self.$scope.confirmRetouchedPhotosUploaded = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
                     //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
                 });
             };
             self.$scope.confirmPhotoSelected = function () {
@@ -887,6 +891,7 @@ var Controllers;
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
+                    self.$location.path("/orderlist");
                 });
             };
             self.$scope.finaliseOrder = function () {
@@ -894,6 +899,7 @@ var Controllers;
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
+                    self.$location.path("/orderlist");
                 });
             };
             self.$scope.loadMore = function (photoType) {
@@ -1240,7 +1246,7 @@ var OneStopCustomerApp;
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
-    Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
     Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);

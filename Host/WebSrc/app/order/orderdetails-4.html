@@ -62,19 +62,18 @@
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>
     <!--/row-->
-    <div class="row">
+    <div ng-if="CustomerType==1" class="row">
         <div class="col-md-12" margin-bottom:10px;">
             <button ng-click="selectRetouchedPhotos()" class="btn btn-info">Select Photos</button> <button ng-click="finaliseOrder()" class="btn btn-danger">Finalise Order</button>
             <!--<input type="file" id="photoSelector" onchange="angular.element(this).scope().setFiles()" multiple accept="image/*" class="btn btn-warning" />-->
         </div>
 
     </div>
-    <div class="row">
+    <div ng-if="CustomerType==1" class="row">
         <div class="col-sm-12 clearfix">
             <div class="order-box">
                 <div class="order-box-header">
-
-                    Raw Photos
+                    Retouched Photos
                 </div>
 
 

@@ -3,7 +3,7 @@
         <div class="breadcrumbDiv col-lg-12">
             <ul class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="account.html">My Account</a></li>
+                <li><a href="#account">My Account</a></li>
                 <li class="active"> Order List</li>
             </ul>
         </div>
@@ -62,12 +62,12 @@
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>
     <!--/row-->
-    <div class="row">
+    <div ng-if="CustomerType==2" class="row">
         <div class="col-md-12" margin-bottom:10px;">
             <button ng-click="confirmRawPhotosUploaded()" class="btn btn-danger">Confirm All Raw Photos Uploaded</button>
         </div>
     </div>
-    <div class="row">
+    <div ng-if="CustomerType==2" class="row">
         <div class="col-lg-12">
             <h2 class="block-title-2"> Upload Raw Photos </h2>
         </div>
@@ -83,7 +83,7 @@
         </div>
 
     </div>
-    <div id="photosToUpLoad" class="row">
+    <div ng-if="CustomerType==2" id="photosToUpLoad" class="row">
         <div class="col-md-12" style="padding-top:10px;">
 
             <table class="table table-bordered table-striped">
@@ -113,7 +113,7 @@
 
         </div>
     </div>
-    <div class="row">
+    <div ng-if="CustomerType==2 && Details.RawPhotos.length > 0"  class="row">
         <div class="col-sm-12 clearfix">
             <div class="order-box">
                 <div class="order-box-header">

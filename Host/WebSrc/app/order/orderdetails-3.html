@@ -62,12 +62,12 @@
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>
     <!--/row-->
-    <div class="row">
+    <div ng-if="CustomerType==2" class="row">
         <div class="col-md-12" margin-bottom:10px;">
             <button ng-click="confirmRetouchedPhotosUploaded()" class="btn btn-danger">Confirm All Retouched Photos Uploaded</button>
         </div>
     </div>
-    <div class="row">
+    <div ng-if="CustomerType==2" class="row">
         <div class="col-lg-12">
             <h2 class="block-title-2"> Upload Retouched Photos </h2>
         </div>
@@ -83,7 +83,7 @@
         </div>
 
     </div>
-    <div id="photosToUpLoad" class="row">
+    <div ng-if="CustomerType==2" id="photosToUpLoad" class="row">
         <div class="col-md-12" style="padding-top:10px;">
 
             <table class="table table-bordered table-striped">
@@ -113,7 +113,7 @@
 
         </div>
     </div>
-    <div class="row">
+    <div ng-if="CustomerType==2 && Details.RetouchedPhotos.length > 0" class="row">
         <div class="col-sm-12 clearfix">
             <div class="order-box">
                 <div class="order-box-header">
