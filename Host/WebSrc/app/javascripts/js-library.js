@@ -443,7 +443,7 @@ var Controllers;
                     updOffer.PhotographerId = $cookies.get("cid");
                     dataSvc.updateOffer(updOffer).then(function (res) {
                         self.$scope.OfferDetails.OfferId = res;
-                        if (self.$scope.OfferDetails.OfferPics != null && self.$scope.OfferDetails.OfferPics.length > 0) {
+                        if (self.$scope.OfferDetails.PicList != null && self.$scope.OfferDetails.PicList.length > 0) {
                             self.$scope.uploadPhotos();
                         }
                     });

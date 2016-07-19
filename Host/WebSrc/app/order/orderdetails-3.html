@@ -26,7 +26,9 @@
                         <div class=" statusTop">
                             <p><strong>Status:</strong> {{Details.StatusString}}</p>
 
-                            <p><strong>Order Date:</strong> {{Details.OrderTime}}</p>
+                            <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</p>
+
+                            <p><strong>Order Date:</strong> {{Details.OrderTime | date:'M/d/yyyy HH:mm:ss'}}</p>
 
                             <p><strong>Order Number:</strong> {{Details.SerialNo}} </p>
                         </div>
@@ -113,7 +115,7 @@
 
         </div>
     </div>
-    <div ng-if="CustomerType==2 && Details.RetouchedPhotos.length > 0" class="row">
+    <div ng-if="CustomerType==2" class="row">
         <div class="col-sm-12 clearfix">
             <div class="order-box">
                 <div class="order-box-header">
