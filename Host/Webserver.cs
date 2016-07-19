@@ -13,7 +13,7 @@ namespace Host
 
         public void Start()
         {
-            _webapp = WebApp.Start<Startup>("http://10.1.1.7:8080");
+            _webapp = WebApp.Start<Startup>("http://localhost:8080");
         }
 
         public void Stop()

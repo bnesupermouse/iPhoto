@@ -150,9 +150,10 @@
     <Compile Include="Interface\PhotoTypeController.cs" />
     <Compile Include="Interface\MainPageController.cs" />
     <Compile Include="Interface\CustomerController.cs" />
-    <Compile Include="Models\NavigationHeader.cs" />
+    <Compile Include="Models\MainPageContent.cs" />
     <Compile Include="Models\OrderInfo.cs" />
     <Compile Include="Models\PhotoInfo.cs" />
+    <Compile Include="Models\PhotoTypeOffer.cs" />
     <Compile Include="Models\PhotoTypeInfo.cs" />
     <Compile Include="Models\OfferInfo.cs" />
     <Compile Include="NancyDemo.cs" />
@@ -326,6 +327,7 @@
     <Content Include="WebSrc\app\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebSrc\app\main\main.html" />
     <Content Include="WebSrc\app\offer\updoffer.html" />
     <Content Include="WebSrc\app\offer\details.html" />
     <Content Include="WebSrc\app\offer\offerlist.html" />
@@ -373,6 +375,7 @@
     <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\common\IBaseScope.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPage.ts" />
+    <TypeScriptCompile Include="WebSrc\app\main\PhotoTypeOffer.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OfferManCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\PaymentDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\offer\OrderPaymentCtrl.ts" />

@@ -40,12 +40,12 @@
     }
     export interface IMainPageScope extends IBaseScope {
         PhotoTypes: Array<PhotoType>;
-        Offers: Array<Offer>;
+        PhotoTypeOffers: Array<PhotoTypeOffer>;
     }
     export class MainContent{
         CustomerName: string;
         PhotoTypes: Array<PhotoType>;
-        Offers: Array<Offer>;
+        PhotoTypeOffers: Array<PhotoTypeOffer>;
     }
     export interface IPhotoTypePageScope extends IBaseScope {
         PhotoTypeId: number;

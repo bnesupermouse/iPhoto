@@ -3,7 +3,7 @@ module OneStopCustomerApp {
     export class Config {
         constructor($routeProvider: ng.route.IRouteProvider) {
             $routeProvider
-                .when("/", { controller: "IndexPageCtrl" })
+                .when("/", { templateUrl: "main/main.html", controller: "IndexPageCtrl" })
                 .when("/account", { templateUrl: "customer/view/account.html", controller: "ManageMyAccountCtrl" })
                 .when("/orderlist", { templateUrl: "order/orderlist.html", controller: "GetOrderListCtrl" })
                 .when("/signup", { templateUrl: "customer/view/signup.html", controller: "AddNewCustomerCtrl" })

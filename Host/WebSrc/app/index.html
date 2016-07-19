@@ -76,12 +76,12 @@
                     class="sr-only"> Toggle navigation </span> <span class="icon-bar"> </span> <span
                     class="icon-bar"> </span> <span class="icon-bar"> </span></button>
             
-            <a class="navbar-brand " href="index.html"> <img src="images/logo.png" alt="TSHOP"> </a>
+            <a class="navbar-brand " href="#/"> <img src="images/logo.png" alt="TSHOP"> </a>
         </div>
 
         <div id="collNav" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#"> Home </a></li>
+                <li><a href="#/"> Home </a></li>
                 <li data-toggle="collapse" data-target=".navbar-collapse" ng-repeat="x in PhotoTypes" class="dropdown megamenu-fullwidth"><a href="#phototype/{{x.PhotoTypeId}}"> {{x.PhotoTypeName}} </a></li>
             </ul>
             <!--/.navbar-nav hidden-xs-->
@@ -95,15 +95,19 @@
 <!-- /.Fixed navbar  -->
 
 <!-- MAIN CONTENT AND INJECTED VIEWS -->
-<div id="main" class="container main-container">
+
 
         <!-- angular templating -->
         <!-- this is where content will be injected -->
-        <div ng-view></div>
+        <div ng-view>
+
+           
+
+        </div>
 
             
 
-</div>
+
 <!--main-container-->
 
 

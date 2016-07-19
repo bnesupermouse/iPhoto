@@ -18,7 +18,7 @@
             self.dataSvc.getMainPage().then(function (data) {
                 self.$scope.CustomerName = self.$cookies.get("cname");
                 self.$scope.PhotoTypes = data.PhotoTypes;
-                self.$scope.Offers = data.Offers;
+                self.$scope.PhotoTypeOffers = data.PhotoTypeOffers;
             });
         }
     }

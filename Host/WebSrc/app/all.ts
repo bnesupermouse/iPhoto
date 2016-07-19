@@ -9,6 +9,7 @@
 /// <reference path="./customer/controller/AddCustomerCtrl.ts" />
 /// <reference path="./main/MainPageCtrl.ts" />
 /// <reference path="./main/MainPage.ts" />
+/// <reference path="./main/PhotoTypeOffer.ts" />
 /// <reference path="./main/MainPageDataSvc.ts" />
 /// <reference path="./customer/controller/SignOnCustomerCtrl.ts" />
 

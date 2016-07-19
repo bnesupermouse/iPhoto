@@ -208,7 +208,7 @@ var Controllers;
             self.dataSvc.getMainPage().then(function (data) {
                 self.$scope.CustomerName = self.$cookies.get("cname");
                 self.$scope.PhotoTypes = data.PhotoTypes;
-                self.$scope.Offers = data.Offers;
+                self.$scope.PhotoTypeOffers = data.PhotoTypeOffers;
             });
         };
         return MainPageCtrl;
@@ -232,6 +232,16 @@ var DataModels;
     DataModels.MainContent = MainContent;
 })(DataModels || (DataModels = {}));
 
+var DataModels;
+(function (DataModels) {
+    var PhotoTypeOffer = (function () {
+        function PhotoTypeOffer() {
+        }
+        return PhotoTypeOffer;
+    }());
+    DataModels.PhotoTypeOffer = PhotoTypeOffer;
+})(DataModels || (DataModels = {}));
+
 var Services;
 (function (Services) {
     var MainPageDataSvc = (function () {
@@ -248,7 +258,7 @@ var Services;
                 .then(function (result) {
                 self.MainPageContent.CustomerName = result.data.CustomerName;
                 self.MainPageContent.PhotoTypes = result.data.PhotoTypes;
-                self.MainPageContent.Offers = result.data.Offers;
+                self.MainPageContent.PhotoTypeOffers = result.data.PhotoTypeOffers;
                 deferred.resolve(self.MainPageContent);
             }, function (error) {
                 deferred.reject(error);
@@ -1186,6 +1196,7 @@ var Services;
 /// <reference path="./customer/controller/AddCustomerCtrl.ts" />
 /// <reference path="./main/MainPageCtrl.ts" />
 /// <reference path="./main/MainPage.ts" />
+/// <reference path="./main/PhotoTypeOffer.ts" />
 /// <reference path="./main/MainPageDataSvc.ts" />
 /// <reference path="./customer/controller/SignOnCustomerCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
@@ -1216,7 +1227,7 @@ var OneStopCustomerApp;
     var Config = (function () {
         function Config($routeProvider) {
             $routeProvider
-                .when("/", { controller: "IndexPageCtrl" })
+                .when("/", { templateUrl: "main/main.html", controller: "IndexPageCtrl" })
                 .when("/account", { templateUrl: "customer/view/account.html", controller: "ManageMyAccountCtrl" })
                 .when("/orderlist", { templateUrl: "order/orderlist.html", controller: "GetOrderListCtrl" })
                 .when("/signup", { templateUrl: "customer/view/signup.html", controller: "AddNewCustomerCtrl" })

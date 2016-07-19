@@ -14,7 +14,7 @@
                 .then(function (result: any) {
                     self.MainPageContent.CustomerName = result.data.CustomerName;
                     self.MainPageContent.PhotoTypes = result.data.PhotoTypes;
-                    self.MainPageContent.Offers = result.data.Offers;
+                    self.MainPageContent.PhotoTypeOffers = result.data.PhotoTypeOffers;
                     deferred.resolve(self.MainPageContent);
                 }, function (error) {
                     deferred.reject(error);
