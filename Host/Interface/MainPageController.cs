@@ -38,13 +38,16 @@ namespace Host
                                      SortOrder = o.SortOrder
                                  };
                     var poffers = offers.Take(8).ToList();
-                    foreach (var of in poffers)
+                    if (poffers.Count > 4)
                     {
-                        var pics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o => new PicInfo { PictureId = o.OfferPictureId, Path = o.Path }).ToList();
-                        of.OfferPics = pics;
+                        foreach (var of in poffers)
+                        {
+                            var pics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o => new PicInfo { PictureId = o.OfferPictureId, Path = o.Path }).ToList();
+                            of.OfferPics = pics;
+                        }
+                        po.Offers = poffers;
+                        mainPage.PhotoTypeOffers.Add(po);
                     }
-                    po.Offers = poffers;
-                    mainPage.PhotoTypeOffers.Add(po);
                 }
             }
             return mainPage;
