@@ -9,52 +9,113 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-lg-9 col-md-9 col-sm-7">
-            <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Offer Information </span></h1>
-
-            <div class="row userInfo">
-                <div class="statusContent">
-
-                    <div class="col-sm-12">
-                        <div class="order-box">
-                            <div class="order-box-header">
-
-                                Offer Details
-                            </div>
 
 
-                            <div class="order-box-content">
-                                    <p><strong>Offer Name:</strong> {{OfferDetails.OfferName}}</p>
-
-                                    <p><strong>Offer Price:</strong> {{OfferDetails.Price}}</p>
-                                <div class="details-description">
-                                    <p>{{OfferDetails.Description}} </p>
-                                </div>
-
-                                <p><strong>Appointment Time:</strong> {{AppointmentDate | date:'M/d/yyyy HH:mm:ss'}}</p>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
-                                        Show calendar
-                                    </a>
-                                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker ng-model="AppointmentDate"
-                                                        data-datetimepicker-config="{ dropdownSelector: '.dropdown-toggle' }"></datetimepicker>
-                                    </ul>
-                                </div>
 
 
-                                <button ng-click="placeOrder()" class="btn btn-info">Order Now</button>
-                            </div>
+
+
+
+    <div class="row transitionfx">
+
+        <div class="col-lg-6 col-md-6 col-sm-5">
+            <h1 class="product-title">{{OfferDetails.OfferName}}</h1>
+
+                <h3 class="product-code">Product Code : {{OfferDetails.OfferId}}</h3>
+
+                <div class="rating">
+                    <p>
+                        <span><i class="fa fa-star"></i></span> <span><i class="fa fa-star"></i></span> <span>
+                            <i class="fa fa-star"></i>
+                        </span> <span><i class="fa fa-star"></i></span> <span>
+                            <i class="fa fa-star-o "></i>
+                        </span> <span class="ratingInfo"> <span></span></span>
+                    </p>
+                </div>
+                <div class="product-price">
+                    <span class="price-sales"> ${{OfferDetails.Price}}</span>
+                </div>
+                <div class="details-description">
+                    <p>{{OfferDetails.Description}} </p>
+                </div>
+
+            <div class="color-details">
+                <span class="selected-color"><strong>Appointment Time: </strong>{{AppointmentDate | date:'M/d/yyyy HH:mm:ss'}}</span>
+                <datetimepicker ng-model="AppointmentDate"></datetimepicker>
+            </div>
+
+                <!--/.color-details-->
+
+                <div class="cart-actions">
+                    <div class="addto row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <button ng-click="placeOrder()" class="button btn-block btn-cart cart first" title="Add to Cart" type="button">
+                                Order Now
+                            </button>
                         </div>
 
                     </div>
-                 </div>
-            </div>
-            <!--/row end-->
+                    <div style="clear:both"></div>
+                    <h3 class="incaps"><i class="fa fa fa-check-circle-o color-in"></i> Available</h3>
 
+                    <h3 style="display:none" class="incaps">
+                        <i class="fa fa-minus-circle color-out"></i> Out of stock
+                    </h3>
+
+                    <h3 class="incaps"><i class="glyphicon glyphicon-lock"></i> Secure online ordering</h3>
+                </div>
+                <!--/.cart-actions-->
+
+                <div class="clear"></div>
+                <div class="product-tab w100 clearfix">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="details">
+                            <table>
+                                <colgroup>
+                                    <col style="width:33%">
+                                    <col style="width:33%">
+                                    <col style="width:33%">
+                                </colgroup>
+                                <tbody>
+                                    <tr>
+                                        <td>Standard</td>
+                                        <td>1-5 business days</td>
+                                        <td>$7.95</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Two Day</td>
+                                        <td>2 business days</td>
+                                        <td>$15</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Next Day</td>
+                                        <td>1 business day</td>
+                                        <td>$30</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="3">* Free on orders of $50 or more</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- /.tab content -->
+
+                </div>
+                <!--/.product-tab-->
+
+                <div style="clear:both"></div>
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-5"></div>
+        <!--/ right column end -->
+
     </div>
 
     <div class="row">
