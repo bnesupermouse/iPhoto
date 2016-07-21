@@ -7,6 +7,7 @@ namespace Host.Common
 {
     public enum Errors
     {
+        Success,
         InvalidRequest,
         EmailAlreadyRegistered,
         UpdateSessionFailed

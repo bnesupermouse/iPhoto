@@ -36,6 +36,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdPhotographer), "New Photographer cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Request";
                     return Result.Failed;
                 }
                 //Check Email
@@ -43,6 +44,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Email", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Email";
                     return Result.Failed;
                 }
                 else
@@ -51,6 +53,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Emails are not same in Request", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Emails in Request";
                         return Result.Failed;
                     }
                     else
@@ -60,6 +63,7 @@ namespace Host
                         {
                             LogHelper.WriteLog(typeof(TxUpdPhotographer), "Email Validation Failed", Log4NetLevel.Error);
                             response.ErrorNo = (int)Errors.InvalidRequest;
+                            response.ErrorMsg = "Email Validation Failed";
                             return res;
                         }
                     }
@@ -80,6 +84,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Email already registered", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.EmailAlreadyRegistered;
+                        response.ErrorMsg = "Email already registered";
                         return Result.Failed;
                     }
                 }
@@ -88,6 +93,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdPhotographer), "Photographer Name cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Photographer Name cannot be Empty";
                     return Result.Failed;
                 }
 
@@ -96,6 +102,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdPhotographer), "Password cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Password cannot be Empty";
                     return Result.Failed;
                 }
                 else
@@ -114,6 +121,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Gender value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Gender value";
                         return Result.Failed;
                     }
                 }
@@ -126,6 +134,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Age value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Age value";
                         return Result.Failed;
                     }
                 }
@@ -144,6 +153,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid ExperienceYear value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid ExperienceYear value";
                         return Result.Failed;
                     }
                 }
@@ -162,6 +172,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Rank value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Rank value";
                         return Result.Failed;
                     }
                 }
@@ -174,6 +185,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid LikeVote value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid LikeVote value";
                         return Result.Failed;
                     }
                 }
@@ -186,6 +198,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid DislikeVote value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid DislikeVote value";
                         return Result.Failed;
                     }
                 }
@@ -213,6 +226,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Status value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Status value";
                         return Result.Failed;
                     }
 
@@ -222,6 +236,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Failed to update session", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.UpdateSessionFailed;
+                        response.ErrorMsg = "Failed to update session";
                         return Result.Failed;
                     }
 
@@ -231,6 +246,7 @@ namespace Host
             {
                 LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Action value", Log4NetLevel.Error);
                 response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Request";
                 return Result.Failed;
             }
             return Result.Success;

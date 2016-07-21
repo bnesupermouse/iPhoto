@@ -26,6 +26,7 @@
         AcccountId: number;
         CustomerName: string;
         CustomerType: number;
+        ErrorMsg: string;
     }
     export interface IAddCustomerScope extends IBaseScope {
         NewCustomerName: string;

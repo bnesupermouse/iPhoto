@@ -20,14 +20,7 @@ namespace Host
             TxUpdPhotographer txn = new TxUpdPhotographer();
             txn.request = request;
             var res = TxnFunc.ProcessTxn(txn);
-            if (res == Result.Success)
-            {
-                return txn.response;
-            }
-            else
-            {
-                return null;
-            }
+            return txn.response;
         }
 
 
@@ -40,14 +33,7 @@ namespace Host
             TxPhotographerLogin txn = new TxPhotographerLogin();
             txn.request = request;
             var res = TxnFunc.ProcessTxn(txn);
-            if (res == Result.Success)
-            {
-                return txn.response;
-            }
-            else
-            {
-                return null;
-            }
+            return txn.response;
         }
     }
 }

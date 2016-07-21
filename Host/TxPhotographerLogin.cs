@@ -7,6 +7,7 @@ using Host;
 using HostDB;
 using System.Text.RegularExpressions;
 using HostMessage.Responses;
+using Host.Common;
 
 namespace Host
 {
@@ -21,10 +22,16 @@ namespace Host
             PhotographerLogin curReq = request as PhotographerLogin;
             if (curReq.Email == null || curReq.Email.Length == 0)
             {
+                LogHelper.WriteLog(typeof(TxPhotographerLogin), "Invalid Email", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Email";
                 return Result.Failed;
             }
             if (curReq.Password == null || curReq.Password.Length == 0)
             {
+                LogHelper.WriteLog(typeof(TxPhotographerLogin), "Invalid Password", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Password";
                 return Result.Failed;
             }
 
@@ -36,12 +43,18 @@ namespace Host
             }
             if (photographer == null)
             {
+                LogHelper.WriteLog(typeof(TxPhotographerLogin), "Invalid Email and Password", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Email and Password";
                 return Result.Failed;
             }
             //Check password if correct
             var valid = PasswordHash.ValidatePassword(curReq.Password, photographer.Password);
             if (!valid)
             {
+                LogHelper.WriteLog(typeof(TxPhotographerLogin), "Invalid Password", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Password";
                 return Result.Failed;
             }
             PhotographerId = photographer.PhotographerId;
@@ -54,6 +67,9 @@ namespace Host
             var res = UpdatePhotographerSession();
             if(res != Result.Success)
             {
+                LogHelper.WriteLog(typeof(TxPhotographerLogin), "Failed To Update Session", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.UpdateSessionFailed;
+                response.ErrorMsg = "Failed To Update Session";
                 return res;
             }
             var resp = new PhotographerLoginResponse();

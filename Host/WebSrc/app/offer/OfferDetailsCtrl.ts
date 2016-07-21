@@ -20,6 +20,19 @@
             self.$scope.placeOrder = function () {
                 let placeOrder = new DataModels.PlaceOrder();
                 self.$scope.AcccountId = $cookies.get("cid");
+                let cType = $cookies.get("ctype");
+                if (self.$scope.AcccountId == null) {
+                    self.$scope.ErrorMsg = "Please sign in first!";
+                    return;
+                }
+                if (self.$scope.AppointmentDate == null) {
+                    self.$scope.ErrorMsg = "Please select the appointment date!";
+                    return;
+                }
+                if (cType == 2) {
+                    self.$scope.ErrorMsg = "Photographer is not allowed to place order at the moment!";
+                    return;
+                }
                 placeOrder.CustomerId = self.$scope.AcccountId;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;

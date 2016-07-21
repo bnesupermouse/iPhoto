@@ -15,19 +15,32 @@
             self.$location = $location;
 
             self.$scope.signOnCustomer = function () {
+                if (self.$scope.CustomerType != 1 && self.$scope.CustomerType != 2) {
+                    self.$scope.ErrorMsg = "Please select Customer or Photographer";
+                    return;
+                }
                 if (self.$scope.CustomerType == 1) {
                     let ctm = new DataModels.Customer();
                     ctm.Email = self.$scope.Email;
                     ctm.Password = self.$scope.Password;
                     dataSvc.signOnCustomer(ctm).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(1));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.ErrorMsg = "";
                         self.$location.path("/");
-                    });
+                    },
+                        function (error) {
+                            self.$scope.ErrorMsg = error;
+                            return;
+                        });
                 }
                 else {
 
@@ -35,14 +48,23 @@
                     phg.Email = self.$scope.Email;
                     phg.Password = self.$scope.Password;
                     dataSvc.signOnPhotographer(phg).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(2));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.ErrorMsg = "";
                         self.$location.path("/");
-                    });
+                    },
+                        function (error) {
+                            self.$scope.ErrorMsg = error;
+                            return;
+                        });
                 }
             }
             self.init();

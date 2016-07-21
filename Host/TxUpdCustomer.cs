@@ -36,6 +36,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdCustomer), "New Customer cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Request";
                     return Result.Failed;
                 }
                 //Check Email
@@ -43,6 +44,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdCustomer), "Invalid Email", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Email";
                     return Result.Failed;
                 }
                 else
@@ -51,6 +53,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Emails are not same in Request", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Email in Request";
                         return Result.Failed;
                     }
                     else
@@ -59,6 +62,7 @@ namespace Host
                         if (res != Result.Success)
                         {
                             LogHelper.WriteLog(typeof(TxUpdCustomer), "Email Validation Failed", Log4NetLevel.Error);
+                            response.ErrorMsg = "Email Validation Failed";
                             response.ErrorNo = (int)Errors.InvalidRequest;
                             return res;
                         }
@@ -72,6 +76,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Email already registered", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.EmailAlreadyRegistered;
+                        response.ErrorMsg = "Email Already Used";
                         return Result.Failed;
                     }
                 }
@@ -80,6 +85,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdCustomer), "Customer Name cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Customer Name cannot be Empty";
                     return Result.Failed;
                 }
 
@@ -88,6 +94,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdCustomer), "Password cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Password cannot be Empty";
                     return Result.Failed;
                 }
                 else
@@ -106,6 +113,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Invalid Gender value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Gender value";
                         return Result.Failed;
                     }
                 }
@@ -118,6 +126,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Invalid Age value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Age value";
                         return Result.Failed;
                     }
                 }
@@ -152,6 +161,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Invalid Status value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Status value";
                         return Result.Failed;
                     }
 
@@ -161,6 +171,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdCustomer), "Failed to update session", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.UpdateSessionFailed;
+                        response.ErrorMsg = "Failed to update session";
                         return Result.Failed;
                     }
 
@@ -170,6 +181,7 @@ namespace Host
             {
                 LogHelper.WriteLog(typeof(TxUpdCustomer), "Invalid Action value", Log4NetLevel.Error);
                 response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Request";
                 return Result.Failed;
             }
             return Result.Success;

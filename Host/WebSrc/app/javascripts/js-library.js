@@ -51,11 +51,15 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.techCtmApiPath, customer)
                 .then(function (result) {
-                self.cookieInfo.sid = result.data.SessionId;
-                self.cookieInfo.skey = result.data.SessionKey;
-                self.cookieInfo.cid = result.data.CustomerId;
-                self.cookieInfo.cname = result.data.CustomerName;
-                deferred.resolve(self.cookieInfo);
+                if (result.data.ErrorNo == 0) {
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.CustomerId;
+                    self.cookieInfo.cname = result.data.CustomerName;
+                }
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -66,11 +70,15 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.signOnApiPath, customer)
                 .then(function (result) {
-                self.cookieInfo.sid = result.data.SessionId;
-                self.cookieInfo.skey = result.data.SessionKey;
-                self.cookieInfo.cid = result.data.CustomerId;
-                self.cookieInfo.cname = result.data.CustomerName;
-                deferred.resolve(self.cookieInfo);
+                if (result.data.ErrorNo == 0) {
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.CustomerId;
+                    self.cookieInfo.cname = result.data.CustomerName;
+                }
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -81,11 +89,15 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.addPhApiPath, photographer)
                 .then(function (result) {
-                self.cookieInfo.sid = result.data.SessionId;
-                self.cookieInfo.skey = result.data.SessionKey;
-                self.cookieInfo.cid = result.data.PhotographerId;
-                self.cookieInfo.cname = result.data.PhotographerName;
-                deferred.resolve(self.cookieInfo);
+                if (result.data.ErrorNo == 0) {
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.PhotographerId;
+                    self.cookieInfo.cname = result.data.PhotographerName;
+                }
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -96,11 +108,15 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.signOnPhApiPath, photographer)
                 .then(function (result) {
-                self.cookieInfo.sid = result.data.SessionId;
-                self.cookieInfo.skey = result.data.SessionKey;
-                self.cookieInfo.cid = result.data.PhotographerId;
-                self.cookieInfo.cname = result.data.PhotographerName;
-                deferred.resolve(self.cookieInfo);
+                if (result.data.ErrorNo == 0) {
+                    self.cookieInfo.sid = result.data.SessionId;
+                    self.cookieInfo.skey = result.data.SessionKey;
+                    self.cookieInfo.cid = result.data.PhotographerId;
+                    self.cookieInfo.cname = result.data.PhotographerName;
+                }
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -146,25 +162,38 @@ var Controllers;
 var Controllers;
 (function (Controllers) {
     var AddCustomerCtrl = (function () {
-        function AddCustomerCtrl($scope, $cookies, dataSvc) {
+        function AddCustomerCtrl($scope, $cookies, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$scope.addCustomer = function () {
+                if (self.$scope.CustomerType != 1 && self.$scope.CustomerType != 2) {
+                    self.$scope.ErrorMsg = "Please select Customer or Photographer";
+                    return;
+                }
                 if (self.$scope.CustomerType == 1) {
                     var ctm = new DataModels.Customer();
                     ctm.CustomerName = self.$scope.NewCustomerName;
                     ctm.Email = self.$scope.Email;
                     ctm.Password = self.$scope.Password;
                     dataSvc.addCustomer(ctm).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(1));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
-                        alert("Successful");
+                        self.$scope.ErrorMsg = "";
+                        self.$location.path("/");
+                    }, function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
                     });
                 }
                 else {
@@ -173,13 +202,21 @@ var Controllers;
                     phg.Email = self.$scope.Email;
                     phg.Password = self.$scope.Password;
                     dataSvc.addPhotographer(phg).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(2));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
-                        alert("Successful");
+                        self.$scope.ErrorMsg = "";
+                        self.$location.path("/");
+                    }, function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
                     });
                 }
             };
@@ -284,18 +321,30 @@ var Controllers;
             self.dataSvc = dataSvc;
             self.$location = $location;
             self.$scope.signOnCustomer = function () {
+                if (self.$scope.CustomerType != 1 && self.$scope.CustomerType != 2) {
+                    self.$scope.ErrorMsg = "Please select Customer or Photographer";
+                    return;
+                }
                 if (self.$scope.CustomerType == 1) {
                     var ctm = new DataModels.Customer();
                     ctm.Email = self.$scope.Email;
                     ctm.Password = self.$scope.Password;
                     dataSvc.signOnCustomer(ctm).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(1));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.ErrorMsg = "";
                         self.$location.path("/");
+                    }, function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
                     });
                 }
                 else {
@@ -303,13 +352,21 @@ var Controllers;
                     phg.Email = self.$scope.Email;
                     phg.Password = self.$scope.Password;
                     dataSvc.signOnPhotographer(phg).then(function (res) {
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
                         $cookies.put("ctype", String(2));
-                        $cookies.put("sid", String(res.sid));
-                        $cookies.put("skey", String(res.skey));
-                        $cookies.put("cid", String(res.cid));
-                        $cookies.put("cname", String(res.cname));
+                        $cookies.put("sid", String(res.cookieInfo.sid));
+                        $cookies.put("skey", String(res.cookieInfo.skey));
+                        $cookies.put("cid", String(res.cookieInfo.cid));
+                        $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.ErrorMsg = "";
                         self.$location.path("/");
+                    }, function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
                     });
                 }
             };
@@ -427,6 +484,19 @@ var Controllers;
             self.$scope.placeOrder = function () {
                 var placeOrder = new DataModels.PlaceOrder();
                 self.$scope.AcccountId = $cookies.get("cid");
+                var cType = $cookies.get("ctype");
+                if (self.$scope.AcccountId == null) {
+                    self.$scope.ErrorMsg = "Please sign in first!";
+                    return;
+                }
+                if (self.$scope.AppointmentDate == null) {
+                    self.$scope.ErrorMsg = "Please select the appointment date!";
+                    return;
+                }
+                if (cType == 2) {
+                    self.$scope.ErrorMsg = "Photographer is not allowed to place order at the moment!";
+                    return;
+                }
                 placeOrder.CustomerId = self.$scope.AcccountId;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;
@@ -1249,7 +1319,7 @@ var OneStopCustomerApp;
     }());
     OneStopCustomerApp.Config = Config;
     Config.$inject = ['$routeProvider'];
-    Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', 'customerDataSvc'];
+    Controllers.AddCustomerCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.SignOnCustomerCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];

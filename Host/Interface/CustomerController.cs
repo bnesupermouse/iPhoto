@@ -19,15 +19,8 @@ namespace Host
             request.Action = 1;
             TxUpdCustomer txn = new TxUpdCustomer();
             txn.request = request;
-            var res = TxnFunc.ProcessTxn(txn);
-            if (res == Result.Success)
-            {
-                return txn.response;
-            }
-            else
-            {
-                return null;
-            }
+            TxnFunc.ProcessTxn(txn);
+            return txn.response;
         }
 
 
@@ -40,23 +33,8 @@ namespace Host
             TxCustomerLogin txn = new TxCustomerLogin();
             txn.request = request;
             var res = TxnFunc.ProcessTxn(txn);
-            if (res == Result.Success)
-            {
-                return txn.response;
-            }
-            else
-            {
-                return null;
-            }
+            return txn.response;
         }
 
-        [HttpGet]
-        public Customer GetMe(int id)
-        {
-            using (var dc = new HostDBDataContext())
-            {
-                return dc.Customer.Where(c => c.CustomerId == id).FirstOrDefault();
-            }
-        }
     }
 }

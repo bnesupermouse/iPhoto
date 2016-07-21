@@ -6,6 +6,8 @@
         private signOnPhApiPath: string;
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
+        ErrorNo: number;
+        ErrorMsg: string;
 
         private SessionId: number
 
@@ -17,11 +19,16 @@
 
             self.httpService.post(self.techCtmApiPath, customer)
                 .then(function (result) {
-                    self.cookieInfo.sid = result.data.SessionId;
-                    self.cookieInfo.skey = result.data.SessionKey;
-                    self.cookieInfo.cid = result.data.CustomerId;
-                    self.cookieInfo.cname = result.data.CustomerName;
-                    deferred.resolve(self.cookieInfo);
+                    if (result.data.ErrorNo == 0) {
+                        self.cookieInfo.sid = result.data.SessionId;
+                        self.cookieInfo.skey = result.data.SessionKey;
+                        self.cookieInfo.cid = result.data.CustomerId;
+                        self.cookieInfo.cname = result.data.CustomerName;
+                    }
+                    
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -35,11 +42,15 @@
 
             self.httpService.post(self.signOnApiPath, customer)
                 .then(function (result) {
-                    self.cookieInfo.sid = result.data.SessionId;
-                    self.cookieInfo.skey = result.data.SessionKey;
-                    self.cookieInfo.cid = result.data.CustomerId;
-                    self.cookieInfo.cname = result.data.CustomerName;
-                    deferred.resolve(self.cookieInfo);
+                    if (result.data.ErrorNo == 0) {
+                        self.cookieInfo.sid = result.data.SessionId;
+                        self.cookieInfo.skey = result.data.SessionKey;
+                        self.cookieInfo.cid = result.data.CustomerId;
+                        self.cookieInfo.cname = result.data.CustomerName;
+                    }
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -52,11 +63,15 @@
 
             self.httpService.post(self.addPhApiPath, photographer)
                 .then(function (result) {
-                    self.cookieInfo.sid = result.data.SessionId;
-                    self.cookieInfo.skey = result.data.SessionKey;
-                    self.cookieInfo.cid = result.data.PhotographerId;
-                    self.cookieInfo.cname = result.data.PhotographerName;
-                    deferred.resolve(self.cookieInfo);
+                    if (result.data.ErrorNo == 0) {
+                        self.cookieInfo.sid = result.data.SessionId;
+                        self.cookieInfo.skey = result.data.SessionKey;
+                        self.cookieInfo.cid = result.data.PhotographerId;
+                        self.cookieInfo.cname = result.data.PhotographerName;
+                    }
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -70,11 +85,15 @@
 
             self.httpService.post(self.signOnPhApiPath, photographer)
                 .then(function (result) {
-                    self.cookieInfo.sid = result.data.SessionId;
-                    self.cookieInfo.skey = result.data.SessionKey;
-                    self.cookieInfo.cid = result.data.PhotographerId;
-                    self.cookieInfo.cname = result.data.PhotographerName;
-                    deferred.resolve(self.cookieInfo);
+                    if (result.data.ErrorNo == 0) {
+                        self.cookieInfo.sid = result.data.SessionId;
+                        self.cookieInfo.skey = result.data.SessionKey;
+                        self.cookieInfo.cid = result.data.PhotographerId;
+                        self.cookieInfo.cname = result.data.PhotographerName;
+                    }
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });

@@ -1355,3 +1355,36 @@
 [2016-07-19 15:04:16,217]  48 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid NoServicer
 [2016-07-19 15:04:35,502]  48 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid NoOriginalPhoto
 [2016-07-19 15:04:55,694]  354 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid DurationHour
+[2016-07-21 21:04:53,874]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:08:26,702]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:08:46,668]  19 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:14:02,766]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:14:08,286]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:15:10,202]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:16:33,468]  16 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:17:07,126]  16 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:18:02,215]  11 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:00,656]  11 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:33,071]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:38,618]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:52,206]  13 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:53,314]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:20:54,158]  15 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:21:04,819]  13 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:22:59,766]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:23:54,504]  15 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:24:05,584]  23 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
+[2016-07-21 21:24:16,714]  22 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:25:33,200]  29 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:25:46,550]  28 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:29:25,440]  12 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:30:12,353]  21 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Email already registered
+[2016-07-21 21:30:42,243]  18 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:30:44,536]  21 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:30:45,656]  18 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:30:53,493]  7 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
+[2016-07-21 21:35:47,236]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:35:51,289]  13 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-21 21:36:17,597]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
+[2016-07-21 21:37:16,628]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
+[2016-07-21 21:42:56,495]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password

@@ -8,5 +8,6 @@ namespace Host
     public class Response
     {
         public int ErrorNo { get; set; }
+        public string ErrorMsg { get; set; }
     }
 }
