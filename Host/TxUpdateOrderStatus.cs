@@ -60,10 +60,14 @@ namespace Host
             }
             if (curReq.ToStatus == (int)OrderStatus.OrderConfirmed)
             {
-                if (order.Status != (int)OrderStatus.OrderPending && !order.Paid)
+                if (order.Status != (int)OrderStatus.OrderPending)
                 {
                     return Result.Failed;
                 }
+            }
+            if(curReq.ToStatus > (int)OrderStatus.OrderConfirmed && !order.Paid)
+            {
+                return Result.Failed;
             }
             if (curReq.ToStatus == (int)OrderStatus.RawPhotoUploaded)
             {

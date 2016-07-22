@@ -41,7 +41,7 @@ namespace Host
             {
                 return Result.Failed;
             }
-            if(order.Status != (int)OrderStatus.OrderConfirmed)
+            if(!order.Paid || order.Status != (int)OrderStatus.OrderConfirmed)
             {
                 return Result.Failed;
             }

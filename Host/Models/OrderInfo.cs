@@ -38,10 +38,6 @@ namespace Host.Models
         public static string[] LabelValues = new string[20];
         public static string GetStatusValue(int status, bool paid)
         {
-            if(!paid)
-            {
-                return "NotPaid";
-            }
             Values[(int)OrderStatus.OrderCancelled] = "Cancelled";
             Values[(int)OrderStatus.OrderConfirmed] = "Confirmed";
             Values[(int)OrderStatus.OrderFinalised] = "Finalised";

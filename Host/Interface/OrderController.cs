@@ -34,6 +34,17 @@ namespace Host
 
             long OrderId = long.Parse(orderId);
             int OrderStatus = int.Parse(orderStatus);
+
+            using (var dc = new HostDBDataContext())
+            {
+                var order = dc.CustomerOrder.Where(o => o.SerialNo == OrderId).FirstOrDefault();
+                if(order!= null && !order.Paid)
+                {
+                    HttpResponseMessage error = new HttpResponseMessage();
+                    error.StatusCode = HttpStatusCode.PaymentRequired;
+                    return error;
+                }
+            }
             string root = "";
             bool uploadRaw = int.Parse(orderStatus) < (int)Host.OrderStatus.PhotoSelected && int.Parse(orderStatus) > (int)Host.OrderStatus.OrderPending;
             bool uploadRetouched = int.Parse(orderStatus) < (int)Host.OrderStatus.OrderFinalised && int.Parse(orderStatus) > (int)Host.OrderStatus.RawPhotoUploaded;
@@ -178,7 +189,6 @@ namespace Host
         [HttpGet]
         public List<OrderInfo> GetOrderList(long id, int id2, int id3)
         {
-            Console.WriteLine("GetOrderList: "+id + " : " + id2 + " : " + id3);
             using (var dc = new HostDBDataContext())
             {
                 if (id2 == 1)

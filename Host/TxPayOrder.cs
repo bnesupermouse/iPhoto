@@ -39,7 +39,7 @@ namespace Host
             {
                 return Result.Failed;
             }
-            if(order.Status != (int)OrderStatus.OrderPending)
+            if(order.Status != (int)OrderStatus.OrderConfirmed)
             {
                 return Result.Failed;
             }
