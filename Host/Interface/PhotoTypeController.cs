@@ -14,7 +14,7 @@ namespace Host
     {
         [HttpGet]
        
-        public PhotoTypeInfo GetPhotoTypeOffers(int id, int id2, int id3)
+        public PhotoTypeInfo GetPhotoTypeOffers(int id, int id2, int id3, long id4)
         {
             CookieHeaderValue cookie = Request.Headers.GetCookies("sid").FirstOrDefault();
             if (cookie != null)
@@ -35,10 +35,10 @@ namespace Host
                 var offers = from o in dc.Offer
                 join p in dc.OfferPhotographer on o.OfferId equals p.OfferId
                 join ph in dc.Photographer on p.PhotographerId equals ph.PhotographerId
-                where o.PhotoTypeId == id
+                where o.PhotoTypeId == id &&o.OfferId > id4 && o.Price >= min && o.Price < max
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder};
-                var res = offers.Where(o=>o.Price >= min && o.Price<max).ToList();
+                var res = offers.Take(15).ToList();
                 foreach(var of in res)
                 {
                     var pics = dc.OfferPicture.Where(o => o.OfferId == of.OfferId).Select(o => new PicInfo { PictureId = o.OfferPictureId, Path = o.Path }).ToList();

@@ -56,6 +56,8 @@
         UpperRange: number;
         PriceFilter: number;
         SearchOffer(): void;
+        loadMoreOffers(): void;
+        busy: boolean;
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;

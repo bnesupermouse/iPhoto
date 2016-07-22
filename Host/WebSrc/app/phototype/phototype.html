@@ -79,7 +79,7 @@
                 <p class="pull-left"> Available Offers </p>
             </div>
             <!--/.productFilter-->
-            <div class="row  categoryProduct xsResponse clearfix">
+            <div infinite-scroll='loadMoreOffers()' infinite-scroll-disabled='busy' class="row  categoryProduct xsResponse clearfix">
                 <div  ng-repeat="o in Offers" class="item col-sm-4 col-lg-4 col-md-4 col-xs-6">
                     <div class="product">
                         <div class="image">

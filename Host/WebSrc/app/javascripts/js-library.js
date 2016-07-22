@@ -403,21 +403,51 @@ var Controllers;
                     lower = self.$scope.LowerRange;
                     upper = self.$scope.UpperRange;
                 }
-                self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper).then(function (data) {
+                self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper, 0).then(function (data) {
                     self.$scope.Offers = data.OfferList;
                     self.$scope.PhotoTypeId = data.PhotoTypeId;
                     self.$scope.PhotoTypeName = data.PhotoTypeName;
+                });
+            };
+            self.$scope.loadMoreOffers = function () {
+                self.$scope.busy = true;
+                var lastOfferId = 0;
+                if (self.$scope.Offers == null) {
+                    self.$scope.Offers = new Array();
+                }
+                else {
+                    if (self.$scope.Offers.length > 0) {
+                        lastOfferId = self.$scope.Offers[self.$scope.Offers.length - 1].OfferId;
+                    }
+                }
+                var lower = 0;
+                var upper = 0;
+                if (self.$scope.PriceFilter == 1) {
+                    lower = 1;
+                    upper = 500;
+                }
+                else if (self.$scope.PriceFilter == 2) {
+                    lower = 501;
+                    upper = 1000;
+                }
+                else if (self.$scope.PriceFilter == 3) {
+                    lower = self.$scope.LowerRange;
+                    upper = self.$scope.UpperRange;
+                }
+                self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper, lastOfferId).then(function (data) {
+                    if (self.$scope.Offers == null) {
+                        self.$scope.Offers = new Array();
+                    }
+                    for (var i = 0; i < data.OfferList.length; i++) {
+                        self.$scope.Offers.push(data.OfferList[i]);
+                    }
+                    self.$scope.busy = false;
                 });
             };
             self.init();
         }
         PhotoTypeCtrl.prototype.init = function () {
             var self = this;
-            self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, 0, 0).then(function (data) {
-                self.$scope.Offers = data.OfferList;
-                self.$scope.PhotoTypeId = data.PhotoTypeId;
-                self.$scope.PhotoTypeName = data.PhotoTypeName;
-            });
         };
         return PhotoTypeCtrl;
     }());
@@ -435,10 +465,10 @@ var Services;
             this.httpService = $http;
             this.qService = $q;
         }
-        PhotoTypeDataSvc.prototype.getPhotoTypeOffers = function (photoTypeId, lower, upper) {
+        PhotoTypeDataSvc.prototype.getPhotoTypeOffers = function (photoTypeId, lower, upper, lastOfferId) {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.get(self.getPhotoTypeOffersApiPath + "/" + photoTypeId + "/" + lower + "/" + upper)
+            self.httpService.get(self.getPhotoTypeOffersApiPath + "/" + photoTypeId + "/" + lower + "/" + upper + "/" + lastOfferId)
                 .then(function (result) {
                 self.PhotoTypeId = result.data.PhotoTypeId;
                 self.PhotoTypeName = result.data.PhotoTypeName;
