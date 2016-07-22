@@ -77,6 +77,8 @@
     }
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;
+        StatusFilter: number;
+        SearchOrders(): void;
     }
 
     export interface IPaymentPageScope extends IBaseScope {

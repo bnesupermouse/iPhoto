@@ -977,15 +977,17 @@ var Controllers;
             self.$scope.CustomerName = $cookies.get("cname");
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
+            self.$scope.StatusFilter = -1;
+            self.$scope.SearchOrders = function () {
+                self.dataSvc.getOrderList(self.$scope.AcccountId, self.$scope.CustomerType, self.$scope.StatusFilter).then(function (data) {
+                    self.$scope.Orders = data.OrderList;
+                });
+            };
             self.init();
-            //self.$scope.$on('$viewContentLoaded', function (event) {
-            //    console.log("content loaded");
-            //    eval('$(\'.footable\').footable()');
-            //});
         }
         OrderCtrl.prototype.init = function () {
             var self = this;
-            self.dataSvc.getOrderList(self.$scope.AcccountId, self.$scope.CustomerType, 1).then(function (data) {
+            self.dataSvc.getOrderList(self.$scope.AcccountId, self.$scope.CustomerType, self.$scope.StatusFilter).then(function (data) {
                 self.$scope.Orders = data.OrderList;
             });
         };
@@ -1233,10 +1235,10 @@ var Services;
             this.httpService = $http;
             this.qService = $q;
         }
-        OrderDataSvc.prototype.getOrderList = function (accountId, accountType, active) {
+        OrderDataSvc.prototype.getOrderList = function (accountId, accountType, statusFilter) {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType + "/" + active)
+            self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType + "/" + statusFilter)
                 .then(function (result) {
                 self.OrderList = result.data;
                 deferred.resolve(self);

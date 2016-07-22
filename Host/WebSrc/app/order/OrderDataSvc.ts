@@ -14,11 +14,11 @@
         public Photos: DataModels.PhotoInfo;
         OrderId: number;
 
-        getOrderList(accountId:number, accountType:number, active:number): ng.IPromise<any> {
+        getOrderList(accountId:number, accountType:number, statusFilter:number): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
 
-            self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType+"/"+active)
+            self.httpService.get(self.getOrderListApiPath + "/" + accountId + "/" + accountType + "/" + statusFilter)
                 .then(function (result: any) {
                     self.OrderList = result.data;
                     deferred.resolve(self);

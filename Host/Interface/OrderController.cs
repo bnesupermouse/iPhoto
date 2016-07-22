@@ -186,57 +186,117 @@ namespace Host
             {
                 if (id2 == 1)
                 {
-                    var orders = from o in dc.CustomerOrder
-                                 join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
-                                 join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
-                                 join of in dc.Offer on o.OfferId equals of.OfferId
-                                 where o.CustomerId == id //&& o.Status == 0
-                                 select new OrderInfo
-                                 {
-                                     SerialNo = o.SerialNo,
-                                     CustomerId = ctm.CustomerId,
-                                     Amount = o.Amount,
-                                     AppointmentTime = o.AppointmentTime.ToLocalTime(),
-                                     CustomerName = ctm.CustomerName,
-                                     OfferId = o.OfferId,
-                                     OfferName = of.OfferName,
-                                     OrderTime = o.OrderTime.ToLocalTime(),
-                                     PhotographerId = ph.PhotographerId,
-                                     PhotographerName = ph.PhotographerName,
-                                     Status = o.Status,
-                                     StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
-                                     LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
-                                     Paid = o.Paid ? 1 : 0
-                                 };
-                    var res = orders.ToList();
-                    return res;
+                    if (id3 == -1)
+                    {
+                        var orders = from o in dc.CustomerOrder
+                                     join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                     join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                     join of in dc.Offer on o.OfferId equals of.OfferId
+                                     where o.CustomerId == id
+                                     select new OrderInfo
+                                     {
+                                         SerialNo = o.SerialNo,
+                                         CustomerId = ctm.CustomerId,
+                                         Amount = o.Amount,
+                                         AppointmentTime = o.AppointmentTime.ToLocalTime(),
+                                         CustomerName = ctm.CustomerName,
+                                         OfferId = o.OfferId,
+                                         OfferName = of.OfferName,
+                                         OrderTime = o.OrderTime.ToLocalTime(),
+                                         PhotographerId = ph.PhotographerId,
+                                         PhotographerName = ph.PhotographerName,
+                                         Status = o.Status,
+                                         StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
+                                         LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
+                                         Paid = o.Paid ? 1 : 0
+                                     };
+                        var res = orders.ToList();
+                        return res;
+                    }
+                    else
+                    {
+                        var orders = from o in dc.CustomerOrder
+                                     join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                     join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                     join of in dc.Offer on o.OfferId equals of.OfferId
+                                     where o.CustomerId == id && o.Status == id3
+                                     select new OrderInfo
+                                     {
+                                         SerialNo = o.SerialNo,
+                                         CustomerId = ctm.CustomerId,
+                                         Amount = o.Amount,
+                                         AppointmentTime = o.AppointmentTime.ToLocalTime(),
+                                         CustomerName = ctm.CustomerName,
+                                         OfferId = o.OfferId,
+                                         OfferName = of.OfferName,
+                                         OrderTime = o.OrderTime.ToLocalTime(),
+                                         PhotographerId = ph.PhotographerId,
+                                         PhotographerName = ph.PhotographerName,
+                                         Status = o.Status,
+                                         StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
+                                         LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
+                                         Paid = o.Paid ? 1 : 0
+                                     };
+                        var res = orders.ToList();
+                        return res;
+                    }
                 }
                 else
                 {
-                    var orders = from o in dc.CustomerOrder
-                                 join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
-                                 join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
-                                 join of in dc.Offer on o.OfferId equals of.OfferId
-                                 where o.PhotographerId == id //&& o.Status == 0
-                                 select new OrderInfo
-                                 {
-                                     SerialNo = o.SerialNo,
-                                     CustomerId = ctm.CustomerId,
-                                     Amount = o.Amount,
-                                     AppointmentTime = o.AppointmentTime.ToLocalTime(),
-                                     CustomerName = ctm.CustomerName,
-                                     OfferId = o.OfferId,
-                                     OfferName = of.OfferName,
-                                     OrderTime = o.OrderTime.ToLocalTime(),
-                                     PhotographerId = ph.PhotographerId,
-                                     PhotographerName = ph.PhotographerName,
-                                     Status = o.Status,
-                                     StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
-                                     LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
-                                     Paid = o.Paid ? 1 : 0
-                                 };
-                    var res = orders.ToList();
-                    return res;
+                    if (id3 == -1)
+                    {
+                        var orders = from o in dc.CustomerOrder
+                                     join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                     join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                     join of in dc.Offer on o.OfferId equals of.OfferId
+                                     where o.PhotographerId == id //&& o.Status == 0
+                                     select new OrderInfo
+                                     {
+                                         SerialNo = o.SerialNo,
+                                         CustomerId = ctm.CustomerId,
+                                         Amount = o.Amount,
+                                         AppointmentTime = o.AppointmentTime.ToLocalTime(),
+                                         CustomerName = ctm.CustomerName,
+                                         OfferId = o.OfferId,
+                                         OfferName = of.OfferName,
+                                         OrderTime = o.OrderTime.ToLocalTime(),
+                                         PhotographerId = ph.PhotographerId,
+                                         PhotographerName = ph.PhotographerName,
+                                         Status = o.Status,
+                                         StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
+                                         LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
+                                         Paid = o.Paid ? 1 : 0
+                                     };
+                        var res = orders.ToList();
+                        return res;
+                    }
+                    else
+                    {
+                        var orders = from o in dc.CustomerOrder
+                                     join ph in dc.Photographer on o.PhotographerId equals ph.PhotographerId
+                                     join ctm in dc.Customer on o.CustomerId equals ctm.CustomerId
+                                     join of in dc.Offer on o.OfferId equals of.OfferId
+                                     where o.PhotographerId == id && o.Status == id3
+                                     select new OrderInfo
+                                     {
+                                         SerialNo = o.SerialNo,
+                                         CustomerId = ctm.CustomerId,
+                                         Amount = o.Amount,
+                                         AppointmentTime = o.AppointmentTime.ToLocalTime(),
+                                         CustomerName = ctm.CustomerName,
+                                         OfferId = o.OfferId,
+                                         OfferName = of.OfferName,
+                                         OrderTime = o.OrderTime.ToLocalTime(),
+                                         PhotographerId = ph.PhotographerId,
+                                         PhotographerName = ph.PhotographerName,
+                                         Status = o.Status,
+                                         StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
+                                         LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
+                                         Paid = o.Paid ? 1 : 0
+                                     };
+                        var res = orders.ToList();
+                        return res;
+                    }
                 }
             }
         }
