@@ -25,10 +25,19 @@ namespace Host.Models
         public int Paid { get; set; }
     }
 
+    public class Appointment
+    {
+        public DateTime start { get; set; }
+        public DateTime end { get; set; }
+        public long id { get; set; }
+        public string text { get; set; }
+    }
     public class OrderDetails:OrderInfo
     {
         public List<PhotoInfo> RawPhotos { get; set; }
         public List<PhotoInfo> RetouchedPhotos { get; set; }
+        public List<Appointment> Events { get; set; }
+
 
     }
 

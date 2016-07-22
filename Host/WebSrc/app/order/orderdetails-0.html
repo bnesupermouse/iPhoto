@@ -41,16 +41,19 @@
                            class="btn btn-primary btn-lg ">
                             Confirm &nbsp; <i class="fa fa-arrow-circle-right"></i>
                         </a>
+                        <a ng-click="rejectOrder()"
+                           class="btn btn-warning btn-lg ">
+                            Reject &nbsp; <i class="fa fa-arrow-circle-right"></i>
+                        </a>
                     </div>
                 </div>
             </div>
             <!--/row end-->
-
+            <daypilot-calendar ng-if="CustomerType==2" id="dp" config="config" events="Details.Events"></daypilot-calendar>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>
         <!--/row-->
-
-        <div style="clear:both"></div>
+    <div style="clear:both"></div>
     </div>
 <!-- /main-container -->

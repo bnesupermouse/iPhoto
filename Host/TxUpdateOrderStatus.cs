@@ -65,7 +65,7 @@ namespace Host
                     return Result.Failed;
                 }
             }
-            if(curReq.ToStatus > (int)OrderStatus.OrderConfirmed && !order.Paid)
+            if(curReq.ToStatus != (int)OrderStatus.OrderRejected && curReq.ToStatus > (int)OrderStatus.OrderConfirmed && !order.Paid)
             {
                 return Result.Failed;
             }

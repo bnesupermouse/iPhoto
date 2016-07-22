@@ -46,7 +46,7 @@ namespace Host
             order.CustomerId = curReq.CustomerId;
             order.OfferId = curReq.OfferId;
             order.AppointmentTime = curReq.AppointmentDate;
-            order.OrderTime = DateTime.Now;
+            order.OrderTime = DateTime.UtcNow;
             order.Status = (int)OrderStatus.OrderPending;
 
             //Check Session

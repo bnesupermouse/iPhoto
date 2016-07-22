@@ -148,11 +148,11 @@ namespace Host
                                  SerialNo = o.SerialNo,
                                  CustomerId = ctm.CustomerId,
                                  Amount = o.Amount,
-                                 AppointmentTime = o.AppointmentTime,
+                                 AppointmentTime = o.AppointmentTime.ToLocalTime(),
                                  CustomerName = ctm.CustomerName,
                                  OfferId = o.OfferId,
                                  OfferName = of.OfferName,
-                                 OrderTime = o.OrderTime,
+                                 OrderTime = o.OrderTime.ToLocalTime(),
                                  PhotographerId = ph.PhotographerId,
                                  PhotographerName = ph.PhotographerName,
                                  Status = o.Status,
@@ -163,22 +163,15 @@ namespace Host
                 OrderDetails res = orders.ToList().FirstOrDefault();
                 if (res != null)
                 {
-                    if (res.Status < (int)OrderStatus.OrderConfirmed)
-                    {
-                        return res;
-                    }
-                    else
-                    {
-                        if (res.Status <= (int)OrderStatus.PhotoSelected)
-                        {
-                            //res.RawPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && !p.Retouched).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
-                        }
-                        if (res.Status > (int)OrderStatus.PhotoSelected)
-                        {
-                            //res.RetouchedPhotos = dc.Photo.Where(p => p.CustomerOrderId == id && p.Retouched).Take(10).Select(p => new PhotoInfo { PhotoId = p.PhotoId, PhotoName = p.PhotoName, Path = p.Path, Confirmed = p.Confirmed, Retouched = p.Retouched, Selected = p.Selected }).ToList();
-                        }
-                        return res;
-                    }
+                    DateTime start = res.AppointmentTime.Date;
+                    DateTime end = start.AddDays(1);
+                    TimeZone zone = TimeZone.CurrentTimeZone;
+                    var offset = zone.GetUtcOffset(DateTime.Now);
+                    int hours = offset.Hours;
+                    var events = dc.CustomerOrder.Where(o => o.PhotographerId == res.PhotographerId && o.AppointmentTime > start && o.AppointmentTime < end).Select(o => new Appointment { start = o.AppointmentTime.AddHours(hours), end = o.AppointmentTime.AddHours(hours+2), id = o.SerialNo, text = "OrderId: " + o.SerialNo + " OfferId: " + o.OfferId }).ToList();
+                    res.Events = new List<Appointment>();
+                    res.Events.AddRange(events);
+                    return res;
                 }
                 else
                 {
@@ -203,11 +196,11 @@ namespace Host
                                      SerialNo = o.SerialNo,
                                      CustomerId = ctm.CustomerId,
                                      Amount = o.Amount,
-                                     AppointmentTime = o.AppointmentTime,
+                                     AppointmentTime = o.AppointmentTime.ToLocalTime(),
                                      CustomerName = ctm.CustomerName,
                                      OfferId = o.OfferId,
                                      OfferName = of.OfferName,
-                                     OrderTime = o.OrderTime,
+                                     OrderTime = o.OrderTime.ToLocalTime(),
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
                                      Status = o.Status,
@@ -230,11 +223,11 @@ namespace Host
                                      SerialNo = o.SerialNo,
                                      CustomerId = ctm.CustomerId,
                                      Amount = o.Amount,
-                                     AppointmentTime = o.AppointmentTime,
+                                     AppointmentTime = o.AppointmentTime.ToLocalTime(),
                                      CustomerName = ctm.CustomerName,
                                      OfferId = o.OfferId,
                                      OfferName = of.OfferName,
-                                     OrderTime = o.OrderTime,
+                                     OrderTime = o.OrderTime.ToLocalTime(),
                                      PhotographerId = ph.PhotographerId,
                                      PhotographerName = ph.PhotographerName,
                                      Status = o.Status,

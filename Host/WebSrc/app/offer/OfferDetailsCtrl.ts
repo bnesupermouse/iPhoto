@@ -29,6 +29,11 @@
                     self.$scope.ErrorMsg = "Please select the appointment date!";
                     return;
                 }
+                let now = new Date();
+                if (self.$scope.AppointmentDate < new Date(now.setDate(now.getDate() + 1))) {
+                    self.$scope.ErrorMsg = "Invalid Appointment Time";
+                    return;
+                }
                 if (cType == 2) {
                     self.$scope.ErrorMsg = "Photographer is not allowed to place order at the moment!";
                     return;
@@ -38,7 +43,7 @@
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
                     let orderId = res;
-                    self.$location.path("/orderpayment/" + orderId);
+                    self.$location.path("/orderdetails-0/" + orderId);
                 });
             }
 
@@ -185,10 +190,15 @@
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
                     self.$scope.OldOffer = self.clone(self.$scope.OfferDetails);
-                    let x = 1;
-                });
-                self.dataSvc.getPhotoTypes().then(function (data) {
-                    self.$scope.PhotoTypes = data.PhotoTypes;
+
+                    self.dataSvc.getPhotoTypes().then(function (data) {
+                        self.$scope.PhotoTypes = data.PhotoTypes;
+                        for (var i = 0; i < self.$scope.PhotoTypes.length; i++) {
+                            if (self.$scope.PhotoTypes[i].PhotoTypeId == self.$scope.OfferDetails.PhotoTypeId) {
+                                self.$scope.PhotoTypeName = self.$scope.PhotoTypes[i].PhotoTypeName;
+                            }
+                        }
+                    });
                 });
             }
             else {

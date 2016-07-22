@@ -52,6 +52,10 @@
         PhotoTypeId: number;
         PhotoTypeName: string;
         Offers: Array<Offer>;
+        LowerRange: number;
+        UpperRange: number;
+        PriceFilter: number;
+        SearchOffer(): void;
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
@@ -64,6 +68,7 @@
         setFiles(): void;
         uploadPhotos(): void;
         busy: boolean;
+        PhotoTypeName: string;
     }
     export interface IOfferListPageScope extends IBaseScope {
         Offers: Array<Offer>;
@@ -82,6 +87,7 @@
         Details: OrderDetails;
         PhotoList: Array<Photo>;
         confirmOrder(): void;
+        rejectOrder(): void;
         confirmRawPhotosUploaded(): void;
         setFiles(): void;
         uploadPhotos(): void;
@@ -92,5 +98,6 @@
         confirmRetouchedPhotosUploaded(): void;
         finaliseOrder(): void;
         busy: boolean;
+        config: any;
     }
 }

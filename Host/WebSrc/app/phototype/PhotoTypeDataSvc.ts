@@ -7,11 +7,11 @@
         private httpService: ng.IHttpService;
         private qService: ng.IQService;
 
-        getPhotoTypeOffers(photoTypeId:number): ng.IPromise<any> {
+        getPhotoTypeOffers(photoTypeId:number, lower:number, upper:number): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
 
-            self.httpService.get(self.getPhotoTypeOffersApiPath+"/"+photoTypeId)
+            self.httpService.get(self.getPhotoTypeOffersApiPath+"/"+photoTypeId+"/"+lower+"/"+upper)
                 .then(function (result: any) {
                     self.PhotoTypeId = result.data.PhotoTypeId;
                     self.PhotoTypeName = result.data.PhotoTypeName;

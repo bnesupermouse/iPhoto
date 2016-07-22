@@ -388,11 +388,32 @@ var Controllers;
             self.$scope = $scope;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
+            self.$scope.SearchOffer = function () {
+                var lower = 0;
+                var upper = 0;
+                if (self.$scope.PriceFilter == 1) {
+                    lower = 1;
+                    upper = 500;
+                }
+                else if (self.$scope.PriceFilter == 2) {
+                    lower = 501;
+                    upper = 1000;
+                }
+                else if (self.$scope.PriceFilter == 3) {
+                    lower = self.$scope.LowerRange;
+                    upper = self.$scope.UpperRange;
+                }
+                self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper).then(function (data) {
+                    self.$scope.Offers = data.OfferList;
+                    self.$scope.PhotoTypeId = data.PhotoTypeId;
+                    self.$scope.PhotoTypeName = data.PhotoTypeName;
+                });
+            };
             self.init();
         }
         PhotoTypeCtrl.prototype.init = function () {
             var self = this;
-            self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid).then(function (data) {
+            self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, 0, 0).then(function (data) {
                 self.$scope.Offers = data.OfferList;
                 self.$scope.PhotoTypeId = data.PhotoTypeId;
                 self.$scope.PhotoTypeName = data.PhotoTypeName;
@@ -414,10 +435,10 @@ var Services;
             this.httpService = $http;
             this.qService = $q;
         }
-        PhotoTypeDataSvc.prototype.getPhotoTypeOffers = function (photoTypeId) {
+        PhotoTypeDataSvc.prototype.getPhotoTypeOffers = function (photoTypeId, lower, upper) {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.get(self.getPhotoTypeOffersApiPath + "/" + photoTypeId)
+            self.httpService.get(self.getPhotoTypeOffersApiPath + "/" + photoTypeId + "/" + lower + "/" + upper)
                 .then(function (result) {
                 self.PhotoTypeId = result.data.PhotoTypeId;
                 self.PhotoTypeName = result.data.PhotoTypeName;
@@ -493,6 +514,11 @@ var Controllers;
                     self.$scope.ErrorMsg = "Please select the appointment date!";
                     return;
                 }
+                var now = new Date();
+                if (self.$scope.AppointmentDate < new Date(now.setDate(now.getDate() + 1))) {
+                    self.$scope.ErrorMsg = "Invalid Appointment Time";
+                    return;
+                }
                 if (cType == 2) {
                     self.$scope.ErrorMsg = "Photographer is not allowed to place order at the moment!";
                     return;
@@ -502,7 +528,7 @@ var Controllers;
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
                     var orderId = res;
-                    self.$location.path("/orderpayment/" + orderId);
+                    self.$location.path("/orderdetails-0/" + orderId);
                 });
             };
             self.$scope.updateOffer = function () {
@@ -624,10 +650,14 @@ var Controllers;
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
                     self.$scope.OldOffer = self.clone(self.$scope.OfferDetails);
-                    var x = 1;
-                });
-                self.dataSvc.getPhotoTypes().then(function (data) {
-                    self.$scope.PhotoTypes = data.PhotoTypes;
+                    self.dataSvc.getPhotoTypes().then(function (data) {
+                        self.$scope.PhotoTypes = data.PhotoTypes;
+                        for (var i = 0; i < self.$scope.PhotoTypes.length; i++) {
+                            if (self.$scope.PhotoTypes[i].PhotoTypeId == self.$scope.OfferDetails.PhotoTypeId) {
+                                self.$scope.PhotoTypeName = self.$scope.PhotoTypes[i].PhotoTypeName;
+                            }
+                        }
+                    });
                 });
             }
             else {
@@ -954,6 +984,12 @@ var Controllers;
                     self.$location.path("/orderlist");
                 });
             };
+            self.$scope.rejectOrder = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
+                });
+            };
             self.$scope.confirmRawPhotosUploaded = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
                     //self.$scope.Details = data.Details;
@@ -1132,6 +1168,10 @@ var Controllers;
             self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
                 self.$scope.Details = data.Details;
                 self.$scope.busy = false;
+                self.$scope.config = {
+                    startDate: self.$scope.Details.AppointmentTime.toString(),
+                    viewType: "Day"
+                };
             });
         };
         return OrderDetailsCtrl;
@@ -1330,7 +1370,7 @@ var OneStopCustomerApp;
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
     Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     //test
-    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker']);
+    var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker', 'daypilot']);
     app.config(Config);
     app.factory('customerDataSvc', ['$http', '$q', Services.CustomerDataSvc.CustomerDataSvcFactory]);
     app.factory('mainPageDataSvc', ['$http', '$q', Services.MainPageDataSvc.MainPageDataSvcFactory]);

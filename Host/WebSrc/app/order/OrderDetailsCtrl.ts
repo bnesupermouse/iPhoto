@@ -17,8 +17,16 @@
             self.$scope.AcccountId = $cookies.get("cid");
             self.$scope.CustomerType = $cookies.get("ctype");
             self.$scope.busy = false;
+            
             self.$scope.confirmOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
+                    //self.$scope.Details = data.Details;
+                    self.$location.path("/orderlist");
+                });
+            }
+
+            self.$scope.rejectOrder = function () {
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (data) {
                     //self.$scope.Details = data.Details;
                     self.$location.path("/orderlist");
                 });
@@ -231,6 +239,10 @@
             self.dataSvc.getOrderDetails(self.$routeParams.orderid).then(function (data) {
                 self.$scope.Details = data.Details;
                 self.$scope.busy = false;
+                self.$scope.config = {
+                    startDate: self.$scope.Details.AppointmentTime.toString(),
+                    viewType: "Day"
+                };
             });
         }
     }
