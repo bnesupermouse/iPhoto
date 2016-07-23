@@ -1390,3 +1390,17 @@
 [2016-07-21 21:42:56,495]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
 [2016-07-22 11:33:13,281]  351 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
 [2016-07-22 11:36:06,629]  351 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password
+[2016-07-23 11:13:16,587]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Failed to Update Session
+[2016-07-23 14:14:08,130]  14 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Failed to update session
+[2016-07-23 14:14:27,913]  26 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Failed to update session
+[2016-07-23 14:19:38,233]  12 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Invalid Status value
+[2016-07-23 14:49:53,434]  43 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:49:59,873]  43 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:50:05,643]  42 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:50:19,145]  42 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:50:34,685]  43 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:51:11,798]  47 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 14:51:14,687]  38 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 15:07:44,337]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 17:33:45,089]  13 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 18:49:58,070]  53 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password

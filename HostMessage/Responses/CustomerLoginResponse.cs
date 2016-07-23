@@ -13,6 +13,5 @@ namespace HostMessage.Responses
         public string Email { get; set; }
         public long SessionId { get; set; }
         public string SessionKey { get; set; }
-
     }
 }

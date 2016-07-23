@@ -14,5 +14,6 @@ namespace Host
         public Photographer OldPhotographer { get; set; }
         public Photographer NewPhotographer { get; set; }
         public int Action { get; set; }
+        public long PhotographerId { get; set; }
     }
 }

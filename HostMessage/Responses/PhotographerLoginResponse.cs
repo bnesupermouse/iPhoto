@@ -14,5 +14,7 @@ namespace HostMessage.Responses
         public string SessionKey { get; set; }
         public string PhotographerName { get; set; }
 
+        public bool IsAdmin { get; set; }
+        public bool IsVerified { get; set; }
     }
 }

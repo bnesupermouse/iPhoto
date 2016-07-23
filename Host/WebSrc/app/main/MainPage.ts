@@ -26,6 +26,8 @@
         AcccountId: number;
         CustomerName: string;
         CustomerType: number;
+        IsAdmin: number;
+        IsVerified: number;
         ErrorMsg: string;
     }
     export interface IAddCustomerScope extends IBaseScope {
@@ -74,6 +76,13 @@
     }
     export interface IOfferListPageScope extends IBaseScope {
         Offers: Array<Offer>;
+        StatusFilter: number;
+        SearchOffers(): void;
+    }
+    export interface IPhotographerListPageScope extends IBaseScope {
+        Photographers: Array<Photographer>;
+        StatusFilter: number;
+        SearchPhotographers(): void;
     }
     export interface IOrderListPageScope extends IBaseScope {
         Orders: Array<Order>;
@@ -103,5 +112,10 @@
         finaliseOrder(): void;
         busy: boolean;
         config: any;
+    }
+    export interface IPhotographerPageScope extends IBaseScope {
+        OldPhotographer: Photographer;
+        NewPhotographer: Photographer;
+        updatePhotographer(): void;
     }
 }

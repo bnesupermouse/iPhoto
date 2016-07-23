@@ -17,6 +17,10 @@
             self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
+            self.$scope.IsAdmin = 0;
+            if ($cookies.get("isadmin") == "true") {
+                self.$scope.IsAdmin = 1;
+            }
             self.$scope.placeOrder = function () {
                 let placeOrder = new DataModels.PlaceOrder();
                 self.$scope.AcccountId = $cookies.get("cid");
@@ -190,7 +194,7 @@
                 self.dataSvc.getOfferDetails(self.$routeParams.offerid).then(function (data) {
                     self.$scope.OfferDetails = data.OfferDetails;
                     self.$scope.OldOffer = self.clone(self.$scope.OfferDetails);
-
+                    
                     self.dataSvc.getPhotoTypes().then(function (data) {
                         self.$scope.PhotoTypes = data.PhotoTypes;
                         for (var i = 0; i < self.$scope.PhotoTypes.length; i++) {

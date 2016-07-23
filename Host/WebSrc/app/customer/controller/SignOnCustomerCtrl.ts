@@ -34,6 +34,7 @@
                         $cookies.put("cid", String(res.cookieInfo.cid));
                         $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.AcccountId = self.$cookies.get("cid");
                         self.$scope.ErrorMsg = "";
                         self.$location.path("/");
                     },
@@ -57,7 +58,11 @@
                         $cookies.put("skey", String(res.cookieInfo.skey));
                         $cookies.put("cid", String(res.cookieInfo.cid));
                         $cookies.put("cname", String(res.cookieInfo.cname));
+                        $cookies.put("isadmin", String(res.IsAdmin));
+                        $cookies.put("isverified", String(res.IsVerified));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.IsAdmin = res.IsAdmin;
+                        self.$scope.IsVerified = res.IsVerified;
                         self.$scope.ErrorMsg = "";
                         self.$location.path("/");
                     },

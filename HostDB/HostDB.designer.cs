@@ -73,9 +73,6 @@ namespace HostDB
     partial void InsertPhoto(Photo instance);
     partial void UpdatePhoto(Photo instance);
     partial void DeletePhoto(Photo instance);
-    partial void InsertPhotographer(Photographer instance);
-    partial void UpdatePhotographer(Photographer instance);
-    partial void DeletePhotographer(Photographer instance);
     partial void InsertPhotographerAccount(PhotographerAccount instance);
     partial void UpdatePhotographerAccount(PhotographerAccount instance);
     partial void DeletePhotographerAccount(PhotographerAccount instance);
@@ -100,6 +97,9 @@ namespace HostDB
     partial void InsertTxnRecord(TxnRecord instance);
     partial void UpdateTxnRecord(TxnRecord instance);
     partial void DeleteTxnRecord(TxnRecord instance);
+    partial void InsertPhotographer(Photographer instance);
+    partial void UpdatePhotographer(Photographer instance);
+    partial void DeletePhotographer(Photographer instance);
     #endregion
 		
 		public HostDBDataContext() : 
@@ -244,14 +244,6 @@ namespace HostDB
 			}
 		}
 		
-		public System.Data.Linq.Table<Photographer> Photographer
-		{
-			get
-			{
-				return this.GetTable<Photographer>();
-			}
-		}
-		
 		public System.Data.Linq.Table<PhotographerAccount> PhotographerAccount
 		{
 			get
@@ -313,6 +305,14 @@ namespace HostDB
 			get
 			{
 				return this.GetTable<TxnRecord>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Photographer> Photographer
+		{
+			get
+			{
+				return this.GetTable<Photographer>();
 			}
 		}
 	}
@@ -3281,482 +3281,6 @@ namespace HostDB
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Photographer")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class Photographer : Entity, INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _PhotographerId;
-		
-		private string _Email;
-		
-		private string _PhotographerName;
-		
-		private string _Password;
-		
-		private int _PayRate;
-		
-		private System.Nullable<int> _Gender;
-		
-		private System.Nullable<int> _Age;
-		
-		private string _Phone;
-		
-		private System.DateTime _OpenDate;
-		
-		private System.DateTime _LastLoginTime;
-		
-		private int _Status;
-		
-		private System.Nullable<int> _ExperienceYear;
-		
-		private string _Introduction;
-		
-		private System.Nullable<int> _Rank;
-		
-		private System.Nullable<int> _LikeVote;
-		
-		private System.Nullable<int> _DislikeVote;
-		
-		private string _HeadPhoto;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnPhotographerIdChanging(long value);
-    partial void OnPhotographerIdChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnPhotographerNameChanging(string value);
-    partial void OnPhotographerNameChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
-    partial void OnPayRateChanging(int value);
-    partial void OnPayRateChanged();
-    partial void OnGenderChanging(System.Nullable<int> value);
-    partial void OnGenderChanged();
-    partial void OnAgeChanging(System.Nullable<int> value);
-    partial void OnAgeChanged();
-    partial void OnPhoneChanging(string value);
-    partial void OnPhoneChanged();
-    partial void OnOpenDateChanging(System.DateTime value);
-    partial void OnOpenDateChanged();
-    partial void OnLastLoginTimeChanging(System.DateTime value);
-    partial void OnLastLoginTimeChanged();
-    partial void OnStatusChanging(int value);
-    partial void OnStatusChanged();
-    partial void OnExperienceYearChanging(System.Nullable<int> value);
-    partial void OnExperienceYearChanged();
-    partial void OnIntroductionChanging(string value);
-    partial void OnIntroductionChanged();
-    partial void OnRankChanging(System.Nullable<int> value);
-    partial void OnRankChanged();
-    partial void OnLikeVoteChanging(System.Nullable<int> value);
-    partial void OnLikeVoteChanged();
-    partial void OnDislikeVoteChanging(System.Nullable<int> value);
-    partial void OnDislikeVoteChanged();
-    partial void OnHeadPhotoChanging(string value);
-    partial void OnHeadPhotoChanged();
-    #endregion
-		
-		public Photographer()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerId", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public long PhotographerId
-		{
-			get
-			{
-				return this._PhotographerId;
-			}
-			set
-			{
-				if ((this._PhotographerId != value))
-				{
-					this.OnPhotographerIdChanging(value);
-					this.SendPropertyChanging();
-					this._PhotographerId = value;
-					this.SendPropertyChanged("PhotographerId");
-					this.OnPhotographerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public string Email
-		{
-			get
-			{
-				return this._Email;
-			}
-			set
-			{
-				if ((this._Email != value))
-				{
-					this.OnEmailChanging(value);
-					this.SendPropertyChanging();
-					this._Email = value;
-					this.SendPropertyChanged("Email");
-					this.OnEmailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerName", DbType="NVarChar(50)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public string PhotographerName
-		{
-			get
-			{
-				return this._PhotographerName;
-			}
-			set
-			{
-				if ((this._PhotographerName != value))
-				{
-					this.OnPhotographerNameChanging(value);
-					this.SendPropertyChanging();
-					this._PhotographerName = value;
-					this.SendPropertyChanged("PhotographerName");
-					this.OnPhotographerNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public string Password
-		{
-			get
-			{
-				return this._Password;
-			}
-			set
-			{
-				if ((this._Password != value))
-				{
-					this.OnPasswordChanging(value);
-					this.SendPropertyChanging();
-					this._Password = value;
-					this.SendPropertyChanged("Password");
-					this.OnPasswordChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayRate", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public int PayRate
-		{
-			get
-			{
-				return this._PayRate;
-			}
-			set
-			{
-				if ((this._PayRate != value))
-				{
-					this.OnPayRateChanging(value);
-					this.SendPropertyChanging();
-					this._PayRate = value;
-					this.SendPropertyChanged("PayRate");
-					this.OnPayRateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public System.Nullable<int> Gender
-		{
-			get
-			{
-				return this._Gender;
-			}
-			set
-			{
-				if ((this._Gender != value))
-				{
-					this.OnGenderChanging(value);
-					this.SendPropertyChanging();
-					this._Gender = value;
-					this.SendPropertyChanged("Gender");
-					this.OnGenderChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public System.Nullable<int> Age
-		{
-			get
-			{
-				return this._Age;
-			}
-			set
-			{
-				if ((this._Age != value))
-				{
-					this.OnAgeChanging(value);
-					this.SendPropertyChanging();
-					this._Age = value;
-					this.SendPropertyChanged("Age");
-					this.OnAgeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(50)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-		public string Phone
-		{
-			get
-			{
-				return this._Phone;
-			}
-			set
-			{
-				if ((this._Phone != value))
-				{
-					this.OnPhoneChanging(value);
-					this.SendPropertyChanging();
-					this._Phone = value;
-					this.SendPropertyChanged("Phone");
-					this.OnPhoneChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenDate", DbType="DateTime NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-		public System.DateTime OpenDate
-		{
-			get
-			{
-				return this._OpenDate;
-			}
-			set
-			{
-				if ((this._OpenDate != value))
-				{
-					this.OnOpenDateChanging(value);
-					this.SendPropertyChanging();
-					this._OpenDate = value;
-					this.SendPropertyChanged("OpenDate");
-					this.OnOpenDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastLoginTime", DbType="DateTime NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-		public System.DateTime LastLoginTime
-		{
-			get
-			{
-				return this._LastLoginTime;
-			}
-			set
-			{
-				if ((this._LastLoginTime != value))
-				{
-					this.OnLastLoginTimeChanging(value);
-					this.SendPropertyChanging();
-					this._LastLoginTime = value;
-					this.SendPropertyChanged("LastLoginTime");
-					this.OnLastLoginTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-		public int Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExperienceYear", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-		public System.Nullable<int> ExperienceYear
-		{
-			get
-			{
-				return this._ExperienceYear;
-			}
-			set
-			{
-				if ((this._ExperienceYear != value))
-				{
-					this.OnExperienceYearChanging(value);
-					this.SendPropertyChanging();
-					this._ExperienceYear = value;
-					this.SendPropertyChanged("ExperienceYear");
-					this.OnExperienceYearChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Introduction", DbType="NVarChar(500)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
-		public string Introduction
-		{
-			get
-			{
-				return this._Introduction;
-			}
-			set
-			{
-				if ((this._Introduction != value))
-				{
-					this.OnIntroductionChanging(value);
-					this.SendPropertyChanging();
-					this._Introduction = value;
-					this.SendPropertyChanged("Introduction");
-					this.OnIntroductionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rank", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
-		public System.Nullable<int> Rank
-		{
-			get
-			{
-				return this._Rank;
-			}
-			set
-			{
-				if ((this._Rank != value))
-				{
-					this.OnRankChanging(value);
-					this.SendPropertyChanging();
-					this._Rank = value;
-					this.SendPropertyChanged("Rank");
-					this.OnRankChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LikeVote", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15)]
-		public System.Nullable<int> LikeVote
-		{
-			get
-			{
-				return this._LikeVote;
-			}
-			set
-			{
-				if ((this._LikeVote != value))
-				{
-					this.OnLikeVoteChanging(value);
-					this.SendPropertyChanging();
-					this._LikeVote = value;
-					this.SendPropertyChanged("LikeVote");
-					this.OnLikeVoteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DislikeVote", DbType="Int")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16)]
-		public System.Nullable<int> DislikeVote
-		{
-			get
-			{
-				return this._DislikeVote;
-			}
-			set
-			{
-				if ((this._DislikeVote != value))
-				{
-					this.OnDislikeVoteChanging(value);
-					this.SendPropertyChanging();
-					this._DislikeVote = value;
-					this.SendPropertyChanged("DislikeVote");
-					this.OnDislikeVoteChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeadPhoto", DbType="NVarChar(500)")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17)]
-		public string HeadPhoto
-		{
-			get
-			{
-				return this._HeadPhoto;
-			}
-			set
-			{
-				if ((this._HeadPhoto != value))
-				{
-					this.OnHeadPhotoChanging(value);
-					this.SendPropertyChanging();
-					this._HeadPhoto = value;
-					this.SendPropertyChanged("HeadPhoto");
-					this.OnHeadPhotoChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PhotographerAccount")]
 	[global::System.Runtime.Serialization.DataContractAttribute()]
 	public partial class PhotographerAccount : Entity, INotifyPropertyChanging, INotifyPropertyChanged
@@ -5053,6 +4577,507 @@ namespace HostDB
 					this._TxnTime = value;
 					this.SendPropertyChanged("TxnTime");
 					this.OnTxnTimeChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Photographer")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class Photographer : Entity, INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _PhotographerId;
+		
+		private string _Email;
+		
+		private string _PhotographerName;
+		
+		private string _Password;
+		
+		private int _PayRate;
+		
+		private System.Nullable<int> _Gender;
+		
+		private System.Nullable<int> _Age;
+		
+		private string _Phone;
+		
+		private System.DateTime _OpenDate;
+		
+		private System.DateTime _LastLoginTime;
+		
+		private int _Status;
+		
+		private System.Nullable<int> _ExperienceYear;
+		
+		private string _Introduction;
+		
+		private System.Nullable<int> _Rank;
+		
+		private System.Nullable<int> _LikeVote;
+		
+		private System.Nullable<int> _DislikeVote;
+		
+		private string _HeadPhoto;
+		
+		private bool _Admin;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnPhotographerIdChanging(long value);
+    partial void OnPhotographerIdChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnPhotographerNameChanging(string value);
+    partial void OnPhotographerNameChanged();
+    partial void OnPasswordChanging(string value);
+    partial void OnPasswordChanged();
+    partial void OnPayRateChanging(int value);
+    partial void OnPayRateChanged();
+    partial void OnGenderChanging(System.Nullable<int> value);
+    partial void OnGenderChanged();
+    partial void OnAgeChanging(System.Nullable<int> value);
+    partial void OnAgeChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnOpenDateChanging(System.DateTime value);
+    partial void OnOpenDateChanged();
+    partial void OnLastLoginTimeChanging(System.DateTime value);
+    partial void OnLastLoginTimeChanged();
+    partial void OnStatusChanging(int value);
+    partial void OnStatusChanged();
+    partial void OnExperienceYearChanging(System.Nullable<int> value);
+    partial void OnExperienceYearChanged();
+    partial void OnIntroductionChanging(string value);
+    partial void OnIntroductionChanged();
+    partial void OnRankChanging(System.Nullable<int> value);
+    partial void OnRankChanged();
+    partial void OnLikeVoteChanging(System.Nullable<int> value);
+    partial void OnLikeVoteChanged();
+    partial void OnDislikeVoteChanging(System.Nullable<int> value);
+    partial void OnDislikeVoteChanged();
+    partial void OnHeadPhotoChanging(string value);
+    partial void OnHeadPhotoChanged();
+    partial void OnAdminChanging(bool value);
+    partial void OnAdminChanged();
+    #endregion
+		
+		public Photographer()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerId", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public long PhotographerId
+		{
+			get
+			{
+				return this._PhotographerId;
+			}
+			set
+			{
+				if ((this._PhotographerId != value))
+				{
+					this.OnPhotographerIdChanging(value);
+					this.SendPropertyChanging();
+					this._PhotographerId = value;
+					this.SendPropertyChanged("PhotographerId");
+					this.OnPhotographerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(150) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerName", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public string PhotographerName
+		{
+			get
+			{
+				return this._PhotographerName;
+			}
+			set
+			{
+				if ((this._PhotographerName != value))
+				{
+					this.OnPhotographerNameChanging(value);
+					this.SendPropertyChanging();
+					this._PhotographerName = value;
+					this.SendPropertyChanged("PhotographerName");
+					this.OnPhotographerNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public string Password
+		{
+			get
+			{
+				return this._Password;
+			}
+			set
+			{
+				if ((this._Password != value))
+				{
+					this.OnPasswordChanging(value);
+					this.SendPropertyChanging();
+					this._Password = value;
+					this.SendPropertyChanged("Password");
+					this.OnPasswordChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PayRate", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public int PayRate
+		{
+			get
+			{
+				return this._PayRate;
+			}
+			set
+			{
+				if ((this._PayRate != value))
+				{
+					this.OnPayRateChanging(value);
+					this.SendPropertyChanging();
+					this._PayRate = value;
+					this.SendPropertyChanged("PayRate");
+					this.OnPayRateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Gender", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.Nullable<int> Gender
+		{
+			get
+			{
+				return this._Gender;
+			}
+			set
+			{
+				if ((this._Gender != value))
+				{
+					this.OnGenderChanging(value);
+					this.SendPropertyChanging();
+					this._Gender = value;
+					this.SendPropertyChanged("Gender");
+					this.OnGenderChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Age", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public System.Nullable<int> Age
+		{
+			get
+			{
+				return this._Age;
+			}
+			set
+			{
+				if ((this._Age != value))
+				{
+					this.OnAgeChanging(value);
+					this.SendPropertyChanging();
+					this._Age = value;
+					this.SendPropertyChanged("Age");
+					this.OnAgeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(50)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OpenDate", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public System.DateTime OpenDate
+		{
+			get
+			{
+				return this._OpenDate;
+			}
+			set
+			{
+				if ((this._OpenDate != value))
+				{
+					this.OnOpenDateChanging(value);
+					this.SendPropertyChanging();
+					this._OpenDate = value;
+					this.SendPropertyChanged("OpenDate");
+					this.OnOpenDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastLoginTime", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public System.DateTime LastLoginTime
+		{
+			get
+			{
+				return this._LastLoginTime;
+			}
+			set
+			{
+				if ((this._LastLoginTime != value))
+				{
+					this.OnLastLoginTimeChanging(value);
+					this.SendPropertyChanging();
+					this._LastLoginTime = value;
+					this.SendPropertyChanged("LastLoginTime");
+					this.OnLastLoginTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		public int Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExperienceYear", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		public System.Nullable<int> ExperienceYear
+		{
+			get
+			{
+				return this._ExperienceYear;
+			}
+			set
+			{
+				if ((this._ExperienceYear != value))
+				{
+					this.OnExperienceYearChanging(value);
+					this.SendPropertyChanging();
+					this._ExperienceYear = value;
+					this.SendPropertyChanged("ExperienceYear");
+					this.OnExperienceYearChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Introduction", DbType="NVarChar(500)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public string Introduction
+		{
+			get
+			{
+				return this._Introduction;
+			}
+			set
+			{
+				if ((this._Introduction != value))
+				{
+					this.OnIntroductionChanging(value);
+					this.SendPropertyChanging();
+					this._Introduction = value;
+					this.SendPropertyChanged("Introduction");
+					this.OnIntroductionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rank", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
+		public System.Nullable<int> Rank
+		{
+			get
+			{
+				return this._Rank;
+			}
+			set
+			{
+				if ((this._Rank != value))
+				{
+					this.OnRankChanging(value);
+					this.SendPropertyChanging();
+					this._Rank = value;
+					this.SendPropertyChanged("Rank");
+					this.OnRankChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LikeVote", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=15)]
+		public System.Nullable<int> LikeVote
+		{
+			get
+			{
+				return this._LikeVote;
+			}
+			set
+			{
+				if ((this._LikeVote != value))
+				{
+					this.OnLikeVoteChanging(value);
+					this.SendPropertyChanging();
+					this._LikeVote = value;
+					this.SendPropertyChanged("LikeVote");
+					this.OnLikeVoteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DislikeVote", DbType="Int")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=16)]
+		public System.Nullable<int> DislikeVote
+		{
+			get
+			{
+				return this._DislikeVote;
+			}
+			set
+			{
+				if ((this._DislikeVote != value))
+				{
+					this.OnDislikeVoteChanging(value);
+					this.SendPropertyChanging();
+					this._DislikeVote = value;
+					this.SendPropertyChanged("DislikeVote");
+					this.OnDislikeVoteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HeadPhoto", DbType="NVarChar(500)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=17)]
+		public string HeadPhoto
+		{
+			get
+			{
+				return this._HeadPhoto;
+			}
+			set
+			{
+				if ((this._HeadPhoto != value))
+				{
+					this.OnHeadPhotoChanging(value);
+					this.SendPropertyChanging();
+					this._HeadPhoto = value;
+					this.SendPropertyChanged("HeadPhoto");
+					this.OnHeadPhotoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Admin", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=18)]
+		public bool Admin
+		{
+			get
+			{
+				return this._Admin;
+			}
+			set
+			{
+				if ((this._Admin != value))
+				{
+					this.OnAdminChanging(value);
+					this.SendPropertyChanging();
+					this._Admin = value;
+					this.SendPropertyChanged("Admin");
+					this.OnAdminChanged();
 				}
 			}
 		}

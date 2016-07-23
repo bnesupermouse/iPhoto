@@ -95,10 +95,10 @@
             return deferred.promise;
         }
 
-        getOfferList(): ng.IPromise<any> {
+        getOfferList(isAdmin:number, statusFilter:number): ng.IPromise<any> {
             var self = this;
             var deferred = self.qService.defer();
-            self.httpService.get(self.getOfferListApiPath)
+            self.httpService.get(self.getOfferListApiPath + "/" + isAdmin + "/" + statusFilter)
                 .then(function (result: any) {
                     self.Offers = result.data;
                     deferred.resolve(self);

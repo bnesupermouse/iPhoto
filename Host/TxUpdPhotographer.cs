@@ -110,10 +110,7 @@ namespace Host
                     //Check Password complexity
 
                 }
-                //Hash Password
-                string pwdHash = PasswordHash.HashPassword(NewPhotographer.Password);
-                NewPhotographer.Password = pwdHash;
-
+                
                 //Check Gender when need
                 if (NewPhotographer.Gender != null)
                 {
@@ -221,8 +218,22 @@ namespace Host
                 }
                 else
                 {
+                    if ((request as UpdPhotographer).PhotographerId > 0)
+                    {
+                        PhotographerId = (request as UpdPhotographer).PhotographerId;
+                    }
+                    else
+                    {
+                        PhotographerId = NewPhotographer.PhotographerId;
+                    }
+                    if(OldPhotographer.Password != NewPhotographer.Password)
+                    {
+                        //Hash Password
+                        string pwdHash = PasswordHash.HashPassword(NewPhotographer.Password);
+                        NewPhotographer.Password = pwdHash;
+                    }
                     //Validate Status value
-                    if (NewPhotographer.Status != 0 && NewPhotographer.Status != 1)
+                    if (NewPhotographer.Status != 0 && NewPhotographer.Status != 1 && NewPhotographer.Status != 2)
                     {
                         LogHelper.WriteLog(typeof(TxUpdPhotographer), "Invalid Status value", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
@@ -276,6 +287,7 @@ namespace Host
                 resp.Email = NewPhotographer.Email;
                 resp.SessionKey = NewSession.SessionKey;
                 resp.PhotographerName = NewPhotographer.PhotographerName;
+                resp.IsVerified = false;
             }
             else
             {
@@ -286,7 +298,9 @@ namespace Host
                 resp.Email = OldPhotographer.Email;
                 resp.SessionKey = (s.NewEntity as PhotographerSession).SessionKey;
                 resp.PhotographerName = NewPhotographer.PhotographerName;
+                resp.IsVerified = NewPhotographer.Status == 1;
             }
+            resp.IsAdmin = false;
             response = resp;
             return Data.Validate();
         }

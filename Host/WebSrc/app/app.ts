@@ -19,6 +19,8 @@ module OneStopCustomerApp {
                 .when("/addoffer", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .when("/offerlist", { templateUrl: "offer/offerlist.html", controller: "GetOfferListCtrl" })
                 .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
+                .when("/photographerlist", { templateUrl: "admin/photographerlist.html", controller: "GetPhotographerListCtrl" })
+                .when("/updphotographer/:photographerid", { templateUrl: "admin/updphotographer.html", controller: "GetPhotographerDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }
@@ -33,6 +35,8 @@ module OneStopCustomerApp {
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
     Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
+    Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'photographerManDataSvc'];
+    Controllers.PhotographerDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker', 'daypilot']);
     app.config(Config);
@@ -42,6 +46,8 @@ module OneStopCustomerApp {
     app.factory('offerDetailsDataSvc', ['$http', '$q', Services.OfferDetailsDataSvc.OfferDetailsDataSvcFactory]);
     app.factory('paymentDataSvc', ['$http', '$q', Services.PaymentDataSvc.PaymentDataSvcFactory]);
     app.factory('orderDataSvc', ['$http', '$q', Services.OrderDataSvc.OrderDataSvcFactory]);
+    app.factory('photographerManDataSvc', ['$http', '$q', Services.PhotographerManDataSvc.PhotographerManDataSvcFactory]);
+
     app.controller('AddNewCustomerCtrl', Controllers.AddCustomerCtrl);
     app.controller('CustomerSignOnCtrl', Controllers.SignOnCustomerCtrl);
     app.controller('IndexPageCtrl', Controllers.MainPageCtrl);
@@ -52,4 +58,6 @@ module OneStopCustomerApp {
     app.controller('GetOrderListCtrl', Controllers.OrderCtrl);
     app.controller('ManageOrderCtrl', Controllers.OrderDetailsCtrl);
     app.controller('GetOfferListCtrl', Controllers.OfferManCtrl);
+    app.controller('GetPhotographerListCtrl', Controllers.PhotographerManCtrl);
+    app.controller('GetPhotographerDetailsCtrl', Controllers.PhotographerDetailsCtrl);
 }

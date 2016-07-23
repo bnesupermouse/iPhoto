@@ -78,6 +78,8 @@ namespace Host
             resp.SessionId = (s.NewEntity as PhotographerSession).SessionId;
             resp.SessionKey = (s.NewEntity as PhotographerSession).SessionKey;
             resp.PhotographerName = newPh.PhotographerName;
+            resp.IsAdmin = photographer.Admin;
+            resp.IsVerified = (photographer.Status == 1);
             response = resp;
             return Result.Success;
         }

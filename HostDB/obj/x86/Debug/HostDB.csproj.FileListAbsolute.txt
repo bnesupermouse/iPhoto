@@ -42,3 +42,4 @@ C:\Repos\iPhoto\HostDB\bin\Debug\HostDB.dll
 C:\Repos\iPhoto\HostDB\bin\Debug\HostDB.pdb
 C:\Repos\iPhoto\HostDB\obj\x86\Debug\HostDB.dll
 C:\Repos\iPhoto\HostDB\obj\x86\Debug\HostDB.pdb
+C:\Repos\iPhoto\HostDB\obj\x86\Debug\HostDB.csprojResolveAssemblyReference.cache

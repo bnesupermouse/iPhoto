@@ -134,18 +134,53 @@ namespace Host
         }
 
         [HttpGet]
-        public List<Offer> GetOfferList()
+        public List<Offer> GetOfferList(int id, int id2)
         {
             CookieHeaderValue cookie = Request.Headers.GetCookies("cid").FirstOrDefault();
             long PhotographerId = long.Parse(cookie["cid"].Value);
             using (var dc = new HostDBDataContext())
             {
-                var orders = from op in dc.OfferPhotographer
-                             join of in dc.Offer on op.OfferId equals of.OfferId
-                             where op.PhotographerId == PhotographerId 
-                             select of;
-                var res = orders.ToList();
-                return res;
+                if (id == 0)
+                {
+                    if (id2 == -1)
+                    {
+                        var orders = from op in dc.OfferPhotographer
+                                     join of in dc.Offer on op.OfferId equals of.OfferId
+                                     where op.PhotographerId == PhotographerId
+                                     select of;
+                        var res = orders.ToList();
+                        return res;
+                    }
+                    else
+                    {
+                        var orders = from op in dc.OfferPhotographer
+                                     join of in dc.Offer on op.OfferId equals of.OfferId
+                                     where op.PhotographerId == PhotographerId && of.Status == id2
+                                     select of;
+                        var res = orders.ToList();
+                        return res;
+                    }
+                }
+                else
+                {
+                    if (id2 == -1)
+                    {
+                        var orders = from op in dc.OfferPhotographer
+                                     join of in dc.Offer on op.OfferId equals of.OfferId
+                                     select of;
+                        var res = orders.ToList();
+                        return res;
+                    }
+                    else
+                    {
+                        var orders = from op in dc.OfferPhotographer
+                                     join of in dc.Offer on op.OfferId equals of.OfferId
+                                     where of.Status == id2
+                                     select of;
+                        var res = orders.ToList();
+                        return res;
+                    }
+                }
             }
         }
     }

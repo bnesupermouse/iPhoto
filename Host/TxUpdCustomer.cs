@@ -102,9 +102,6 @@ namespace Host
                     //Check Password complexity
 
                 }
-                //Hash Password
-                string pwdHash = PasswordHash.HashPassword(NewCustomer.Password);
-                NewCustomer.Password = pwdHash;
 
                 //Check Gender when need
                 if (NewCustomer.Gender != null)
@@ -156,6 +153,12 @@ namespace Host
                 }
                 else
                 {
+                    if(OldCustomer.Password != NewCustomer.Password)
+                    {
+                        //Hash Password
+                        string pwdHash = PasswordHash.HashPassword(NewCustomer.Password);
+                        NewCustomer.Password = pwdHash;
+                    }
                     //Validate Status value
                     if(NewCustomer.Status != 0 && NewCustomer.Status !=1)
                     {

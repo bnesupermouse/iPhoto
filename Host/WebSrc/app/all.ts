@@ -16,6 +16,11 @@
 /// <reference path="./phototype/PhotoTypeCtrl.ts" />
 /// <reference path="./phototype/PhotoTypeDataSvc.ts" />
 
+/// <reference path="./admin/UpdPhotographer.ts" />
+/// <reference path="./admin/PhotographerDetailsCtrl.ts" />
+/// <reference path="./admin/PhotographerManCtrl.ts" />
+/// <reference path="./admin/PhotographerManDataSvc.ts" />
+
 /// <reference path="./offer/UpdOffer.ts" />
 /// <reference path="./offer/OfferManCtrl.ts" />
 /// <reference path="./offer/OfferDetailsCtrl.ts" />

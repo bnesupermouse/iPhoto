@@ -8,6 +8,8 @@
         private qService: ng.IQService;
         ErrorNo: number;
         ErrorMsg: string;
+        IsAdmin: boolean;
+        IsVerified: boolean;
 
         private SessionId: number
 
@@ -68,6 +70,8 @@
                         self.cookieInfo.skey = result.data.SessionKey;
                         self.cookieInfo.cid = result.data.PhotographerId;
                         self.cookieInfo.cname = result.data.PhotographerName;
+                        self.IsAdmin = result.data.IsAdmin;
+                        self.IsVerified = result.data.IsVerified;
                     }
                     self.ErrorNo = result.data.ErrorNo;
                     self.ErrorMsg = result.data.ErrorMsg;
@@ -90,6 +94,8 @@
                         self.cookieInfo.skey = result.data.SessionKey;
                         self.cookieInfo.cid = result.data.PhotographerId;
                         self.cookieInfo.cname = result.data.PhotographerName;
+                        self.IsAdmin = result.data.IsAdmin;
+                        self.IsVerified = result.data.IsVerified;
                     }
                     self.ErrorNo = result.data.ErrorNo;
                     self.ErrorMsg = result.data.ErrorMsg;
@@ -108,6 +114,8 @@
             this.httpService = $http;
             this.qService = $q;
             this.cookieInfo = new DataModels.CookieInfo();
+            this.IsAdmin = false;
+            this.IsVerified = false;
         }
 
         public static CustomerDataSvcFactory($http: ng.IHttpService, $q: ng.IQService): CustomerDataSvc {

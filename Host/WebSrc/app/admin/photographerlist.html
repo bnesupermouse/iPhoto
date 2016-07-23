@@ -5,7 +5,7 @@
             <ul class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li><a href="#account">My Account</a></li>
-                <li class="active"> Offer List</li>
+                <li class="active"> Photographer List</li>
             </ul>
         </div>
     </div>
@@ -13,19 +13,19 @@
 
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-7">
-            <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Offer List </span></h1>
+            <h1 class="section-title-inner"><span><i class="fa fa-list-alt"></i> Photographer List </span></h1>
 
             <div class="row userInfo">
                 <div class="col-lg-12">
-                    <h2 class="block-title-2"> Your Active Offer List </h2>
+                    <h2 class="block-title-2"> Photographers </h2>
                     <label for="singleSelect"> Filter: </label><br>
                     <select class="form-control" name="singleSelect" ng-model="StatusFilter">
                         <option value="-1">All</option>
                         <option value="0">New</option>
-                        <option value="1">Open</option>
+                        <option value="1">Verified</option>
                         <option value="2">Closed</option>
                     </select>
-                    <button ng-click="SearchOffers()" class="btn btn-default pull-right">Search</button>
+                    <button ng-click="SearchPhotographers()" class="btn btn-default pull-right">Search</button>
                 </div>
 
                 <div style="clear:both"></div>
@@ -35,28 +35,25 @@
                         <thead>
                             <tr>
                                 <th data-class="expand" data-sort-initial="true">
-                                    <span title="table sorted by this column on load">Offer Id</span>
+                                    <span title="table sorted by this column on load">Photographer Name</span>
                                 </th>
-                                <th class="hidden-xs" data-sort-ignore="true">Offer Name</th>
-                                <th class="hidden-xs"><strong>Start Time</strong></th>
-                                <th class="hidden-xs"><strong>End Time</strong></th>
-                                <th data-hide="default">Price</th>
+                                <th class="hidden-xs" data-sort-ignore="true">Introduction</th>
+                                <th class="hidden-xs"><strong>Open Time</strong></th>
+                                <th data-hide="default">Age</th>
                                 <th data-hide="default" data-type="numeric">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="o in Offers">
-                                <td>{{o.OfferId}}</td>
-                                <td class="hidden-xs">{{o.OfferName}}</td>
-                                <td class="hidden-xs">{{o.StartTime}}</td>
-                                <td class="hidden-xs">{{o.EndTime}}</td>
-                                <td>{{o.Price}}</td>
-                                <td>
-                                    <a ng-if="o.Status == 0" href="#updoffer/{{o.OfferId}}"><span class="label label-primary">New</span></a>
-                                    <a ng-if="o.Status == 1" href="#updoffer/{{o.OfferId}}"><span class="label label-success">Open</span></a>
-                                    <a ng-if="o.Status == 2" href="#updoffer/{{o.OfferId}}"><span class="label label-warning">Closed</span></a>
+                            <tr ng-repeat="p in Photographers">
+                                <td>{{p.PhotographerName}}</td>
+                                <td class="hidden-xs">{{p.Introduction}}</td>
+                                <td class="hidden-xs">{{p.OpenDate | date:'M/d/yyyy HH:mm:ss'}}</td>
+                                <td>{{p.Age}}</td>
+                                <td data-value="3">
+                                    <a ng-if="p.Status == 0" href="#updphotographer/{{p.PhotographerId}}"><span class="label label-primary">New</span></a>
+                                    <a ng-if="p.Status == 1" href="#updphotographer/{{p.PhotographerId}}"><span class="label label-success">Verified</span></a>
+                                    <a ng-if="p.Status == 2" href="#updphotographer/{{p.PhotographerId}}"><span class="label label-warning">Closed</span></a>
                                 </td>
-                                
                             </tr>
                         </tbody>
                     </table>

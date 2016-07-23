@@ -42,6 +42,12 @@ namespace Host
                     response.ErrorNo = (int)Errors.InvalidRequest;
                     return Result.Failed;
                 }
+                if(ph.Status != 1)
+                {
+                    LogHelper.WriteLog(typeof(TxUpdOffer), "Photographer is not Verified", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    return Result.Failed;
+                }
                 if (NewOffer == null)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "New Offer cannot be NULL", Log4NetLevel.Error);
@@ -240,9 +246,15 @@ namespace Host
                         return Result.Failed;
                     }
                     //Validate Status value
-                    if(NewOffer.Status != 0 && NewOffer.Status !=1)
+                    if(NewOffer.Status != 0 && NewOffer.Status !=1 && NewOffer.Status !=2)
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid Status value", Log4NetLevel.Error);
+                        response.ErrorNo = (int)Errors.InvalidRequest;
+                        return Result.Failed;
+                    }
+                    if (OldOffer.Status != 0 && NewOffer.Status == 0)
+                    {
+                        LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid Status value update", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
                         return Result.Failed;
                     }

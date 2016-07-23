@@ -144,6 +144,7 @@
     <Compile Include="Common\UpdEntity.cs" />
     <Compile Include="CustomContentTypeProvider.cs" />
     <Compile Include="CustomMiddleware.cs" />
+    <Compile Include="Interface\AdminController.cs" />
     <Compile Include="Interface\PhotographerController.cs" />
     <Compile Include="Interface\OfferController.cs" />
     <Compile Include="Interface\OrderController.cs" />
@@ -240,6 +241,8 @@
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="WebSrc\app\admin\photographerlist.html" />
+    <Content Include="WebSrc\app\admin\updphotographer.html" />
     <Content Include="WebSrc\app\customer\view\account.html" />
     <Content Include="WebSrc\app\customer\view\signin.html" />
     <Content Include="WebSrc\app\customer\view\signup.html" />
@@ -363,6 +366,10 @@
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="WebSrc\app\admin\PhotographerDetailsCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\admin\PhotographerManCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\admin\PhotographerManDataSvc.ts" />
+    <TypeScriptCompile Include="WebSrc\app\admin\UpdPhotographer.ts" />
     <TypeScriptCompile Include="WebSrc\app\all.ts" />
     <TypeScriptCompile Include="WebSrc\app\app.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\ManageAccountCtrl.ts" />

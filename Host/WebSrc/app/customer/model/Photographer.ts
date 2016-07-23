@@ -11,5 +11,13 @@
         public OpenDate: string;
         public LastLoginTime: string;
         public Status: number;
+        public PayRate: number;
+        public ExperienceYear: number;
+        public Introduction: string;
+        public Rank: number;
+        public LikeVote: number;
+        public DislikeVote: number;
+        public HeadPhoto: string;
+        public Admin: number;
     }
 }

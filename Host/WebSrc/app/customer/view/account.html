@@ -2,7 +2,7 @@
     <div class="row">
         <div class="breadcrumbDiv col-lg-12">
             <ul class="breadcrumb">
-                <li><a href="#">Home</a></li>
+                <li><a href="#/">Home</a></li>
                 <li class="active"> My account</li>
             </ul>
         </div>
@@ -18,17 +18,25 @@
                     <ul class="myAccountList row">
                         <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
                             <div class="thumbnail equalheight"><a title="Orders" href="#orderlist"><i
-                                    class="fa fa-calendar"></i>Active Order List </a></div>
+                                    class="fa fa-calendar"></i>Orders</a></div>
+                        </li>
+                        
+                        <li ng-if="IsVerified >0 && CustomerType == 2" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                            <div class="thumbnail equalheight" style="height: 84px;"><a title="Add  address" href="#addoffer"> <i class="fa fa-edit"> </i>Add Offer</a></div>
                         </li>
 
                         <li ng-if="CustomerType == 2" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
-                            <div class="thumbnail equalheight" style="height: 84px;"><a title="Add  address" href="#addoffer"> <i class="fa fa-edit"> </i> Add Offer</a></div>
-                        </li>
-
-                        <li ng-if="CustomerType == 2" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
-                            <div class="thumbnail equalheight"><a title="Personal information"
+                            <div class="thumbnail equalheight"><a title="My wishlists"
                                                                   href="#offerlist"><i class="fa fa-cog"></i>
                                 Offers</a></div>
+                        </li>
+                        
+                        <li ng-if="IsAdmin >0 && CustomerType == 2"class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                            <div class="thumbnail equalheight">
+                                <a title="Personal information" href="#photographerlist">
+                                    <i class="fa fa-calendar"></i>Photographers
+                                </a>
+                            </div>
                         </li>
                     </ul>
                     <div class="clear clearfix"></div>

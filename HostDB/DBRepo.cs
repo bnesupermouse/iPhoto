@@ -1500,8 +1500,9 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("LikeVote", (object)LikeVote??DBNull.Value);
             sqlComm.Parameters.AddWithValue("DislikeVote", (object)DislikeVote??DBNull.Value);
             sqlComm.Parameters.AddWithValue("HeadPhoto", (object)HeadPhoto??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Admin", (object)Admin??DBNull.Value);
 
-            sqlComm.CommandText ="INSERT INTO Photographer ( PhotographerId,Email,PhotographerName,Password,PayRate,Gender,Age,Phone,OpenDate,LastLoginTime,Status,ExperienceYear,Introduction,Rank,LikeVote,DislikeVote,HeadPhoto ) values (@PhotographerId,@Email,@PhotographerName,@Password,@PayRate,@Gender,@Age,@Phone,@OpenDate,@LastLoginTime,@Status,@ExperienceYear,@Introduction,@Rank,@LikeVote,@DislikeVote,@HeadPhoto)";
+            sqlComm.CommandText ="INSERT INTO Photographer ( PhotographerId,Email,PhotographerName,Password,PayRate,Gender,Age,Phone,OpenDate,LastLoginTime,Status,ExperienceYear,Introduction,Rank,LikeVote,DislikeVote,HeadPhoto,Admin ) values (@PhotographerId,@Email,@PhotographerName,@Password,@PayRate,@Gender,@Age,@Phone,@OpenDate,@LastLoginTime,@Status,@ExperienceYear,@Introduction,@Rank,@LikeVote,@DislikeVote,@HeadPhoto,@Admin)";
 
             int rows = 0;
             try
@@ -1546,8 +1547,9 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("LikeVote", (object)LikeVote??DBNull.Value);
             sqlComm.Parameters.AddWithValue("DislikeVote", (object)DislikeVote??DBNull.Value);
             sqlComm.Parameters.AddWithValue("HeadPhoto", (object)HeadPhoto??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Admin", (object)Admin??DBNull.Value);
 
-            sqlComm.CommandText ="UPDATE Photographer SET PhotographerId = @PhotographerId, Email = @Email, PhotographerName = @PhotographerName, Password = @Password, PayRate = @PayRate, Gender = @Gender, Age = @Age, Phone = @Phone, OpenDate = @OpenDate, LastLoginTime = @LastLoginTime, Status = @Status, ExperienceYear = @ExperienceYear, Introduction = @Introduction, Rank = @Rank, LikeVote = @LikeVote, DislikeVote = @DislikeVote, HeadPhoto = @HeadPhoto where PhotographerId = @PhotographerId ";
+            sqlComm.CommandText ="UPDATE Photographer SET PhotographerId = @PhotographerId, Email = @Email, PhotographerName = @PhotographerName, Password = @Password, PayRate = @PayRate, Gender = @Gender, Age = @Age, Phone = @Phone, OpenDate = @OpenDate, LastLoginTime = @LastLoginTime, Status = @Status, ExperienceYear = @ExperienceYear, Introduction = @Introduction, Rank = @Rank, LikeVote = @LikeVote, DislikeVote = @DislikeVote, HeadPhoto = @HeadPhoto, Admin = @Admin where PhotographerId = @PhotographerId ";
 
             int rows = 0;
             try
