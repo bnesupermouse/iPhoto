@@ -21,6 +21,7 @@
         OfferPics: Array<PicInfo>;
         PicList: Array<PicInfo>;
         SortOrder: number;
+        Status: number;
     }
     export interface IBaseScope extends ng.IScope {
         AcccountId: number;

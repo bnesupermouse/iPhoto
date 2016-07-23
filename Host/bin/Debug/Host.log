@@ -1404,3 +1404,6 @@
 [2016-07-23 15:07:44,337]  12 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
 [2016-07-23 17:33:45,089]  13 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
 [2016-07-23 18:49:58,070]  53 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-23 19:29:56,344]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-23 20:30:57,789]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-23 20:31:00,292]  21 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId

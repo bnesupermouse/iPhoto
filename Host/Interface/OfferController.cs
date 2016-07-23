@@ -55,7 +55,7 @@ namespace Host
                 , AdditionalRetouchPrice = o.AdditionalRetouchPrice, Comment = o.Comment,
                  DurationHour = o.DurationHour, EndTime = o.EndTime, MaxPeople = o.MaxPeople, NoCostume = o.NoCostume,
                  NoMakeup = o.NoMakeup, NoRawPhoto = o.NoRawPhoto, NoRetouchedPhoto = o.NoRetouchedPhoto,
-                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime, PhotoTypeId = o.PhotoTypeId };
+                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime, PhotoTypeId = o.PhotoTypeId, Status = o.Status };
                 var res = offer.ToList();
                 return res.FirstOrDefault();
 

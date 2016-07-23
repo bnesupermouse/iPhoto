@@ -31,9 +31,8 @@
                            
                             <div class="form-group required">
                                 <label for="InputName">Photo Type<sup>*</sup> </label>
-                                <select class="form-control" ng-model="OfferDetails.PhotoTypeId" ng-disabled="IsAdmin >0">
-                                    <option ng-repeat="p in PhotoTypes" value="{{p.PhotoTypeId}}" ng-selected="OfferDetails.PhotoTypeId==p.PhotoTypeId">{{p.PhotoTypeName}}</option>
-                                </select>
+                                <select ng-disabled="IsAdmin >0" class="form-control" ng-model="OfferDetails.PhotoTypeId"
+                                        ng-options="value.PhotoTypeId as value.PhotoTypeName for (key, value) in PhotoTypes"></select>
                             </div>
                             
                             <div class="form-group required">
@@ -48,34 +47,42 @@
                                 <label for="InputEmail"> Price </label>
                                 <input ng-disabled="IsAdmin >0" ng-model="OfferDetails.Price"  class="form-control" type="number" min="0.01" step="50" max="2500"/>
                             </div>
-                            <div class="form-group">
+                            <div ng-if="IsAdmin > 0" class="form-group">
+                                <label for="InputEmail"> Valid From </label>
+                                <input ng-disabled="IsAdmin >0" datetime="M/d/yyyy HH:mm:ss" ng-model="OfferDetails.StartTime" class="form-control" type="text" />
+                            </div>
+                            <div ng-if="IsAdmin == 0" class="form-group">
                                 <label>Valid From</label>
                                     <div class="dropdown">
                                         <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
                                             <div class="input-append">
-                                                <input ng-disabled="IsAdmin >0" type="text" class="input-large" ng-model="OfferDetails.StartTime" ><span class="add-on">
+                                                <input type="text" class="input-large" ng-model="OfferDetails.StartTime" ><span class="add-on">
                                                     <i class="icon-calendar"></i>
                                                 </span>
                                             </div>
                                         </a>
                                         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                            <datetimepicker ng-disabled="IsAdmin >0" ng-model="OfferDetails.StartTime" 
+                                            <datetimepicker ng-model="OfferDetails.StartTime" 
                                                             data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                                         </ul>
                                     </div>
                              </div>
-                            <div class="form-group">
+                            <div ng-if="IsAdmin > 0" class="form-group">
+                                <label for="InputEmail"> Valid To </label>
+                                <input ng-disabled="IsAdmin >0" datetime="d/M/yyyy HH:mm:ss" ng-model="OfferDetails.EndTime" class="form-control" type="text" />
+                            </div>
+                            <div ng-if="IsAdmin == 0" class="form-group">
                                 <label>Valid To</label>
                                 <div class="dropdown">
                                     <a class="dropdown-toggle my-toggle-select" id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="">
                                         <div class="input-append">
-                                            <input ng-disabled="IsAdmin >0" type="text" class="input-large" ng-model="OfferDetails.EndTime" ><span class="add-on">
+                                            <input type="text" class="input-large" ng-model="OfferDetails.EndTime" ><span class="add-on">
                                                 <i class="icon-calendar"></i>
                                             </span>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                                        <datetimepicker ng-disabled="IsAdmin >0" ng-model="OfferDetails.EndTime" 
+                                        <datetimepicker ng-model="OfferDetails.EndTime" 
                                                         data-datetimepicker-config="{ dropdownSelector: '.my-toggle-select' }"></datetimepicker>
                                     </ul>
                                 </div>
@@ -116,7 +123,7 @@
                                 <input ng-disabled="IsAdmin >0" ng-model="OfferDetails.NoVenue" class="form-control" type="number" min="1" step="1" max="2500" />
                             </div>
                             <div class="form-group required">
-                                <label for="InputName">Status{{OfferDetails.Status}}</label>
+                                <label for="InputName">Status</label>
                                 <select class="form-control" name="singleSelect" ng-model="OfferDetails.Status">
                                     <option ng-selected="OfferDetails.Status ==0" value="0">New</option>
                                     <option ng-if="IsAdmin > 0 || OfferDetails.Status !=0" ng-selected="OfferDetails.Status ==1" value="1">Open</option>

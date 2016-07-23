@@ -34,5 +34,6 @@ namespace Host.Models
         public int NoVenue { get; set; }
         public int DurationHour { get; set; }
         public string Comment { get; set; }
+        public int Status { get; set; }
     }
 }
