@@ -76,33 +76,50 @@
                     <!-- Tab panes -->
                     <div class="tab-content">
                         <div class="tab-pane active" id="details">
-                            <table>
+                            <table class="table">
                                 <colgroup>
-                                    <col style="width:33%">
-                                    <col style="width:33%">
-                                    <col style="width:33%">
+                                    <col style="width:70%">
+                                    <col style="width:30%">
                                 </colgroup>
                                 <tbody>
-                                    <tr>
-                                        <td>Standard</td>
-                                        <td>1-5 business days</td>
-                                        <td>$7.95</td>
+                                    <tr class="success">
+                                        <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>No Servicer</strong></td>
+                                        <td><strong>{{OfferDetails.NoServicer}}</strong></td>
                                     </tr>
-                                    <tr>
-                                        <td>Two Day</td>
-                                        <td>2 business days</td>
-                                        <td>$15</td>
+                                    <tr class="info">
+                                        <td><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;&nbsp;<strong>Max People</strong></td>
+                                        <td><strong>{{OfferDetails.MaxPeople}}</strong></td>
                                     </tr>
-                                    <tr>
-                                        <td>Next Day</td>
-                                        <td>1 business day</td>
-                                        <td>$30</td>
+                                    <tr class="success">
+                                        <td><i class="glyphicon glyphicon-camera"></i>&nbsp;&nbsp;<strong>No Raw Photo</strong></td>
+                                        <td><strong>{{OfferDetails.NoRawPhoto}}</strong></td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td><i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;<strong>No Retouched Photo</strong></td>
+                                        <td><strong>{{OfferDetails.NoRetouchedPhoto}}</strong></td>
+                                    </tr>
+                                    <tr class="success">
+                                        <td><i class="glyphicon glyphicon-modal-window"></i>&nbsp;&nbsp;<strong>No Makeup</strong></td>
+                                        <td><strong>{{OfferDetails.NoMakeup}}</strong></td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td><i class="glyphicon glyphicon-knight"></i>&nbsp;&nbsp;<strong>No Costume</strong></td>
+                                        <td><strong>{{OfferDetails.NoCostume}}</strong></td>
+                                    </tr>
+                                    <tr class="success">
+                                        <td><i class="glyphicon glyphicon-globe"></i>&nbsp;&nbsp;<strong>No Venue</strong></td>
+                                        <td><strong>{{OfferDetails.NoVenue}}</strong></td>
+                                    </tr>
+                                    <tr class="info">
+                                        <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;<strong>Duration Hour</strong></td>
+                                        <td><strong>{{OfferDetails.DurationHour}}</strong></td>
+                                    </tr>
+                                    <tr class="success">
+                                        <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>Comment</strong></td>
+                                        <td>{{OfferDetails.Comment}}</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
-                                    <tr>
-                                        <td colspan="3">* Free on orders of $50 or more</td>
-                                    </tr>
                                 </tfoot>
                             </table>
                         </div>
