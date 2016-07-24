@@ -42,6 +42,14 @@ namespace Host
         }
 
         [HttpGet]
+        public CustomerOrder GetOrderInfo(int id)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                return dc.CustomerOrder.Where(o => o.SerialNo == id).FirstOrDefault();
+            }
+        }
+        [HttpGet]
         public OfferInfo GetOfferDetails(int id)
         {
             using (var dc = new HostDBDataContext())

@@ -37,6 +37,11 @@
 
         private init(): void {
             var self = this;
+            self.dataSvc.getOrderInfo(self.$routeParams.orderid).then(function (data) {
+                self.$scope.Amount = data.OrderInfo.Amount;
+                self.$scope.OrderTime = data.OrderInfo.OrderTime;
+                self.$scope.AppointmentTime = data.OrderInfo.AppointmentTime;
+            });
         }
     }
 }

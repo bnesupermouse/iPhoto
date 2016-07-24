@@ -93,6 +93,9 @@
 
     export interface IPaymentPageScope extends IBaseScope {
         CardInfo: PayOrder;
+        Amount: number;
+        OrderTime: Date;
+        AppointmentTime: Date;
         payOrder(): void;
     }
 

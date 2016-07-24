@@ -1075,6 +1075,11 @@ var Controllers;
         }
         OrderPaymentCtrl.prototype.init = function () {
             var self = this;
+            self.dataSvc.getOrderInfo(self.$routeParams.orderid).then(function (data) {
+                self.$scope.Amount = data.OrderInfo.Amount;
+                self.$scope.OrderTime = data.OrderInfo.OrderTime;
+                self.$scope.AppointmentTime = data.OrderInfo.AppointmentTime;
+            });
         };
         return OrderPaymentCtrl;
     }());
@@ -1086,6 +1091,7 @@ var Services;
     var PaymentDataSvc = (function () {
         function PaymentDataSvc($http, $q) {
             this.payOrderApiPath = "api/offer/payorder";
+            this.getOrderInfoApi = "api/offer/getorderinfo";
             this.httpService = $http;
             this.qService = $q;
         }
@@ -1094,6 +1100,18 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.payOrderApiPath, payOrder)
                 .then(function (result) {
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        PaymentDataSvc.prototype.getOrderInfo = function (orderId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getOrderInfoApi + "/" + orderId)
+                .then(function (result) {
+                self.OrderInfo = result.data;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
