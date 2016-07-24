@@ -1,0 +1,113 @@
+﻿
+    <!-- /.Fixed navbar  -->
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <div class="breadcrumbDiv col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#account">My Account</a></li>
+                    <li class="active"> Photographer</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7">
+                <h1 class="section-title-inner">
+                    <span>
+                        <i class="glyphicon glyphicon-user"></i>Photographer
+                    </span>
+                </h1>
+
+                <div class="row userInfo">
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2">
+                            Verify photographer or change Pay Rate
+                        </h2>
+                    </div>
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2">
+                            HeadPhoto
+                        </h2>
+
+                        <img src="{{NewPhotographer.HeadPhoto}}" class="img-responsive"  />
+                    </div>
+                    <form>
+                        <div class="col-sm-6">
+
+                            <div class="form-group required">
+                                <label>PhotographerId</label>
+                                <input ng-model="NewPhotographer.PhotographerId" required type="text" class="form-control" disabled >
+                            </div>
+
+                            <div class="form-group required">
+                                <label>Photographer Name</label>
+                                <input ng-model="NewPhotographer.PhotographerName" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>Email</label>
+                                <input ng-model="NewPhotographer.Email" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>Introduction</label>
+                                <input ng-model="NewPhotographer.Introduction" required type="text" class="form-control" >
+                            </div>
+                            <div class="form-group required">
+                                <label>Phone</label>
+                                <input ng-model="NewPhotographer.Phone" required type="text" class="form-control" >
+                            </div>
+                            <div class="form-group required">
+                                <label>OpenDate</label>
+                                <input ng-model="NewPhotographer.OpenDate" required type="text" class="form-control" disabled>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group required">
+                                <label>Gender</label>
+                                <input ng-if="NewPhotographer.Gender != null && NewPhotographer.Gender ==0" ng-model="NewPhotographer.Gender" value="Male" class="form-control" type="text"  />
+                                <input ng-if="NewPhotographer.Gender != null && NewPhotographer.Gender ==1" ng-model="NewPhotographer.Gender" value="Female" class="form-control" type="text"  />
+                                <input ng-if="NewPhotographer.Gender == null" ng-model="NewPhotographer.Gender" value="Unknown" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group required">
+                                <label>Age</label>
+                                <input ng-model="NewPhotographer.Age" class="form-control" type="number" />
+                            </div>
+                            <div class="form-group required">
+                                <label>ExperienceYear</label>
+                                <input ng-model="NewPhotographer.ExperienceYear" class="form-control" type="number" />
+                            </div>
+                            <div class="form-group required">
+                                <label>Rank</label>
+                                <input ng-model="NewPhotographer.Rank" class="form-control" type="number" disabled/>
+                            </div>
+                            <div class="form-group required">
+                                <label>LikeVote</label>
+                                <input ng-model="NewPhotographer.LikeVote" class="form-control" type="number" disabled/>
+                            </div>
+                            <div class="form-group required">
+                                <label>DislikeVote</label>
+                                <input ng-model="NewPhotographer.DislikeVote" class="form-control" type="number" disabled/>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <select class="form-control" name="singleSelect" ng-model="NewPhotographer.Status">
+                                <option ng-selected="NewPhotographer.Status ==0" value="0">New</option>
+                                <option ng-selected="NewPhotographer.Status ==1" value="1">Verified</option>
+                                <option ng-selected="NewPhotographer.Status ==2" value="2">Closed</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <button type="button" ng-click="updatePhotographer()" class="btn   btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
+                            </div>
+                            </div>
+                    </form>
+                </div>
+                <!--/row end-->
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5"></div>
+        </div>
+        <!--/row-->
+        <div style="clear:both"></div>
+    </div>
+    <!-- /main-container -->

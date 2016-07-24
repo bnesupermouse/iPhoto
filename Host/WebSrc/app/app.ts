@@ -21,6 +21,8 @@ module OneStopCustomerApp {
                 .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .when("/photographerlist", { templateUrl: "admin/photographerlist.html", controller: "GetPhotographerListCtrl" })
                 .when("/updphotographer/:photographerid", { templateUrl: "admin/updphotographer.html", controller: "GetPhotographerDetailsCtrl" })
+                .when("/updphotographerinfo/:photographerid", { templateUrl: "customer/view/updphotographerinfo.html", controller: "GetPhotographerInfoDetailsCtrl" })
+                .when("/updcustomer/:customerid", { templateUrl: "customer/view/updcustomer.html", controller: "GetCustomerDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
     }
@@ -37,6 +39,8 @@ module OneStopCustomerApp {
     Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'photographerManDataSvc'];
     Controllers.PhotographerDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
+    Controllers.PhotographerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
+    Controllers.CustomerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker', 'daypilot']);
     app.config(Config);
@@ -60,4 +64,6 @@ module OneStopCustomerApp {
     app.controller('GetOfferListCtrl', Controllers.OfferManCtrl);
     app.controller('GetPhotographerListCtrl', Controllers.PhotographerManCtrl);
     app.controller('GetPhotographerDetailsCtrl', Controllers.PhotographerDetailsCtrl);
+    app.controller('GetPhotographerInfoDetailsCtrl', Controllers.PhotographerInfoCtrl);
+    app.controller('GetCustomerDetailsCtrl', Controllers.CustomerInfoCtrl);
 }

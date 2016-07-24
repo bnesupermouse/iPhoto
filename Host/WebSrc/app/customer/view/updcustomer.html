@@ -1,0 +1,84 @@
+﻿
+    <!-- /.Fixed navbar  -->
+    <div class="container main-container headerOffset">
+        <div class="row">
+            <div class="breadcrumbDiv col-lg-12">
+                <ul class="breadcrumb">
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#account">My Account</a></li>
+                    <li class="active"> Customer</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-7">
+                <h1 class="section-title-inner">
+                    <span>
+                        <i class="glyphicon glyphicon-user"></i>Customer
+                    </span>
+                </h1>
+
+                <div class="row userInfo">
+                    <div class="col-lg-12">
+                        <h2 class="block-title-2">
+                            Update Customer Information
+                        </h2>
+                    </div>
+                    <form>
+                        <div class="col-sm-6">
+
+                            <div class="form-group required">
+                                <label>PhotographerId</label>
+                                <input ng-model="NewCustomer.CustomerId" required type="text" class="form-control" disabled >
+                            </div>
+
+                            <div class="form-group required">
+                                <label>Photographer Name</label>
+                                <input ng-model="NewCustomer.CustomerName" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>Email</label>
+                                <input ng-model="NewCustomer.Email" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>Phone</label>
+                                <input ng-model="NewCustomer.Phone" required type="text" class="form-control" >
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group required">
+                                <label>OpenDate</label>
+                                <input ng-model="NewCustomer.OpenDate" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>LastLoginTime</label>
+                                <input ng-model="NewCustomer.LastLoginTime" required type="text" class="form-control" disabled>
+                            </div>
+                            <div class="form-group required">
+                                <label>Gender</label>
+                                <input ng-if="NewCustomer.Gender != null && NewCustomer.Gender ==0" ng-model="NewCustomer.Gender" value="Male" class="form-control" type="text"  />
+                                <input ng-if="NewCustomer.Gender != null && NewCustomer.Gender ==1" ng-model="NewCustomer.Gender" value="Female" class="form-control" type="text"  />
+                                <input ng-if="NewCustomer.Gender == null" ng-model="NewCustomer.Gender" value="Unknown" class="form-control" type="text" />
+                            </div>
+                            <div class="form-group required">
+                                <label>Age</label>
+                                <input ng-model="NewCustomer.Age" class="form-control" type="number" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <button type="button" ng-click="updateCustomer()" class="btn   btn-primary"><i class="fa fa-save"></i> &nbsp; Save</button>
+                            </div>
+                            </div>
+                    </form>
+                </div>
+                <!--/row end-->
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-5"></div>
+        </div>
+        <!--/row-->
+        <div style="clear:both"></div>
+    </div>
+    <!-- /main-container -->

@@ -41,3 +41,7 @@
 /// <reference path="./order/OrderDetailsCtrl.ts" />
 /// <reference path="./order/UpdateOrderStatus.ts" />
 /// <reference path="./order/OrderDataSvc.ts" />
+
+/// <reference path="./customer/model/UpdCustomer.ts" />
+/// <reference path="./customer/controller/CustomerInfoCtrl.ts" />
+/// <reference path="./customer/controller/PhotographerInfoCtrl.ts" />

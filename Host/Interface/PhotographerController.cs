@@ -23,6 +23,24 @@ namespace Host
             return txn.response;
         }
 
+        [HttpGet]
+        public Photographer GetPhotographer(int id)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                return dc.Photographer.Where(p => p.PhotographerId == id).FirstOrDefault();
+
+            }
+        }
+
+        [HttpPost]
+        public Response UpdatePhotographer(UpdPhotographer updPhotographer)
+        {
+            TxUpdPhotographer txn = new TxUpdPhotographer();
+            txn.request = updPhotographer;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
 
         [HttpPost]
         public Response SignOn(Photographer phg)

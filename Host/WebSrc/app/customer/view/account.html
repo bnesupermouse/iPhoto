@@ -38,6 +38,26 @@
                                 </a>
                             </div>
                         </li>
+
+                        <li ng-if="CustomerType == 1" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                            <div class="thumbnail equalheight">
+                                <a title="My wishlists"
+                                   href="#updcustomer/{{AcccountId}}">
+                                    <i class="fa fa-cog"></i>
+                                    Personal Information
+                                </a>
+                            </div>
+                        </li>
+
+                        <li ng-if="CustomerType == 2" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
+                            <div class="thumbnail equalheight">
+                                <a title="My wishlists"
+                                   href="#updphotographerinfo/{{AcccountId}}">
+                                    <i class="fa fa-cog"></i>
+                                    Personal Information
+                                </a>
+                            </div>
+                        </li>
                     </ul>
                     <div class="clear clearfix"></div>
                 </div>

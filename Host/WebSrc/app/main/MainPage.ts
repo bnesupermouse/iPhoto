@@ -119,4 +119,10 @@
         NewPhotographer: Photographer;
         updatePhotographer(): void;
     }
+
+    export interface ICustomerPageScope extends IBaseScope {
+        OldCustomer: Customer;
+        NewCustomer: Customer;
+        updateCustomer(): void;
+    }
 }

@@ -318,6 +318,8 @@
     <Content Include="WebSrc\app\assets\js\jquery.parallax-1.1.js" />
     <Content Include="WebSrc\app\assets\js\owl.carousel.min.js" />
     <Content Include="WebSrc\app\assets\js\script.js" />
+    <Content Include="WebSrc\app\customer\view\updcustomer.html" />
+    <Content Include="WebSrc\app\customer\view\updphotographerinfo.html" />
     <Content Include="WebSrc\app\images\logo.png" />
     <Content Include="WebSrc\app\images\payment\american_express_card.png" />
     <Content Include="WebSrc\app\images\payment\discover_network_card.png" />
@@ -373,10 +375,13 @@
     <TypeScriptCompile Include="WebSrc\app\all.ts" />
     <TypeScriptCompile Include="WebSrc\app\app.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\ManageAccountCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\CustomerInfoCtrl.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\controller\PhotographerInfoCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\SignOnCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\controller\AddCustomerCtrl.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\model\Photographer.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\model\Customer.ts" />
+    <TypeScriptCompile Include="WebSrc\app\customer\model\UpdCustomer.ts" />
     <TypeScriptCompile Include="WebSrc\app\customer\service\CustomerDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPageDataSvc.ts" />
     <TypeScriptCompile Include="WebSrc\app\main\MainPageCtrl.ts" />

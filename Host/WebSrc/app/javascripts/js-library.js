@@ -42,6 +42,10 @@ var Services;
             this.signOnApiPath = "api/customer/signon";
             this.addPhApiPath = "api/photographer/newaccount";
             this.signOnPhApiPath = "api/photographer/signon";
+            this.updatePhotographerApiPath = "api/photographer/updatephotographer";
+            this.getPhotographerDetailsApiPath = "api/photographer/getphotographer";
+            this.updateCustomerApiPath = "api/customer/updatecustomer";
+            this.getCustomerDetailsApiPath = "api/customer/getcustomer";
             this.httpService = $http;
             this.qService = $q;
             this.cookieInfo = new DataModels.CookieInfo();
@@ -122,6 +126,56 @@ var Services;
                 }
                 self.ErrorNo = result.data.ErrorNo;
                 self.ErrorMsg = result.data.ErrorMsg;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        CustomerDataSvc.prototype.updatePhotographer = function (updPhotographer) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.updatePhotographerApiPath, updPhotographer)
+                .then(function (result) {
+                self.PhotographerId = result.data.PhotographerId;
+                self.ErrorNo = result.data.ErrorNo;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        CustomerDataSvc.prototype.getPhotographerDetails = function (photographerId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getPhotographerDetailsApiPath + "/" + photographerId)
+                .then(function (result) {
+                self.PhotographerDetails = result.data;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        CustomerDataSvc.prototype.updateCustomer = function (updCustomer) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.post(self.updateCustomerApiPath, updCustomer)
+                .then(function (result) {
+                self.CustomerId = result.data.CustomerId;
+                self.ErrorNo = result.data.ErrorNo;
+                deferred.resolve(self);
+            }, function (error) {
+                deferred.reject(error);
+            });
+            return deferred.promise;
+        };
+        CustomerDataSvc.prototype.getCustomerDetails = function (customerId) {
+            var self = this;
+            var deferred = self.qService.defer();
+            self.httpService.get(self.getCustomerDetailsApiPath + "/" + customerId)
+                .then(function (result) {
+                self.CustomerDetails = result.data;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -1518,6 +1572,128 @@ var Services;
     Services.OrderDataSvc = OrderDataSvc;
 })(Services || (Services = {}));
 
+var DataModels;
+(function (DataModels) {
+    var UpdCustomer = (function () {
+        function UpdCustomer() {
+        }
+        return UpdCustomer;
+    }());
+    DataModels.UpdCustomer = UpdCustomer;
+})(DataModels || (DataModels = {}));
+
+var Controllers;
+(function (Controllers) {
+    var CustomerInfoCtrl = (function () {
+        function CustomerInfoCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.$location = $location;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.updateCustomer = function () {
+                var updCustomer = new DataModels.UpdCustomer();
+                updCustomer.OldCustomer = self.$scope.OldCustomer;
+                updCustomer.NewCustomer = self.$scope.NewCustomer;
+                updCustomer.CustomerId = $cookies.get("cid");
+                if (updCustomer.OldCustomer.Status != 0 && updCustomer.NewCustomer.Status == 0) {
+                    self.$scope.ErrorMsg = "Cannot change the status value back to New";
+                    return;
+                }
+                if (updCustomer.OldCustomer != null && updCustomer.NewCustomer != null) {
+                    updCustomer.Action = 2;
+                }
+                else if (updCustomer.NewCustomer != null) {
+                    updCustomer.Action = 1;
+                }
+                else {
+                    updCustomer.Action = 3;
+                }
+                dataSvc.updateCustomer(updCustomer).then(function (res) {
+                    if (res.ErrorNo == 0) {
+                        self.$location.path("/account");
+                    }
+                });
+            };
+            self.init();
+        }
+        CustomerInfoCtrl.prototype.init = function () {
+            var self = this;
+            if (self.$routeParams.customerid != null) {
+                self.dataSvc.getCustomerDetails(self.$routeParams.customerid).then(function (data) {
+                    self.$scope.OldCustomer = data.CustomerDetails;
+                    self.$scope.NewCustomer = self.clone(self.$scope.OldCustomer);
+                });
+            }
+        };
+        CustomerInfoCtrl.prototype.clone = function (obj) {
+            var newObj = {};
+            for (var k in obj)
+                newObj[k] = obj[k];
+            return newObj;
+        };
+        return CustomerInfoCtrl;
+    }());
+    Controllers.CustomerInfoCtrl = CustomerInfoCtrl;
+})(Controllers || (Controllers = {}));
+
+var Controllers;
+(function (Controllers) {
+    var PhotographerInfoCtrl = (function () {
+        function PhotographerInfoCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
+            var self = this;
+            self.$scope = $scope;
+            self.$cookies = $cookies;
+            self.$location = $location;
+            self.dataSvc = dataSvc;
+            self.$routeParams = $routeParams;
+            self.$scope.updatePhotographer = function () {
+                var updPhotographer = new DataModels.UpdPhotographer();
+                updPhotographer.OldPhotographer = self.$scope.OldPhotographer;
+                updPhotographer.NewPhotographer = self.$scope.NewPhotographer;
+                updPhotographer.PhotographerId = $cookies.get("cid");
+                if (updPhotographer.OldPhotographer.Status != 0 && updPhotographer.NewPhotographer.Status == 0) {
+                    self.$scope.ErrorMsg = "Cannot change the status value back to New";
+                    return;
+                }
+                if (updPhotographer.OldPhotographer != null && updPhotographer.NewPhotographer != null) {
+                    updPhotographer.Action = 2;
+                }
+                else if (updPhotographer.NewPhotographer != null) {
+                    updPhotographer.Action = 1;
+                }
+                else {
+                    updPhotographer.Action = 3;
+                }
+                dataSvc.updatePhotographer(updPhotographer).then(function (res) {
+                    if (res.ErrorNo == 0) {
+                        self.$location.path("/account");
+                    }
+                });
+            };
+            self.init();
+        }
+        PhotographerInfoCtrl.prototype.init = function () {
+            var self = this;
+            if (self.$routeParams.photographerid != null) {
+                self.dataSvc.getPhotographerDetails(self.$routeParams.photographerid).then(function (data) {
+                    self.$scope.OldPhotographer = data.PhotographerDetails;
+                    self.$scope.NewPhotographer = self.clone(self.$scope.OldPhotographer);
+                });
+            }
+        };
+        PhotographerInfoCtrl.prototype.clone = function (obj) {
+            var newObj = {};
+            for (var k in obj)
+                newObj[k] = obj[k];
+            return newObj;
+        };
+        return PhotographerInfoCtrl;
+    }());
+    Controllers.PhotographerInfoCtrl = PhotographerInfoCtrl;
+})(Controllers || (Controllers = {}));
+
 /// <reference path="./scripts/typings/angularjs/angular.d.ts" />
 /// <reference path="./scripts/typings/angularjs/angular-cookies.d.ts" />
 /// <reference path="./scripts/typings/angularjs/angular-route.d.ts" />
@@ -1556,7 +1732,10 @@ var Services;
 /// <reference path="./order/OrderCtrl.ts" />
 /// <reference path="./order/OrderDetailsCtrl.ts" />
 /// <reference path="./order/UpdateOrderStatus.ts" />
-/// <reference path="./order/OrderDataSvc.ts" /> 
+/// <reference path="./order/OrderDataSvc.ts" />
+/// <reference path="./customer/model/UpdCustomer.ts" />
+/// <reference path="./customer/controller/CustomerInfoCtrl.ts" />
+/// <reference path="./customer/controller/PhotographerInfoCtrl.ts" /> 
 
 /// <reference path="./all.ts" />
 var OneStopCustomerApp;
@@ -1582,6 +1761,8 @@ var OneStopCustomerApp;
                 .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .when("/photographerlist", { templateUrl: "admin/photographerlist.html", controller: "GetPhotographerListCtrl" })
                 .when("/updphotographer/:photographerid", { templateUrl: "admin/updphotographer.html", controller: "GetPhotographerDetailsCtrl" })
+                .when("/updphotographerinfo/:photographerid", { templateUrl: "customer/view/updphotographerinfo.html", controller: "GetPhotographerInfoDetailsCtrl" })
+                .when("/updcustomer/:customerid", { templateUrl: "customer/view/updcustomer.html", controller: "GetCustomerDetailsCtrl" })
                 .otherwise({ redirectTo: '/' });
         }
         return Config;
@@ -1600,6 +1781,8 @@ var OneStopCustomerApp;
     Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
     Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'photographerManDataSvc'];
     Controllers.PhotographerDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
+    Controllers.PhotographerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
+    Controllers.CustomerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker', 'daypilot']);
     app.config(Config);
@@ -1622,6 +1805,8 @@ var OneStopCustomerApp;
     app.controller('GetOfferListCtrl', Controllers.OfferManCtrl);
     app.controller('GetPhotographerListCtrl', Controllers.PhotographerManCtrl);
     app.controller('GetPhotographerDetailsCtrl', Controllers.PhotographerDetailsCtrl);
+    app.controller('GetPhotographerInfoDetailsCtrl', Controllers.PhotographerInfoCtrl);
+    app.controller('GetCustomerDetailsCtrl', Controllers.CustomerInfoCtrl);
 })(OneStopCustomerApp || (OneStopCustomerApp = {}));
 
 // Type definitions for Angular JS 1.4 (ngCookies module)

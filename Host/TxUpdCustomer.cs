@@ -153,6 +153,7 @@ namespace Host
                 }
                 else
                 {
+                    CustomerId = NewCustomer.CustomerId;
                     if(OldCustomer.Password != NewCustomer.Password)
                     {
                         //Hash Password

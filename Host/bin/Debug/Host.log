@@ -1407,3 +1407,6 @@
 [2016-07-23 19:29:56,344]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
 [2016-07-23 20:30:57,789]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
 [2016-07-23 20:31:00,292]  21 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-24 19:36:21,125]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session
+[2016-07-24 19:36:50,644]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session
+[2016-07-24 19:37:02,945]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session

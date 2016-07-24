@@ -23,6 +23,25 @@ namespace Host
             return txn.response;
         }
 
+        [HttpGet]
+        public Customer GetCustomer(int id)
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                return dc.Customer.Where(p => p.CustomerId == id).FirstOrDefault();
+
+            }
+        }
+
+        [HttpPost]
+        public Response UpdateCustomer(UpdCustomer updCustomer)
+        {
+            TxUpdCustomer txn = new TxUpdCustomer();
+            txn.request = updCustomer;
+            var res = TxnFunc.ProcessTxn(txn);
+            return txn.response;
+        }
+
 
         [HttpPost]
         public Response SignOn(Customer ctm)
