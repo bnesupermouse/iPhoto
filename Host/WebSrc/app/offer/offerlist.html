@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="o in Offers">
+                            <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'" ng-repeat="o in Offers">
                                 <td>{{o.OfferId}}</td>
                                 <td class="hidden-xs">{{o.OfferName}}</td>
                                 <td class="hidden-xs">{{o.StartTime}}</td>

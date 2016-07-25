@@ -43,11 +43,11 @@ namespace Host
             {
                 if (id == -1)
                 {
-                    return dc.Photographer.ToList();
+                    return dc.Photographer.Where(p=>!p.Admin).ToList();
                 }
                 else
                 {
-                    return dc.Photographer.Where(p => p.Status == id).ToList();
+                    return dc.Photographer.Where(p => p.Status == id && !p.Admin).ToList();
                 }
             }
         }

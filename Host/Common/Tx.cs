@@ -194,7 +194,7 @@ namespace Host
                 return Result.Failed;
             }
 
-            if (photographer.Status != 0)
+            if (photographer.Status != 0 && photographer.Status != 1 && photographer.Status != 2)
             {
                 return Result.Failed;
             }

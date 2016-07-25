@@ -72,6 +72,7 @@
                         if (self.$scope.OfferDetails.PicList != null && self.$scope.OfferDetails.PicList.length > 0) {
                             self.$scope.uploadPhotos();
                         }
+                        self.$location.path("/account");
                     });
                 }
             }

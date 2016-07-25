@@ -48,7 +48,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="o in Orders">
+                            <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'"  ng-repeat="o in Orders">
                                 <td>{{o.SerialNo}}</td>
                                 <td class="hidden-xs">{{o.OfferName}}</td>
                                 <td class="hidden-xs">{{o.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</td>

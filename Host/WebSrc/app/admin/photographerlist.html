@@ -44,7 +44,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="p in Photographers">
+                            <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'" ng-repeat="p in Photographers">
                                 <td>{{p.PhotographerName}}</td>
                                 <td class="hidden-xs">{{p.Introduction}}</td>
                                 <td class="hidden-xs">{{p.OpenDate | date:'M/d/yyyy HH:mm:ss'}}</td>

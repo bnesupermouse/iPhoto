@@ -6185,3 +6185,13 @@ div.quickview {
 {
     color: red;
 }
+
+.cssOrderOdd {
+   
+    background-color:AliceBlue;
+}
+
+.cssOrderEven {
+  
+    background-color:WhiteSmoke;
+}

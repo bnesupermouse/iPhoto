@@ -24,7 +24,7 @@
 
 
                     <div class="col-sm-12">
-                        <div class=" statusTop">
+                        <div class="statusTop">
                             <p><strong>Status:</strong> {{Details.StatusString}}</p>
 
                             <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</p>
@@ -48,6 +48,7 @@
                     </div>
                 </div>
             </div>
+            <h2 class="block-title-2"> Appointment Calendar </h2>
             <!--/row end-->
             <daypilot-calendar ng-if="CustomerType==2" id="dp" config="config" events="Details.Events"></daypilot-calendar>
         </div>

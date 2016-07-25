@@ -235,16 +235,16 @@ namespace Host
                         }
                     }
                     //Check OfferPhotographer
-                    OfferPhotographer op = new OfferPhotographer();
-                    op.OfferId = NewOffer.OfferId;
-                    op.PhotographerId = PhotographerId;
-                    op = op.Fetch() as OfferPhotographer;
-                    if (op == null)
-                    {
-                        LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotographerId and OfferId", Log4NetLevel.Error);
-                        response.ErrorNo = (int)Errors.InvalidRequest;
-                        return Result.Failed;
-                    }
+                    //OfferPhotographer op = new OfferPhotographer();
+                    //op.OfferId = NewOffer.OfferId;
+                    //op.PhotographerId = PhotographerId;
+                    //op = op.Fetch() as OfferPhotographer;
+                    //if (op == null)
+                    //{
+                    //    LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotographerId and OfferId", Log4NetLevel.Error);
+                    //    response.ErrorNo = (int)Errors.InvalidRequest;
+                    //    return Result.Failed;
+                    //}
                     //Validate Status value
                     if(NewOffer.Status != 0 && NewOffer.Status !=1 && NewOffer.Status !=2)
                     {

@@ -1410,3 +1410,8 @@
 [2016-07-24 19:36:21,125]  11 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session
 [2016-07-24 19:36:50,644]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session
 [2016-07-24 19:37:02,945]  13 -- ERROR -- Host.TxUpdCustomer [WriteLog] -- Failed to update session
+[2016-07-25 19:58:36,187]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-25 19:59:05,130]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-25 19:59:57,543]  28 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-25 20:01:17,831]  25 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-25 20:05:09,569]  44 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
