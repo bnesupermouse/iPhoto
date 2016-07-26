@@ -6,13 +6,15 @@
         $scope: DataModels.IOfferListPageScope;
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IOfferRouteParams;
+        $location: ng.ILocationService;
         dataSvc: Services.OfferDetailsDataSvc;
         PhotoTypeId: number;
 
-        constructor($scope: DataModels.IOfferListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferRouteParams, dataSvc: Services.OfferDetailsDataSvc) {
+        constructor($scope: DataModels.IOfferListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferRouteParams, $location: ng.ILocationService, dataSvc: Services.OfferDetailsDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -27,6 +29,10 @@
                 self.dataSvc.getOfferList(self.$scope.IsAdmin, self.$scope.StatusFilter).then(function (data) {
                     self.$scope.Offers = data.Offers;
                 });
+            }
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
             }
             self.init();
         }

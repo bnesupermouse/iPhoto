@@ -33,6 +33,10 @@
                 }
                 self.$scope.CustomerType = $cookies.get("ctype");
             }
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
         }
 

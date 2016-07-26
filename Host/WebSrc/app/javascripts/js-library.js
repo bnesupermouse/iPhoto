@@ -220,6 +220,9 @@ var Controllers;
                 self.$scope.CustomerType = $cookies.get("ctype");
             }
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         ManageAccountCtrl.prototype.init = function () {
             var self = this;
@@ -611,6 +614,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         PhotographerDetailsCtrl.prototype.init = function () {
             var self = this;
@@ -635,10 +641,11 @@ var Controllers;
 var Controllers;
 (function (Controllers) {
     var PhotographerManCtrl = (function () {
-        function PhotographerManCtrl($scope, $cookies, $routeParams, dataSvc) {
+        function PhotographerManCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -651,6 +658,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         PhotographerManCtrl.prototype.init = function () {
             var self = this;
@@ -731,10 +741,11 @@ var DataModels;
 var Controllers;
 (function (Controllers) {
     var OfferManCtrl = (function () {
-        function OfferManCtrl($scope, $cookies, $routeParams, dataSvc) {
+        function OfferManCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -750,6 +761,10 @@ var Controllers;
                     self.$scope.Offers = data.Offers;
                 });
             };
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
         }
         OfferManCtrl.prototype.init = function () {
@@ -877,6 +892,11 @@ var Controllers;
                 });
             };
             self.init();
+            if ($location.path().indexOf("/offerdetails/") < 0) {
+                if ($cookies.get("cid") == null) {
+                    self.$location.path("/signin");
+                }
+            }
         }
         OfferDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index) {
             var self = this;
@@ -1073,6 +1093,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         OrderPaymentCtrl.prototype.init = function () {
             var self = this;
@@ -1232,10 +1255,11 @@ var DataModels;
 var Controllers;
 (function (Controllers) {
     var OrderCtrl = (function () {
-        function OrderCtrl($scope, $cookies, $routeParams, dataSvc) {
+        function OrderCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -1248,6 +1272,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         OrderCtrl.prototype.init = function () {
             var self = this;
@@ -1414,6 +1441,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         OrderDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index, status) {
             var self = this;
@@ -1636,6 +1666,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         CustomerInfoCtrl.prototype.init = function () {
             var self = this;
@@ -1692,6 +1725,9 @@ var Controllers;
                 });
             };
             self.init();
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+            }
         }
         PhotographerInfoCtrl.prototype.init = function () {
             var self = this;
@@ -1795,10 +1831,10 @@ var OneStopCustomerApp;
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
     Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
-    Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'orderDataSvc'];
+    Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
-    Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'offerDetailsDataSvc'];
-    Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', 'photographerManDataSvc'];
+    Controllers.OfferManCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
+    Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
     Controllers.PhotographerDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
     Controllers.PhotographerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
     Controllers.CustomerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];

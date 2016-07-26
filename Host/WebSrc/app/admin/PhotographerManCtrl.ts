@@ -6,13 +6,15 @@
         $scope: DataModels.IPhotographerListPageScope;
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IPhotographerManRouteParams;
+        $location: ng.ILocationService;
         dataSvc: Services.PhotographerManDataSvc;
         PhotographerId: number;
 
-        constructor($scope: DataModels.IPhotographerListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IPhotographerManRouteParams, dataSvc: Services.PhotographerManDataSvc) {
+        constructor($scope: DataModels.IPhotographerListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IPhotographerManRouteParams, $location: ng.ILocationService, dataSvc: Services.PhotographerManDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -25,7 +27,10 @@
                     self.$scope.Photographers = data.Photographers;
                 });
             }
-
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
         }
 

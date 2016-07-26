@@ -56,6 +56,7 @@
                                 <td data-value="3">
                                     <a ng-if="o.Paid == 0 && CustomerType==1 && o.Status == 1" href="#orderpayment/{{o.SerialNo}}"><span class="label {{o.LabelString}}">Pay Now</span></a>
                                     <a ng-if="o.Paid == 0 && CustomerType==1 && o.Status == 0" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
+                                    <a ng-if="o.Paid == 0 && CustomerType==1 && o.Status == 6" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
                                     <a ng-if="o.Paid == 1 || CustomerType==2" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>
                                 </td>
                             </tr>

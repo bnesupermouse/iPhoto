@@ -126,7 +126,11 @@
                 });
             }
 
-
+            if ($location.path().indexOf("/offerdetails/") < 0) {
+                if ($cookies.get("cid") == null) {
+                    self.$location.path("/signin");
+                }
+            }
             self.init();
         }
 

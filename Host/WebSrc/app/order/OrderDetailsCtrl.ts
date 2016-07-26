@@ -173,7 +173,10 @@
                     //self.$scope.Details = data.Details;
                 });
             }
-
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
         }
         private uploadIndividualPhoto(photo: DataModels.Photo, index: number, status: number) {

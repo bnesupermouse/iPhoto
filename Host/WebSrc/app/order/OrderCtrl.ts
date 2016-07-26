@@ -6,14 +6,16 @@
         $scope: DataModels.IOrderListPageScope;
         $cookies: ng.cookies.ICookieStoreService;
         $routeParams: IOrderRouteParams;
+        $location: ng.ILocationService;
         dataSvc: Services.OrderDataSvc;
         PhotoTypeId: number;
         OrderDetails: DataModels.OrderDetails;
 
-        constructor($scope: DataModels.IOrderListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, dataSvc: Services.OrderDataSvc) {
+        constructor($scope: DataModels.IOrderListPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOrderRouteParams, $location: ng.ILocationService, dataSvc: Services.OrderDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
+            self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.CustomerName = $cookies.get("cname");
@@ -25,8 +27,11 @@
                     self.$scope.Orders = data.OrderList;
                 });
             }
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
-            
         }
 
         private init(): void {

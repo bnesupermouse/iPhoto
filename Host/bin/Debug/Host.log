@@ -1415,3 +1415,4 @@
 [2016-07-25 19:59:57,543]  28 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
 [2016-07-25 20:01:17,831]  25 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
 [2016-07-25 20:05:09,569]  44 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid PhotographerId and OfferId
+[2016-07-26 18:24:37,647]  261 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password

@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="col-lg-9 col-md-9 col-sm-7">
-            <h1 class="section-title-inner"><span><i class="fa fa-unlock-alt"></i> Hi {{CustomerName}} </span></h1>
+            <h1 class="section-title-inner"><span><i class="fa fa-unlock-alt"></i> Hi {{CustomerName}} </span><label ng-if="IsAdmin >0">[ Administrator ]</label></h1>
 
             <div class="row userInfo">
                 <div class="col-xs-12 col-sm-12">
@@ -18,7 +18,7 @@
                     <ul class="myAccountList row">
                         <li class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
                             <div class="thumbnail equalheight"><a title="Orders" href="#orderlist"><i
-                                    class="fa fa-calendar"></i>Orders</a></div>
+                                    class="fa fa-book"></i>Orders</a></div>
                         </li>
                         
                         <li ng-if="IsVerified >0 && CustomerType == 2 && IsAdmin ==0" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
@@ -27,14 +27,14 @@
 
                         <li ng-if="CustomerType == 2" class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
                             <div class="thumbnail equalheight"><a title="My wishlists"
-                                                                  href="#offerlist"><i class="fa fa-cog"></i>
+                                                                  href="#offerlist"><i class="fa fa-calculator"></i>
                                 Offers</a></div>
                         </li>
                         
                         <li ng-if="IsAdmin >0 && CustomerType == 2"class="col-lg-2 col-md-2 col-sm-3 col-xs-4  text-center ">
                             <div class="thumbnail equalheight">
                                 <a title="Personal information" href="#photographerlist">
-                                    <i class="fa fa-calendar"></i>Photographers
+                                    <i class="fa fa-users"></i>Photographers
                                 </a>
                             </div>
                         </li>
@@ -44,7 +44,7 @@
                                 <a title="My wishlists"
                                    href="#updcustomer/{{AcccountId}}">
                                     <i class="fa fa-cog"></i>
-                                    Personal Information
+                                    Personal Info
                                 </a>
                             </div>
                         </li>
@@ -54,7 +54,7 @@
                                 <a title="My wishlists"
                                    href="#updphotographerinfo/{{AcccountId}}">
                                     <i class="fa fa-cog"></i>
-                                    Personal Information
+                                    Personal Info
                                 </a>
                             </div>
                         </li>

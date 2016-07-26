@@ -32,6 +32,10 @@
                     self.$location.path("/account");
                 });
             }
+            if ($cookies.get("cid") == null) {
+                self.$location.path("/signin");
+                return;
+            }
             self.init();
         }
 
