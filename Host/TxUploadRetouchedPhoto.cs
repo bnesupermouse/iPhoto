@@ -26,6 +26,9 @@ namespace Host
             order = order.Fetch() as CustomerOrder;
             if(order == null)
             {
+                LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Invalid Request", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Request";
                 return Result.Failed;
             }
             PhotographerId = order.PhotographerId;
@@ -33,21 +36,33 @@ namespace Host
             var res = UpdatePhotographerSession(true);
             if (res != Result.Success)
             {
+                LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Failed to Update Session", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Failed to Update Session";
                 return res;
             }
             res = ValidateOrderInfo(order);
             if (order == null)
             {
+                LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Failed to validate Order", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Failed to Validate Order";
                 return Result.Failed;
             }
             if(order.Status != (int)OrderStatus.PhotoSelected)
             {
+                LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Raw Photos have not been selected", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Raw Photos have not been selected";
                 return Result.Failed;
             }
 
             //Validate Photo Info
             if(!curReq.LastPhoto && curReq.RetouchedPhotos.Count <=0)
             {
+                LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "No Photo to upload", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "No Photo to upload";
                 return Result.Failed;
             }
             var resp = new UploadRetouchedPhotoResponse();
@@ -57,19 +72,31 @@ namespace Host
             {
                 if(photo.PhotoName == null || photo.PhotoName.Trim().Length ==0)
                 {
+                    LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Invalid Photo Name", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Photo Name";
                     return Result.Failed;
                 }
 
                 if(photo.Path == null || photo.Path.Trim().Length == 0)
                 {
+                    LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Invalid Path", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid Path";
                     return Result.Failed;
                 }
                 if(photo.Confirmed)
                 {
+                    LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Photo cannot be confirmed", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Photo cannot be confirmed";
                     return Result.Failed;
                 }
                 if(!photo.Retouched || !photo.Selected)
                 {
+                    LogHelper.WriteLog(typeof(TxUploadRetouchedPhoto), "Photo is not selected and retouched", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Photo is not selected and retouched";
                     return Result.Failed;
                 }
                 photo.CustomerOrderId = order.SerialNo;
