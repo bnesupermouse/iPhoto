@@ -37,10 +37,18 @@
                     updPhotographer.Action = 3;
                 }
                 dataSvc.updatePhotographer(updPhotographer).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     if (res.ErrorNo == 0) {
                         self.$location.path("/photographerlist");
                     }
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");

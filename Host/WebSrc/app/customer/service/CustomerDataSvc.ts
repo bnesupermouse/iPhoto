@@ -122,6 +122,7 @@
                 .then(function (result: any) {
                     self.PhotographerId = result.data.PhotographerId;
                     self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
@@ -155,6 +156,7 @@
                 .then(function (result: any) {
                     self.CustomerId = result.data.CustomerId;
                     self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);

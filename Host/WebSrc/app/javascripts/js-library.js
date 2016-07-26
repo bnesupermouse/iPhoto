@@ -139,6 +139,7 @@ var Services;
                 .then(function (result) {
                 self.PhotographerId = result.data.PhotographerId;
                 self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -164,6 +165,7 @@ var Services;
                 .then(function (result) {
                 self.CustomerId = result.data.CustomerId;
                 self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
@@ -219,10 +221,11 @@ var Controllers;
                 }
                 self.$scope.CustomerType = $cookies.get("ctype");
             }
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         ManageAccountCtrl.prototype.init = function () {
             var self = this;
@@ -608,15 +611,23 @@ var Controllers;
                     updPhotographer.Action = 3;
                 }
                 dataSvc.updatePhotographer(updPhotographer).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     if (res.ErrorNo == 0) {
                         self.$location.path("/photographerlist");
                     }
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         PhotographerDetailsCtrl.prototype.init = function () {
             var self = this;
@@ -657,10 +668,11 @@ var Controllers;
                     self.$scope.Photographers = data.Photographers;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         PhotographerManCtrl.prototype.init = function () {
             var self = this;
@@ -688,6 +700,8 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.updatePhotographerApiPath, updPhotographer)
                 .then(function (result) {
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 self.PhotographerId = result.data.PhotographerId;
                 self.ErrorNo = result.data.ErrorNo;
                 deferred.resolve(self);
@@ -817,8 +831,15 @@ var Controllers;
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
-                    var orderId = res;
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
+                    var orderId = res.OrderId;
                     self.$location.path("/orderdetails-0/" + orderId);
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.updateOffer = function () {
@@ -838,11 +859,18 @@ var Controllers;
                     }
                     updOffer.PhotographerId = $cookies.get("cid");
                     dataSvc.updateOffer(updOffer).then(function (res) {
-                        self.$scope.OfferDetails.OfferId = res;
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
+                        self.$scope.OfferDetails.OfferId = res.OfferDetails.OfferId;
                         if (self.$scope.OfferDetails.PicList != null && self.$scope.OfferDetails.PicList.length > 0) {
                             self.$scope.uploadPhotos();
                         }
                         self.$location.path("/account");
+                    }, function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
                     });
                 }
             };
@@ -891,12 +919,12 @@ var Controllers;
                     self.$scope.busy = false;
                 });
             };
-            self.init();
             if ($location.path().indexOf("/offerdetails/") < 0) {
                 if ($cookies.get("cid") == null) {
                     self.$location.path("/signin");
                 }
             }
+            self.init();
         }
         OfferDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index) {
             var self = this;
@@ -1005,8 +1033,10 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.placeOrderApiPath, placeOrder)
                 .then(function (result) {
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 self.OrderId = result.data.OrderId;
-                deferred.resolve(self.OrderId);
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -1017,8 +1047,10 @@ var Services;
             var deferred = self.qService.defer();
             self.httpService.post(self.updateOfferApiPath, updOffer)
                 .then(function (result) {
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 self.OfferDetails.OfferId = result.data.OfferId;
-                deferred.resolve(self.OfferDetails.OfferId);
+                deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);
             });
@@ -1092,10 +1124,11 @@ var Controllers;
                     self.$location.path("/account");
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         OrderPaymentCtrl.prototype.init = function () {
             var self = this;
@@ -1271,10 +1304,11 @@ var Controllers;
                     self.$scope.Orders = data.OrderList;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         OrderCtrl.prototype.init = function () {
             var self = this;
@@ -1302,43 +1336,78 @@ var Controllers;
             self.$scope.CustomerType = $cookies.get("ctype");
             self.$scope.busy = false;
             self.$scope.confirmOrder = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.rejectOrder = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.confirmRawPhotosUploaded = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
                 });
             };
             self.$scope.confirmRetouchedPhotosUploaded = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.confirmPhotoSelected = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
                     self.$location.path("/orderlist");
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.finaliseOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderFinalised).then(function (data) {
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
                     self.$location.path("/orderlist");
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.loadMore = function (photoType) {
@@ -1420,7 +1489,13 @@ var Controllers;
                     }
                 }
                 self.dataSvc.selectRawPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
             self.$scope.selectRetouchedPhotos = function () {
@@ -1437,13 +1512,20 @@ var Controllers;
                     }
                 }
                 self.dataSvc.selectRetouchedPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         OrderDetailsCtrl.prototype.uploadIndividualPhoto = function (photo, index, status) {
             var self = this;
@@ -1573,6 +1655,8 @@ var Services;
             updateOrder.ToStatus = toStatus;
             self.httpService.post(self.updateOrderStatusApiPath, updateOrder)
                 .then(function (result) {
+                self.ErrorNo = result.data.ErrorNo;
+                self.ErrorMsg = result.data.ErrorMsg;
                 self.OrderId = result.data.OrderId;
                 self.Details.Status = result.data.Status;
                 self.Details.StatusString = result.data.StatusString;
@@ -1660,15 +1744,23 @@ var Controllers;
                     updCustomer.Action = 3;
                 }
                 dataSvc.updateCustomer(updCustomer).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     if (res.ErrorNo == 0) {
                         self.$location.path("/account");
                     }
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         CustomerInfoCtrl.prototype.init = function () {
             var self = this;
@@ -1719,15 +1811,23 @@ var Controllers;
                     updPhotographer.Action = 3;
                 }
                 dataSvc.updatePhotographer(updPhotographer).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     if (res.ErrorNo == 0) {
                         self.$location.path("/account");
                     }
+                }, function (error) {
+                    self.$scope.ErrorMsg = error;
+                    return;
                 });
             };
-            self.init();
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
+                return;
             }
+            self.init();
         }
         PhotographerInfoCtrl.prototype.init = function () {
             var self = this;

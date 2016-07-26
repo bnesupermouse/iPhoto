@@ -9,6 +9,7 @@
         Details: DataModels.Photographer;
         PhotographerId: number;
         ErrorNo: number;
+        ErrorMsg: string;
 
         updatePhotographer(updPhotographer: DataModels.UpdPhotographer): ng.IPromise<any> {
             var self = this;
@@ -16,6 +17,8 @@
 
             self.httpService.post(self.updatePhotographerApiPath, updPhotographer)
                 .then(function (result: any) {
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     self.PhotographerId = result.data.PhotographerId;
                     self.ErrorNo = result.data.ErrorNo;
                     deferred.resolve(self);

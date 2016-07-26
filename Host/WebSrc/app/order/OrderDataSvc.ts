@@ -13,6 +13,8 @@
         public Details: DataModels.OrderDetails;
         public Photos: DataModels.PhotoInfo;
         OrderId: number;
+        ErrorNo: number;
+        ErrorMsg: string;
 
         getOrderList(accountId:number, accountType:number, statusFilter:number): ng.IPromise<any> {
             var self = this;
@@ -73,6 +75,8 @@
             updateOrder.ToStatus = toStatus;
             self.httpService.post(self.updateOrderStatusApiPath, updateOrder)
                 .then(function (result: any) {
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     self.OrderId = result.data.OrderId;
                     self.Details.Status = result.data.Status;
                     self.Details.StatusString = result.data.StatusString;

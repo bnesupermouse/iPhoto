@@ -46,9 +46,17 @@
                 placeOrder.OfferId = self.$scope.OfferDetails.OfferId;
                 placeOrder.AppointmentDate = self.$scope.AppointmentDate;
                 dataSvc.placeOrder(placeOrder).then(function (res) {
-                    let orderId = res;
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
+                    let orderId = res.OrderId;
                     self.$location.path("/orderdetails-0/" + orderId);
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.updateOffer = function () {
@@ -68,12 +76,20 @@
                     }
                     updOffer.PhotographerId = $cookies.get("cid");
                     dataSvc.updateOffer(updOffer).then(function (res) {
-                        self.$scope.OfferDetails.OfferId = res;
+                        if (res.ErrorNo != 0) {
+                            self.$scope.ErrorMsg = res.ErrorMsg;
+                            return;
+                        }
+                        self.$scope.OfferDetails.OfferId = res.OfferDetails.OfferId;
                         if (self.$scope.OfferDetails.PicList != null && self.$scope.OfferDetails.PicList.length > 0) {
                             self.$scope.uploadPhotos();
                         }
                         self.$location.path("/account");
-                    });
+                    },
+                        function (error) {
+                            self.$scope.ErrorMsg = error;
+                            return;
+                        });
                 }
             }
 

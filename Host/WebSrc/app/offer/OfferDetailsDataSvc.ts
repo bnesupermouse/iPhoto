@@ -14,6 +14,8 @@
         Pics: Array<DataModels.PicInfo>;
         PhotoTypes: Array<DataModels.PhotoType>;
         Offers: Array<DataModels.Offer>;
+        ErrorNo: number;
+        ErrorMsg: string;
 
         getOfferDetails(offerId:number): ng.IPromise<any> {
             var self = this;
@@ -35,8 +37,10 @@
 
             self.httpService.post(self.placeOrderApiPath, placeOrder)
                 .then(function (result: any) {
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     self.OrderId = result.data.OrderId;
-                    deferred.resolve(self.OrderId);
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });
@@ -53,8 +57,10 @@
 
             self.httpService.post(self.updateOfferApiPath, updOffer)
                 .then(function (result: any) {
+                    self.ErrorNo = result.data.ErrorNo;
+                    self.ErrorMsg = result.data.ErrorMsg;
                     self.OfferDetails.OfferId = result.data.OfferId;
-                    deferred.resolve(self.OfferDetails.OfferId);
+                    deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);
                 });

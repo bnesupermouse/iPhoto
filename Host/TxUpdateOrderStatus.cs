@@ -27,6 +27,9 @@ namespace Host
             order = order.Fetch() as CustomerOrder;
             if (order == null)
             {
+                LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Invalid Request", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Request";
                 return Result.Failed;
             }
             PhotographerId = order.PhotographerId;
@@ -43,18 +46,27 @@ namespace Host
             }
             if (res != Result.Success)
             {
+                LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Invalid Status Value", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Status Value";
                 return res;
             }
 
             res = ValidateOrderInfo(order);
             if(res!= Result.Success)
             {
+                LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Order Info Check Failed", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Request";
                 return res;
             }
             if (curReq.ToStatus == (int)OrderStatus.OrderRejected)
             {
                 if (order.Status != (int)OrderStatus.OrderPending)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Order Cannot be rejected", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Order Cannot be rejected";
                     return Result.Failed;
                 }
             }
@@ -62,17 +74,26 @@ namespace Host
             {
                 if (order.Status != (int)OrderStatus.OrderPending)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Order Cannot be confirmed", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Order Cannot be confirmed";
                     return Result.Failed;
                 }
             }
             if(curReq.ToStatus != (int)OrderStatus.OrderRejected && curReq.ToStatus > (int)OrderStatus.OrderConfirmed && !order.Paid)
             {
+                LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Order is not Paid", Log4NetLevel.Error);
+                response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Order is not paid";
                 return Result.Failed;
             }
             if (curReq.ToStatus == (int)OrderStatus.RawPhotoUploaded)
             {
                 if (order.Status != (int)OrderStatus.OrderConfirmed)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Order is not Confirmed", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Order is not Confirmed";
                     return Result.Failed;
                 }
             }
@@ -80,6 +101,9 @@ namespace Host
             {
                 if (order.Status != (int)OrderStatus.RawPhotoUploaded)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Raw Photo is not Uploaded", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Raw Photo is not Uploaded";
                     return Result.Failed;
                 }
             }
@@ -87,6 +111,9 @@ namespace Host
             {
                 if (order.Status != (int)OrderStatus.PhotoSelected)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Raw Photo is not Selected", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Raw Photo is not Selected";
                     return Result.Failed;
                 }
             }
@@ -94,6 +121,9 @@ namespace Host
             {
                 if (order.Status != (int)OrderStatus.RetouchedPhotoUploaded)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Retouched Photo is not Uploaded", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Retouched Photo is not Uploaded";
                     return Result.Failed;
                 }
 
@@ -103,6 +133,9 @@ namespace Host
                 pa = pa.Fetch() as PhotographerAccount;
                 if(pa==null)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Could not find Photographer", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Could not find Photographer";
                     return Result.Failed;
                 }
                 var newPa = pa.Clone() as PhotographerAccount;
@@ -116,6 +149,9 @@ namespace Host
                 acc = acc.Fetch() as Account;
                 if (acc == null)
                 {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Could not find Account", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Could not find Account";
                     return Result.Failed;
                 }
                 else

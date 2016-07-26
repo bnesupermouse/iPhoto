@@ -37,10 +37,18 @@
                     updCustomer.Action = 3;
                 }
                 dataSvc.updateCustomer(updCustomer).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     if (res.ErrorNo == 0) {
                         self.$location.path("/account");
                     }
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");

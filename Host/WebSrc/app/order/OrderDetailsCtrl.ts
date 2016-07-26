@@ -19,49 +19,89 @@
             self.$scope.busy = false;
             
             self.$scope.confirmOrder = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderConfirmed).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.rejectOrder = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderRejected).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.confirmRawPhotosUploaded = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RawPhotoUploaded).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
                 });
             }
 
             self.$scope.confirmRetouchedPhotosUploaded = function () {
-                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (data) {
-                    //self.$scope.Details = data.Details;
+                self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.RetouchedPhotoUploaded).then(function (res) {
+                    if (res.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = res.ErrorMsg;
+                        return;
+                    }
                     self.$location.path("/orderlist");
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.confirmPhotoSelected = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.PhotoSelected).then(function (data) {
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
                     self.$location.path("/orderlist");
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.finaliseOrder = function () {
                 self.dataSvc.updateOrderStatus(self.$routeParams.orderid, DataModels.OrderStatusValue.OrderFinalised).then(function (data) {
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
                     self.$scope.Details.Status = data.Details.Status;
                     self.$scope.Details.StatusString = data.Details.StatusString;
                     self.$scope.Details.LabelString = data.Details.LabelString;
                     self.$location.path("/orderlist");
-                });
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.loadMore = function (photoType) {
@@ -150,8 +190,15 @@
 
                 }
                 self.dataSvc.selectRawPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
-                    //self.$scope.Details = data.Details;
-                });
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
 
             self.$scope.selectRetouchedPhotos = function () {
@@ -170,8 +217,15 @@
 
                 }
                 self.dataSvc.selectRetouchedPhotos(self.$routeParams.orderid, selectedPhotoIds, deSelectedPhotoIds).then(function (data) {
-                    //self.$scope.Details = data.Details;
-                });
+                    if (data.ErrorNo != 0) {
+                        self.$scope.ErrorMsg = data.ErrorMsg;
+                        return;
+                    }
+                },
+                    function (error) {
+                        self.$scope.ErrorMsg = error;
+                        return;
+                    });
             }
             if ($cookies.get("cid") == null) {
                 self.$location.path("/signin");
