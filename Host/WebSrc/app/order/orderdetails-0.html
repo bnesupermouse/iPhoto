@@ -49,6 +49,81 @@
                     </div>
                 </div>
             </div>
+
+            <div class="product-tab w100 clearfix">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab">Details</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="details">
+                        <table class="table">
+                            <colgroup>
+                                <col style="width:70%">
+                                <col style="width:30%">
+                            </colgroup>
+                            <tbody>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Customer Name</strong></td>
+                                    <td><strong>{{Details.CustomerName}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Contact Number</strong></td>
+                                    <td><strong>{{Details.Phone}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Order Amount</strong></td>
+                                    <td><strong>${{Details.Amount}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>No Servicer</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoServicer}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;&nbsp;<strong>Max People</strong></td>
+                                    <td><strong>{{Details.OfferInfo.MaxPeople}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-camera"></i>&nbsp;&nbsp;<strong>No Raw Photo</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoRawPhoto}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;<strong>No Retouched Photo</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoRetouchedPhoto}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-modal-window"></i>&nbsp;&nbsp;<strong>No Makeup</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoMakeup}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-knight"></i>&nbsp;&nbsp;<strong>No Costume</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoCostume}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-globe"></i>&nbsp;&nbsp;<strong>No Venue</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoVenue}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;<strong>Duration Hour</strong></td>
+                                    <td><strong>{{Details.OfferInfo.DurationHour}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>Comment</strong></td>
+                                    <td>{{Details.OfferInfo.Comment}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- /.tab content -->
+
+            </div>
+
+
             <h2 ng-if="CustomerType==2" class="block-title-2"> Appointment Calendar </h2>
             <!--/row end-->
             <daypilot-calendar ng-if="CustomerType==2" id="dp" config="config" events="Details.Events"></daypilot-calendar>

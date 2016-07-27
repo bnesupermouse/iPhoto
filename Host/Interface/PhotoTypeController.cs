@@ -35,7 +35,7 @@ namespace Host
                 var offers = from o in dc.Offer
                 join p in dc.OfferPhotographer on o.OfferId equals p.OfferId
                 join ph in dc.Photographer on p.PhotographerId equals ph.PhotographerId
-                where o.PhotoTypeId == id &&o.OfferId > id4 && o.Price >= min && o.Price < max
+                where o.PhotoTypeId == id &&o.OfferId > id4 && o.Price >= min && o.Price < max && o.Status == 2
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder};
                 var res = offers.Take(15).ToList();

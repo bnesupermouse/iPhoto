@@ -208,6 +208,9 @@ namespace Host
 
                 if (Action == 1)
                 {
+                    string pwdHash = PasswordHash.HashPassword(NewPhotographer.Password);
+                    NewPhotographer.Password = pwdHash;
+
                     NewPhotographer.OpenDate = DateTime.UtcNow;
                     NewPhotographer.LastLoginTime = NewPhotographer.OpenDate;
                     NewPhotographer.Status = 0;

@@ -26,7 +26,7 @@ namespace Host
                     po.PhotoTypeId = ph.PhotoTypeId;
                     po.PhotoTypeName = ph.PhotoTypeName;
                     var offers = from o in dc.Offer
-                                 where o.PhotoTypeId == ph.PhotoTypeId
+                                 where o.PhotoTypeId == ph.PhotoTypeId && o.Status == 2
                                  select new OfferInfo
                                  {
                                      OfferId = o.OfferId,
@@ -38,7 +38,7 @@ namespace Host
                                      SortOrder = o.SortOrder
                                  };
                     var poffers = offers.Take(8).ToList();
-                    if (poffers.Count > 4)
+                    if (poffers.Count > 0)
                     {
                         foreach (var of in poffers)
                         {

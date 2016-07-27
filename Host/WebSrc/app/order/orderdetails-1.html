@@ -23,7 +23,7 @@
 
 
                     <div class="col-sm-12">
-                        <div class=" statusTop">
+                        <div class="statusTop">
                             <p><strong>Status:</strong> {{Details.StatusString}}</p>
 
                             <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</p>
@@ -33,33 +33,82 @@
                             <p><strong>Order Number:</strong> {{Details.SerialNo}} </p>
                         </div>
                     </div>
-                    <div class="col-sm-12">
-                        <div class="order-box">
-                            <div class="order-box-header">
 
-                                Order Details
-                            </div>
-
-
-                            <div class="order-box-content">
-                                <div class="address">
-                                    <p><strong>TITLE </strong></p>
-
-                                    <p><strong>Ruth F. Burns </strong></p>
-
-                                    <div class="adr">
-                                        4894 Burke Street
-                                        North Billerica, MA 01862
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
             </div>
             <!--/row end-->
+            <div class="product-tab w100 clearfix">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab">Details</a></li>
+                </ul>
 
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="details">
+                        <table class="table">
+                            <colgroup>
+                                <col style="width:70%">
+                                <col style="width:30%">
+                            </colgroup>
+                            <tbody>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Customer Name</strong></td>
+                                    <td><strong>{{Details.CustomerName}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Contact Number</strong></td>
+                                    <td><strong>{{Details.Phone}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>Order Amount</strong></td>
+                                    <td><strong>${{Details.Amount}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;<strong>No Servicer</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoServicer}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-thumbs-up"></i>&nbsp;&nbsp;<strong>Max People</strong></td>
+                                    <td><strong>{{Details.OfferInfo.MaxPeople}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-camera"></i>&nbsp;&nbsp;<strong>No Raw Photo</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoRawPhoto}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-picture"></i>&nbsp;&nbsp;<strong>No Retouched Photo</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoRetouchedPhoto}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-modal-window"></i>&nbsp;&nbsp;<strong>No Makeup</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoMakeup}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-knight"></i>&nbsp;&nbsp;<strong>No Costume</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoCostume}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-globe"></i>&nbsp;&nbsp;<strong>No Venue</strong></td>
+                                    <td><strong>{{Details.OfferInfo.NoVenue}}</strong></td>
+                                </tr>
+                                <tr class="success">
+                                    <td><i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;<strong>Duration Hour</strong></td>
+                                    <td><strong>{{Details.OfferInfo.DurationHour}}</strong></td>
+                                </tr>
+                                <tr class="info">
+                                    <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>Comment</strong></td>
+                                    <td>{{Details.OfferInfo.Comment}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                            </tfoot>
+                        </table>
+                    </div>
+
+                </div>
+                <!-- /.tab content -->
+
+            </div>
         </div>
         <div class="col-lg-3 col-md-3 col-sm-5"></div>
     </div>

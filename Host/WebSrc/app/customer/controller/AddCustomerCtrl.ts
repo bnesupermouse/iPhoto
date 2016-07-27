@@ -34,6 +34,8 @@
                         $cookies.put("cid", String(res.cookieInfo.cid));
                         $cookies.put("cname", String(res.cookieInfo.cname));
                         self.$scope.CustomerName = self.$cookies.get("cname");
+                        self.$scope.IsAdmin = 0;
+                        self.$scope.IsVerified = 0;
                         self.$scope.ErrorMsg = "";
                         self.$location.path("/");
                     },

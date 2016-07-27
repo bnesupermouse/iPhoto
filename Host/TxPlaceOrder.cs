@@ -29,6 +29,10 @@ namespace Host
             {
                 return Result.Failed;
             }
+            if(offer.Status !=2)
+            {
+                return Result.Failed;
+            }
             //Check OfferPhotographer
             using (var dc = new HostDBDataContext())
             {

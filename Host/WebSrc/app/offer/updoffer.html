@@ -125,9 +125,10 @@
                             <div ng-if="IsAdmin > 0" class="form-group required">
                                 <label for="InputName">Status</label>
                                 <select class="form-control" name="singleSelect" ng-model="OfferDetails.Status">
-                                    <option ng-selected="OfferDetails.Status ==0" value="0">New</option>
-                                    <option ng-if="IsAdmin > 0 || OfferDetails.Status !=0" ng-selected="OfferDetails.Status ==1" value="1">Open</option>
-                                    <option ng-selected="OfferDetails.Status ==2" value="2">Closed</option>
+                                    <option disabled ng-selected="OfferDetails.Status ==0" value="0">New</option>
+                                    <option ng-selected="OfferDetails.Status ==1" value="1">Verified</option>
+                                    <option ng-selected="OfferDetails.Status ==2" value="2">Open</option>
+                                    <option ng-selected="OfferDetails.Status ==3" value="3">Closed</option>
                                 </select>
                                 </div>
                             </div>

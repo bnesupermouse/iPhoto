@@ -177,7 +177,7 @@ namespace Host
             {
                 return Result.Failed;
             }
-            if (offer.Status != 0 && offer.Status !=1 && offer.Status !=2)
+            if (offer.Status != 0 && offer.Status !=1 && offer.Status !=2 && offer.Status !=3)
             {
                 return Result.Failed;
             }

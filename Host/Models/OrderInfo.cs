@@ -13,6 +13,7 @@ namespace Host.Models
         public string OfferName { get; set; }
         public long CustomerId { get; set; }
         public string CustomerName { get; set; }
+        public string Phone { get; set; }
         public long PhotographerId { get; set; }
         public string PhotographerName { get; set; }
         public DateTime AppointmentTime { get; set; }
@@ -37,8 +38,7 @@ namespace Host.Models
         public List<PhotoInfo> RawPhotos { get; set; }
         public List<PhotoInfo> RetouchedPhotos { get; set; }
         public List<Appointment> Events { get; set; }
-
-
+        public OfferInfo OfferInfo { get; set; }
     }
 
     public class StatusValue

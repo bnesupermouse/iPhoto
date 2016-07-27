@@ -3,5 +3,6 @@
         RawPhotos: Array<PhotoInfo>;
         RetouchedPhotos: Array<PhotoInfo>;
         Events: Array<any>;
+        OfferInfo: Offer;
     }
 }

@@ -142,6 +142,9 @@ namespace Host
 
                 if (Action == 1)
                 {
+                    string pwdHash = PasswordHash.HashPassword(NewCustomer.Password);
+                    NewCustomer.Password = pwdHash;
+
                     NewCustomer.OpenDate = DateTime.UtcNow;
                     NewCustomer.LastLoginTime = NewCustomer.OpenDate;
                     NewCustomer.Status = 0;

@@ -53,8 +53,9 @@
                                 <td>{{o.Price}}</td>
                                 <td>
                                     <a ng-if="o.Status == 0" href="#updoffer/{{o.OfferId}}"><span class="label label-primary">New</span></a>
-                                    <a ng-if="o.Status == 1" href="#updoffer/{{o.OfferId}}"><span class="label label-success">Open</span></a>
-                                    <a ng-if="o.Status == 2" href="#updoffer/{{o.OfferId}}"><span class="label label-warning">Closed</span></a>
+                                    <a ng-if="o.Status == 1" href="#updoffer/{{o.OfferId}}"><span class="label label-info">Verified</span></a>
+                                    <a ng-if="o.Status == 2" href="#updoffer/{{o.OfferId}}"><span class="label label-success">Open</span></a>
+                                    <a ng-if="o.Status == 3" href="#updoffer/{{o.OfferId}}"><span class="label label-danger">Closed</span></a>
                                 </td>
                                 
                             </tr>

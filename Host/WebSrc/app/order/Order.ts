@@ -5,6 +5,7 @@
         OfferName: string;
         CustomerId: number;
         CustomerName: string;
+        Phone: string;
         PhotographerId: number;
         PhotographerName: string;
         AppointmentTime: string;

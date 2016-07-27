@@ -1418,3 +1418,21 @@
 [2016-07-26 18:24:37,647]  261 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
 [2016-07-26 19:53:09,921]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
 [2016-07-26 20:17:42,963]  11 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Order Cannot be confirmed
+[2016-07-27 17:09:43,494]  13 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Order Info Check Failed
+[2016-07-27 17:10:00,453]  13 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Order Cannot be rejected
+[2016-07-27 17:40:31,822]  27 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:41:04,760]  49 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:41:39,033]  41 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:42:04,467]  41 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:43:11,573]  40 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:44:08,194]  63 -- ERROR -- Host.TxnFunc [WriteLog] -- Transaction Failed
+[2016-07-27 17:52:59,175]  12 -- ERROR -- Host.TxUpdPhotographer [WriteLog] -- Invalid Age value
+[2016-07-27 18:12:26,320]  11 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Password
+[2016-07-27 18:21:11,718]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:21:38,521]  11 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:21:39,859]  19 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:24:36,727]  12 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:26:55,133]  18 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:28:23,030]  30 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:31:49,402]  18 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-27 18:32:57,031]  10 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email

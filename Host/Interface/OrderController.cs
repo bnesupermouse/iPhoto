@@ -150,6 +150,7 @@ namespace Host
                                  Amount = o.Amount,
                                  AppointmentTime = o.AppointmentTime.ToLocalTime(),
                                  CustomerName = ctm.CustomerName,
+                                 Phone = ctm.Phone,
                                  OfferId = o.OfferId,
                                  OfferName = of.OfferName,
                                  OrderTime = o.OrderTime.ToLocalTime(),
@@ -168,9 +169,34 @@ namespace Host
                     TimeZone zone = TimeZone.CurrentTimeZone;
                     var offset = zone.GetUtcOffset(DateTime.Now);
                     int hours = offset.Hours;
-                    var events = dc.CustomerOrder.Where(o => o.PhotographerId == res.PhotographerId && o.AppointmentTime > start && o.AppointmentTime < end).Select(o => new Appointment { start = o.AppointmentTime.AddHours(hours), end = o.AppointmentTime.AddHours(hours+2), id = o.SerialNo, text = "OrderId: " + o.SerialNo + " OfferId: " + o.OfferId }).ToList();
+                    var events = dc.CustomerOrder.Where(o => o.PhotographerId == res.PhotographerId && o.AppointmentTime >= start && o.AppointmentTime <= end).Select(o => new Appointment { start = o.AppointmentTime.AddHours(hours), end = o.AppointmentTime.AddHours(hours+2), id = o.SerialNo, text = "OrderId: " + o.SerialNo + " OfferId: " + o.OfferId }).ToList();
                     res.Events = new List<Appointment>();
                     res.Events.AddRange(events);
+
+                    var offer = dc.Offer.Where(o => o.OfferId == res.OfferId).Select(o=>new OfferInfo {
+                        OfferId = o.OfferId,
+                        OfferName = o.OfferName,
+                        Description = o.Description,
+                        PhotographerId = res.PhotographerId,
+                        PhotographerName = res.PhotographerName,
+                        Price = o.Price,
+                        SortOrder = o.SortOrder,
+                        AdditionalRetouchPrice = o.AdditionalRetouchPrice,
+                        Comment = o.Comment,
+                        DurationHour = o.DurationHour,
+                        EndTime = o.EndTime,
+                        MaxPeople = o.MaxPeople,
+                        NoCostume = o.NoCostume,
+                        NoMakeup = o.NoMakeup,
+                        NoRawPhoto = o.NoRawPhoto,
+                        NoRetouchedPhoto = o.NoRetouchedPhoto,
+                        NoServicer = o.NoServicer,
+                        NoVenue = o.NoVenue,
+                        StartTime = o.StartTime,
+                        PhotoTypeId = o.PhotoTypeId,
+                        Status = o.Status
+                    }).FirstOrDefault();
+                    res.OfferInfo = offer;
                     return res;
                 }
                 else
