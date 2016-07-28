@@ -2,6 +2,7 @@
 using HostDB;
 using HostMessage.Responses;
 using Microsoft.Owin.FileSystems;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -52,6 +53,10 @@ namespace Host
         [HttpGet]
         public OfferInfo GetOfferDetails(int id)
         {
+            TimeZone zone = TimeZone.CurrentTimeZone;
+            var offset = zone.GetUtcOffset(DateTime.Now);
+            int hours = offset.Hours;
+
             using (var dc = new HostDBDataContext())
             {
                 var offer = from o in dc.Offer
@@ -61,9 +66,9 @@ namespace Host
                 select new OfferInfo{ OfferId = o.OfferId, OfferName = o.OfferName, Description = o.Description, PhotographerId = p.PhotographerId
                 , PhotographerName=ph.PhotographerName, Price = o.Price, SortOrder = o.SortOrder
                 , AdditionalRetouchPrice = o.AdditionalRetouchPrice, Comment = o.Comment,
-                 DurationHour = o.DurationHour, EndTime = o.EndTime, MaxPeople = o.MaxPeople, NoCostume = o.NoCostume,
+                 DurationHour = o.DurationHour, EndTime = o.EndTime.Value.AddHours(hours), MaxPeople = o.MaxPeople, NoCostume = o.NoCostume,
                  NoMakeup = o.NoMakeup, NoRawPhoto = o.NoRawPhoto, NoRetouchedPhoto = o.NoRetouchedPhoto,
-                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime, PhotoTypeId = o.PhotoTypeId, Status = o.Status };
+                 NoServicer = o.NoServicer, NoVenue = o.NoVenue, StartTime = o.StartTime.Value.AddHours(hours), PhotoTypeId = o.PhotoTypeId, Status = o.Status };
                 var res = offer.ToList();
                 return res.FirstOrDefault();
 

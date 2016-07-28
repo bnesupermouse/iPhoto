@@ -159,6 +159,8 @@
     <Compile Include="Models\OfferInfo.cs" />
     <Compile Include="NancyDemo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tasks\AutoOpenCloseOffer.cs" />
+    <Compile Include="Tasks\BackgroundTasks.cs" />
     <Compile Include="TxConfirmRetouchedPhoto.cs" />
     <Compile Include="TxPhotographerLogin.cs" />
     <Compile Include="TxCancelOrder.cs" />

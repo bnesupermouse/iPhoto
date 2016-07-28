@@ -21,6 +21,8 @@ namespace Host
         public Offer OldOffer{get;set;}
         public Offer NewOffer{get;set;}
 
+        public bool Internal { get; set; }
+
         public override Result Validate()
         {
             Result res = Result.Success;
@@ -40,18 +42,21 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotographerId", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid PhotographerId";
                     return Result.Failed;
                 }
                 if(ph.Status != 1)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Photographer is not Verified", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Photographer is not Verified";
                     return Result.Failed;
                 }
                 if (NewOffer == null)
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "New Offer cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "New Offer cannot be NULL";
                     return Result.Failed;
                 }
                 //Check OfferName
@@ -59,6 +64,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid OfferName", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid OfferName";
                     return Result.Failed;
                 }
                 //Check Description
@@ -66,6 +72,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Offer Name too long", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Offer Name too long";
                     return Result.Failed;
                 }
                 //Check Price
@@ -73,6 +80,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Price cannot be NULL", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Price cannot be NULL";
                     return Result.Failed;
                 }
                 else
@@ -82,24 +90,47 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid Price", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid Price";
                         return Result.Failed;
                     }
                 }
 
                 //Check StartTime and EndTime
-                if (NewOffer.StartTime != null && NewOffer.EndTime != null)
+                if (Action == 1 && NewOffer.StartTime != null && NewOffer.EndTime != null)
                 {
                     if (NewOffer.StartTime >= NewOffer.EndTime)
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid StartTime and EndTime", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid StartTime and EndTime";
                         return Result.Failed;
                     }
                     if (NewOffer.EndTime <= DateTime.UtcNow.AddDays(1))
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid EndTime", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid EndTime";
                         return Result.Failed;
+                    }
+                }
+                if(Action == 2)
+                {
+                    if(OldOffer.StartTime != NewOffer.StartTime || OldOffer.EndTime != NewOffer.EndTime)
+                    {
+                        if (NewOffer.StartTime >= NewOffer.EndTime)
+                        {
+                            LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid StartTime and EndTime", Log4NetLevel.Error);
+                            response.ErrorNo = (int)Errors.InvalidRequest;
+                            response.ErrorMsg = "Invalid StartTime and EndTime";
+                            return Result.Failed;
+                        }
+                        if (NewOffer.EndTime <= DateTime.UtcNow.AddDays(1))
+                        {
+                            LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid EndTime", Log4NetLevel.Error);
+                            response.ErrorNo = (int)Errors.InvalidRequest;
+                            response.ErrorMsg = "Invalid EndTime";
+                            return Result.Failed;
+                        }
                     }
                 }
 
@@ -108,6 +139,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotoTypeId", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid PhotoTypeId";
                     return Result.Failed;
                 }
                 else
@@ -119,6 +151,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid PhotoTypeId", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid PhotoTypeId";
                         return Result.Failed;
                     }
                 }
@@ -128,6 +161,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoServicer", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoServicer";
                     return Result.Failed;
                 }
 
@@ -138,6 +172,7 @@ namespace Host
                     {
                         LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid MaxPeople", Log4NetLevel.Error);
                         response.ErrorNo = (int)Errors.InvalidRequest;
+                        response.ErrorMsg = "Invalid MaxPeople";
                         return Result.Failed;
                     }
                 }
@@ -147,6 +182,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoOriginalPhoto", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoOriginalPhoto";
                     return Result.Failed;
                 }
 
@@ -155,6 +191,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoOriginalPhoto", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoOriginalPhoto";
                     return Result.Failed;
                 }
                 //Check NoMakeup
@@ -162,6 +199,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoMakeup", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoMakeup";
                     return Result.Failed;
                 }
 
@@ -170,6 +208,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoCostume", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoCostume";
                     return Result.Failed;
                 }
                 //Check NoPlaces
@@ -177,6 +216,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid NoPlaces", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid NoPlaces";
                     return Result.Failed;
                 }
                 //Check AdditionalRefinePrice
@@ -184,6 +224,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid AdditionalRefinePrice", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid AdditionalRefinePrice";
                     return Result.Failed;
                 }
 
@@ -192,6 +233,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid DurationHour", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Invalid DurationHour";
                     return Result.Failed;
                 }
                 //Check Comment
@@ -199,6 +241,7 @@ namespace Host
                 {
                     LogHelper.WriteLog(typeof(TxUpdOffer), "Comment too long", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Comment too long";
                     return Result.Failed;
                 }
 
@@ -216,6 +259,7 @@ namespace Host
                             {
                                 LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid VenueId", Log4NetLevel.Error);
                                 response.ErrorNo = (int)Errors.InvalidRequest;
+                                response.ErrorMsg = "Invalid VenueId";
                                 return Result.Failed;
                             }
                         }
@@ -290,6 +334,7 @@ namespace Host
             {
                 LogHelper.WriteLog(typeof(TxUpdOffer), "Invalid Action value", Log4NetLevel.Error);
                 response.ErrorNo = (int)Errors.InvalidRequest;
+                response.ErrorMsg = "Invalid Action value";
                 return Result.Failed;
             }
             return Result.Success;

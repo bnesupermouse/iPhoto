@@ -3,6 +3,7 @@ using System.ServiceProcess;
 using Microsoft.Owin.Hosting;
 using Topshelf;
 using Stripe;
+using Host.Tasks;
 
 namespace Host
 {
@@ -10,6 +11,8 @@ namespace Host
     {
         static void Main(string[] args)
         {
+            BackgroundTasks.AddTask(AutoOpenCloseOffer.Processing);
+            BackgroundTasks.RunTasks();
             StartTopshelf();
         }
 

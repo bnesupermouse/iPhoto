@@ -69,7 +69,7 @@
                              </div>
                             <div ng-if="IsAdmin > 0" class="form-group">
                                 <label for="InputEmail"> Valid To </label>
-                                <input ng-disabled="IsAdmin >0" datetime="d/M/yyyy HH:mm:ss" ng-model="OfferDetails.EndTime" class="form-control" type="text" />
+                                <input ng-disabled="IsAdmin >0" ng-model="OfferDetails.EndTime" class="form-control" type="text" />
                             </div>
                             <div ng-if="IsAdmin == 0" class="form-group">
                                 <label>Valid To</label>

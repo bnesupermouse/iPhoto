@@ -48,9 +48,9 @@
                             <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'" ng-repeat="o in Offers">
                                 <td>{{o.OfferId}}</td>
                                 <td class="hidden-xs">{{o.OfferName}}</td>
-                                <td class="hidden-xs">{{o.StartTime}}</td>
-                                <td class="hidden-xs">{{o.EndTime}}</td>
-                                <td>{{o.Price}}</td>
+                                <td class="hidden-xs">{{o.StartTime | date:'d/M/yyyy HH:mm:ss' }}</td>
+                                <td class="hidden-xs">{{o.EndTime | date:'d/M/yyyy HH:mm:ss'}}</td>
+                                <td>${{o.Price}}</td>
                                 <td>
                                     <a ng-if="o.Status == 0" href="#updoffer/{{o.OfferId}}"><span class="label label-primary">New</span></a>
                                     <a ng-if="o.Status == 1" href="#updoffer/{{o.OfferId}}"><span class="label label-info">Verified</span></a>
