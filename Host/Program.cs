@@ -12,6 +12,7 @@ namespace Host
         static void Main(string[] args)
         {
             BackgroundTasks.AddTask(AutoOpenCloseOffer.Processing);
+            BackgroundTasks.AddTask(ArchiveOrderPhoto.Processing);
             BackgroundTasks.RunTasks();
             StartTopshelf();
         }

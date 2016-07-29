@@ -1344,138 +1344,6 @@ namespace HostDB
         }
     }
 
-    public partial class CustomerOrder
-    {
-        public override bool InsertSql()
-        {
-            SqlConnection sqlConn = new SqlConnection(connectionString);
-            SqlCommand sqlComm = new SqlCommand();
-            sqlComm = sqlConn.CreateCommand(); 
-            sqlComm.Parameters.AddWithValue("SerialNo", (object)SerialNo??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("PhotographerId", (object)PhotographerId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("CustomerId", (object)CustomerId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("OfferId", (object)OfferId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("AppointmentTime", (object)AppointmentTime??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("OrderTime", (object)OrderTime??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
-
-            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status,Paid ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status,@Paid)";
-
-            int rows = 0;
-            try
-            {
-                sqlConn.Open();
-                rows = sqlComm.ExecuteNonQuery();
-                sqlConn.Close();
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-            if(rows >0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;  
-            }
-        }
-
-        public override bool UpdateSql()
-        {
-            SqlConnection sqlConn = new SqlConnection(connectionString);
-            SqlCommand sqlComm = new SqlCommand();
-            sqlComm = sqlConn.CreateCommand(); 
-            sqlComm.Parameters.AddWithValue("SerialNo", (object)SerialNo??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("PhotographerId", (object)PhotographerId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("CustomerId", (object)CustomerId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("OfferId", (object)OfferId??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("AppointmentTime", (object)AppointmentTime??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("OrderTime", (object)OrderTime??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
-
-            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status, Paid = @Paid where SerialNo = @SerialNo ";
-
-            int rows = 0;
-            try
-            {
-                sqlConn.Open();
-                rows = sqlComm.ExecuteNonQuery();
-                sqlConn.Close();
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-            if(rows >0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;  
-            }
-        }
-
-        public override bool DeleteSql()
-        {
-            SqlConnection sqlConn = new SqlConnection(connectionString);
-            SqlCommand sqlComm = new SqlCommand();
-            sqlComm = sqlConn.CreateCommand(); 
-
-            sqlComm.CommandText ="DELETE FROM CustomerOrder  where SerialNo = @SerialNo ";
-
-            int rows = 0;
-            try
-            {
-                sqlConn.Open();
-                rows = sqlComm.ExecuteNonQuery();
-                sqlConn.Close();
-            }
-            catch(Exception e)
-            {
-                return false;
-            }
-            if(rows >0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;  
-            }
-        }
-
-        public override Entity Fetch()
-        {
-            using (var dc = new HostDBDataContext())
-            {
-                return dc.GetTable<CustomerOrder>().Where(e =>  e.SerialNo == SerialNo ).FirstOrDefault();
-            }
-        }
-
-        public override bool Compare(Entity currentEntity)
-        {
-            CustomerOrder curEntity = currentEntity as CustomerOrder;
-
-            if( curEntity.SerialNo == SerialNo )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
     public partial class Photographer
     {
         public override bool InsertSql()
@@ -2216,6 +2084,144 @@ namespace HostDB
             PhotoType curEntity = currentEntity as PhotoType;
 
             if( curEntity.PhotoTypeId == PhotoTypeId )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+
+    public partial class CustomerOrder
+    {
+        public override bool InsertSql()
+        {
+            SqlConnection sqlConn = new SqlConnection(connectionString);
+            SqlCommand sqlComm = new SqlCommand();
+            sqlComm = sqlConn.CreateCommand(); 
+            sqlComm.Parameters.AddWithValue("SerialNo", (object)SerialNo??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("PhotographerId", (object)PhotographerId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("CustomerId", (object)CustomerId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("OfferId", (object)OfferId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("AppointmentTime", (object)AppointmentTime??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("OrderTime", (object)OrderTime??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Archived", (object)Archived??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RawZip", (object)RawZip??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RetouchedZip", (object)RetouchedZip??DBNull.Value);
+
+            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status,Paid,Archived,RawZip,RetouchedZip ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status,@Paid,@Archived,@RawZip,@RetouchedZip)";
+
+            int rows = 0;
+            try
+            {
+                sqlConn.Open();
+                rows = sqlComm.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            if(rows >0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;  
+            }
+        }
+
+        public override bool UpdateSql()
+        {
+            SqlConnection sqlConn = new SqlConnection(connectionString);
+            SqlCommand sqlComm = new SqlCommand();
+            sqlComm = sqlConn.CreateCommand(); 
+            sqlComm.Parameters.AddWithValue("SerialNo", (object)SerialNo??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("PhotographerId", (object)PhotographerId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("CustomerId", (object)CustomerId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("OfferId", (object)OfferId??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("AppointmentTime", (object)AppointmentTime??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("OrderTime", (object)OrderTime??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Amount", (object)Amount??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("Archived", (object)Archived??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RawZip", (object)RawZip??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RetouchedZip", (object)RetouchedZip??DBNull.Value);
+
+            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status, Paid = @Paid, Archived = @Archived, RawZip = @RawZip, RetouchedZip = @RetouchedZip where SerialNo = @SerialNo ";
+
+            int rows = 0;
+            try
+            {
+                sqlConn.Open();
+                rows = sqlComm.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            if(rows >0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;  
+            }
+        }
+
+        public override bool DeleteSql()
+        {
+            SqlConnection sqlConn = new SqlConnection(connectionString);
+            SqlCommand sqlComm = new SqlCommand();
+            sqlComm = sqlConn.CreateCommand(); 
+
+            sqlComm.CommandText ="DELETE FROM CustomerOrder  where SerialNo = @SerialNo ";
+
+            int rows = 0;
+            try
+            {
+                sqlConn.Open();
+                rows = sqlComm.ExecuteNonQuery();
+                sqlConn.Close();
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+            if(rows >0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;  
+            }
+        }
+
+        public override Entity Fetch()
+        {
+            using (var dc = new HostDBDataContext())
+            {
+                return dc.GetTable<CustomerOrder>().Where(e =>  e.SerialNo == SerialNo ).FirstOrDefault();
+            }
+        }
+
+        public override bool Compare(Entity currentEntity)
+        {
+            CustomerOrder curEntity = currentEntity as CustomerOrder;
+
+            if( curEntity.SerialNo == SerialNo )
             {
                 return true;
             }

@@ -43,9 +43,6 @@ namespace HostDB
     partial void InsertCustomer(Customer instance);
     partial void UpdateCustomer(Customer instance);
     partial void DeleteCustomer(Customer instance);
-    partial void InsertCustomerOrder(CustomerOrder instance);
-    partial void UpdateCustomerOrder(CustomerOrder instance);
-    partial void DeleteCustomerOrder(CustomerOrder instance);
     partial void InsertCustomerSession(CustomerSession instance);
     partial void UpdateCustomerSession(CustomerSession instance);
     partial void DeleteCustomerSession(CustomerSession instance);
@@ -100,6 +97,9 @@ namespace HostDB
     partial void InsertPhotographer(Photographer instance);
     partial void UpdatePhotographer(Photographer instance);
     partial void DeletePhotographer(Photographer instance);
+    partial void InsertCustomerOrder(CustomerOrder instance);
+    partial void UpdateCustomerOrder(CustomerOrder instance);
+    partial void DeleteCustomerOrder(CustomerOrder instance);
     #endregion
 		
 		public HostDBDataContext() : 
@@ -161,14 +161,6 @@ namespace HostDB
 			get
 			{
 				return this.GetTable<Customer>();
-			}
-		}
-		
-		public System.Data.Linq.Table<CustomerOrder> CustomerOrder
-		{
-			get
-			{
-				return this.GetTable<CustomerOrder>();
 			}
 		}
 		
@@ -313,6 +305,14 @@ namespace HostDB
 			get
 			{
 				return this.GetTable<Photographer>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CustomerOrder> CustomerOrder
+		{
+			get
+			{
+				return this.GetTable<CustomerOrder>();
 			}
 		}
 	}
@@ -1059,307 +1059,6 @@ namespace HostDB
 					this._Status = value;
 					this.SendPropertyChanged("Status");
 					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void Initialize()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
-		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
-		public void OnDeserializing(StreamingContext context)
-		{
-			this.Initialize();
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CustomerOrder")]
-	[global::System.Runtime.Serialization.DataContractAttribute()]
-	public partial class CustomerOrder : Entity, INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private long _SerialNo;
-		
-		private long _PhotographerId;
-		
-		private long _CustomerId;
-		
-		private long _OfferId;
-		
-		private System.DateTime _AppointmentTime;
-		
-		private System.DateTime _OrderTime;
-		
-		private decimal _Amount;
-		
-		private System.Nullable<decimal> _PhotographerPay;
-		
-		private int _Status;
-		
-		private bool _Paid;
-		
-    #region 可扩展性方法定义
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSerialNoChanging(long value);
-    partial void OnSerialNoChanged();
-    partial void OnPhotographerIdChanging(long value);
-    partial void OnPhotographerIdChanged();
-    partial void OnCustomerIdChanging(long value);
-    partial void OnCustomerIdChanged();
-    partial void OnOfferIdChanging(long value);
-    partial void OnOfferIdChanged();
-    partial void OnAppointmentTimeChanging(System.DateTime value);
-    partial void OnAppointmentTimeChanged();
-    partial void OnOrderTimeChanging(System.DateTime value);
-    partial void OnOrderTimeChanged();
-    partial void OnAmountChanging(decimal value);
-    partial void OnAmountChanged();
-    partial void OnPhotographerPayChanging(System.Nullable<decimal> value);
-    partial void OnPhotographerPayChanged();
-    partial void OnStatusChanging(int value);
-    partial void OnStatusChanged();
-    partial void OnPaidChanging(bool value);
-    partial void OnPaidChanged();
-    #endregion
-		
-		public CustomerOrder()
-		{
-			this.Initialize();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNo", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
-		public long SerialNo
-		{
-			get
-			{
-				return this._SerialNo;
-			}
-			set
-			{
-				if ((this._SerialNo != value))
-				{
-					this.OnSerialNoChanging(value);
-					this.SendPropertyChanging();
-					this._SerialNo = value;
-					this.SendPropertyChanged("SerialNo");
-					this.OnSerialNoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerId", DbType="BigInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
-		public long PhotographerId
-		{
-			get
-			{
-				return this._PhotographerId;
-			}
-			set
-			{
-				if ((this._PhotographerId != value))
-				{
-					this.OnPhotographerIdChanging(value);
-					this.SendPropertyChanging();
-					this._PhotographerId = value;
-					this.SendPropertyChanged("PhotographerId");
-					this.OnPhotographerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerId", DbType="BigInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
-		public long CustomerId
-		{
-			get
-			{
-				return this._CustomerId;
-			}
-			set
-			{
-				if ((this._CustomerId != value))
-				{
-					this.OnCustomerIdChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerId = value;
-					this.SendPropertyChanged("CustomerId");
-					this.OnCustomerIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OfferId", DbType="BigInt NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
-		public long OfferId
-		{
-			get
-			{
-				return this._OfferId;
-			}
-			set
-			{
-				if ((this._OfferId != value))
-				{
-					this.OnOfferIdChanging(value);
-					this.SendPropertyChanging();
-					this._OfferId = value;
-					this.SendPropertyChanged("OfferId");
-					this.OnOfferIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AppointmentTime", DbType="DateTime NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
-		public System.DateTime AppointmentTime
-		{
-			get
-			{
-				return this._AppointmentTime;
-			}
-			set
-			{
-				if ((this._AppointmentTime != value))
-				{
-					this.OnAppointmentTimeChanging(value);
-					this.SendPropertyChanging();
-					this._AppointmentTime = value;
-					this.SendPropertyChanged("AppointmentTime");
-					this.OnAppointmentTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderTime", DbType="DateTime NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
-		public System.DateTime OrderTime
-		{
-			get
-			{
-				return this._OrderTime;
-			}
-			set
-			{
-				if ((this._OrderTime != value))
-				{
-					this.OnOrderTimeChanging(value);
-					this.SendPropertyChanging();
-					this._OrderTime = value;
-					this.SendPropertyChanged("OrderTime");
-					this.OnOrderTimeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Money NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
-		public decimal Amount
-		{
-			get
-			{
-				return this._Amount;
-			}
-			set
-			{
-				if ((this._Amount != value))
-				{
-					this.OnAmountChanging(value);
-					this.SendPropertyChanging();
-					this._Amount = value;
-					this.SendPropertyChanged("Amount");
-					this.OnAmountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerPay", DbType="Money")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
-		public System.Nullable<decimal> PhotographerPay
-		{
-			get
-			{
-				return this._PhotographerPay;
-			}
-			set
-			{
-				if ((this._PhotographerPay != value))
-				{
-					this.OnPhotographerPayChanging(value);
-					this.SendPropertyChanging();
-					this._PhotographerPay = value;
-					this.SendPropertyChanged("PhotographerPay");
-					this.OnPhotographerPayChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
-		public int Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Paid", DbType="Bit NOT NULL")]
-		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
-		public bool Paid
-		{
-			get
-			{
-				return this._Paid;
-			}
-			set
-			{
-				if ((this._Paid != value))
-				{
-					this.OnPaidChanging(value);
-					this.SendPropertyChanging();
-					this._Paid = value;
-					this.SendPropertyChanged("Paid");
-					this.OnPaidChanged();
 				}
 			}
 		}
@@ -5078,6 +4777,382 @@ namespace HostDB
 					this._Admin = value;
 					this.SendPropertyChanged("Admin");
 					this.OnAdminChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void Initialize()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Runtime.Serialization.OnDeserializingAttribute()]
+		[global::System.ComponentModel.EditorBrowsableAttribute(EditorBrowsableState.Never)]
+		public void OnDeserializing(StreamingContext context)
+		{
+			this.Initialize();
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CustomerOrder")]
+	[global::System.Runtime.Serialization.DataContractAttribute()]
+	public partial class CustomerOrder : Entity, INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _SerialNo;
+		
+		private long _PhotographerId;
+		
+		private long _CustomerId;
+		
+		private long _OfferId;
+		
+		private System.DateTime _AppointmentTime;
+		
+		private System.DateTime _OrderTime;
+		
+		private decimal _Amount;
+		
+		private System.Nullable<decimal> _PhotographerPay;
+		
+		private int _Status;
+		
+		private bool _Paid;
+		
+		private bool _Archived;
+		
+		private string _RawZip;
+		
+		private string _RetouchedZip;
+		
+    #region 可扩展性方法定义
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnSerialNoChanging(long value);
+    partial void OnSerialNoChanged();
+    partial void OnPhotographerIdChanging(long value);
+    partial void OnPhotographerIdChanged();
+    partial void OnCustomerIdChanging(long value);
+    partial void OnCustomerIdChanged();
+    partial void OnOfferIdChanging(long value);
+    partial void OnOfferIdChanged();
+    partial void OnAppointmentTimeChanging(System.DateTime value);
+    partial void OnAppointmentTimeChanged();
+    partial void OnOrderTimeChanging(System.DateTime value);
+    partial void OnOrderTimeChanged();
+    partial void OnAmountChanging(decimal value);
+    partial void OnAmountChanged();
+    partial void OnPhotographerPayChanging(System.Nullable<decimal> value);
+    partial void OnPhotographerPayChanged();
+    partial void OnStatusChanging(int value);
+    partial void OnStatusChanged();
+    partial void OnPaidChanging(bool value);
+    partial void OnPaidChanged();
+    partial void OnArchivedChanging(bool value);
+    partial void OnArchivedChanged();
+    partial void OnRawZipChanging(string value);
+    partial void OnRawZipChanged();
+    partial void OnRetouchedZipChanging(string value);
+    partial void OnRetouchedZipChanged();
+    #endregion
+		
+		public CustomerOrder()
+		{
+			this.Initialize();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SerialNo", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=1)]
+		public long SerialNo
+		{
+			get
+			{
+				return this._SerialNo;
+			}
+			set
+			{
+				if ((this._SerialNo != value))
+				{
+					this.OnSerialNoChanging(value);
+					this.SendPropertyChanging();
+					this._SerialNo = value;
+					this.SendPropertyChanged("SerialNo");
+					this.OnSerialNoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerId", DbType="BigInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+		public long PhotographerId
+		{
+			get
+			{
+				return this._PhotographerId;
+			}
+			set
+			{
+				if ((this._PhotographerId != value))
+				{
+					this.OnPhotographerIdChanging(value);
+					this.SendPropertyChanging();
+					this._PhotographerId = value;
+					this.SendPropertyChanged("PhotographerId");
+					this.OnPhotographerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerId", DbType="BigInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+		public long CustomerId
+		{
+			get
+			{
+				return this._CustomerId;
+			}
+			set
+			{
+				if ((this._CustomerId != value))
+				{
+					this.OnCustomerIdChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerId = value;
+					this.SendPropertyChanged("CustomerId");
+					this.OnCustomerIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OfferId", DbType="BigInt NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=4)]
+		public long OfferId
+		{
+			get
+			{
+				return this._OfferId;
+			}
+			set
+			{
+				if ((this._OfferId != value))
+				{
+					this.OnOfferIdChanging(value);
+					this.SendPropertyChanging();
+					this._OfferId = value;
+					this.SendPropertyChanged("OfferId");
+					this.OnOfferIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AppointmentTime", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=5)]
+		public System.DateTime AppointmentTime
+		{
+			get
+			{
+				return this._AppointmentTime;
+			}
+			set
+			{
+				if ((this._AppointmentTime != value))
+				{
+					this.OnAppointmentTimeChanging(value);
+					this.SendPropertyChanging();
+					this._AppointmentTime = value;
+					this.SendPropertyChanged("AppointmentTime");
+					this.OnAppointmentTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_OrderTime", DbType="DateTime NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=6)]
+		public System.DateTime OrderTime
+		{
+			get
+			{
+				return this._OrderTime;
+			}
+			set
+			{
+				if ((this._OrderTime != value))
+				{
+					this.OnOrderTimeChanging(value);
+					this.SendPropertyChanging();
+					this._OrderTime = value;
+					this.SendPropertyChanged("OrderTime");
+					this.OnOrderTimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Amount", DbType="Money NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=7)]
+		public decimal Amount
+		{
+			get
+			{
+				return this._Amount;
+			}
+			set
+			{
+				if ((this._Amount != value))
+				{
+					this.OnAmountChanging(value);
+					this.SendPropertyChanging();
+					this._Amount = value;
+					this.SendPropertyChanged("Amount");
+					this.OnAmountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhotographerPay", DbType="Money")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=8)]
+		public System.Nullable<decimal> PhotographerPay
+		{
+			get
+			{
+				return this._PhotographerPay;
+			}
+			set
+			{
+				if ((this._PhotographerPay != value))
+				{
+					this.OnPhotographerPayChanging(value);
+					this.SendPropertyChanging();
+					this._PhotographerPay = value;
+					this.SendPropertyChanged("PhotographerPay");
+					this.OnPhotographerPayChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Int NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=9)]
+		public int Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Paid", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+		public bool Paid
+		{
+			get
+			{
+				return this._Paid;
+			}
+			set
+			{
+				if ((this._Paid != value))
+				{
+					this.OnPaidChanging(value);
+					this.SendPropertyChanging();
+					this._Paid = value;
+					this.SendPropertyChanged("Paid");
+					this.OnPaidChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Archived", DbType="Bit NOT NULL")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
+		public bool Archived
+		{
+			get
+			{
+				return this._Archived;
+			}
+			set
+			{
+				if ((this._Archived != value))
+				{
+					this.OnArchivedChanging(value);
+					this.SendPropertyChanging();
+					this._Archived = value;
+					this.SendPropertyChanged("Archived");
+					this.OnArchivedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawZip", DbType="NVarChar(500)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+		public string RawZip
+		{
+			get
+			{
+				return this._RawZip;
+			}
+			set
+			{
+				if ((this._RawZip != value))
+				{
+					this.OnRawZipChanging(value);
+					this.SendPropertyChanging();
+					this._RawZip = value;
+					this.SendPropertyChanged("RawZip");
+					this.OnRawZipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetouchedZip", DbType="NVarChar(500)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public string RetouchedZip
+		{
+			get
+			{
+				return this._RetouchedZip;
+			}
+			set
+			{
+				if ((this._RetouchedZip != value))
+				{
+					this.OnRetouchedZipChanging(value);
+					this.SendPropertyChanging();
+					this._RetouchedZip = value;
+					this.SendPropertyChanged("RetouchedZip");
+					this.OnRetouchedZipChanged();
 				}
 			}
 		}

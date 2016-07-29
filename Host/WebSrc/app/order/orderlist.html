@@ -24,10 +24,10 @@
                         <option value="0">Pending</option>
                         <option value="1">Confirmed</option>
                         <option value="2">RawPhotoUploaded</option>
-                        <option value="4">PhotoSelected</option>
-                        <option value="5">RetouchedPhotoUploaded</option>
-                        <option value="6">OrderFinalised</option>
-                        <option value="7">OrderRejected</option>
+                        <option value="3">PhotoSelected</option>
+                        <option value="4">RetouchedPhotoUploaded</option>
+                        <option value="5">OrderFinalised</option>
+                        <option value="6">OrderRejected</option>
                     </select>
                     <button ng-click="SearchOrders()" class="btn btn-default pull-right">Search</button>
                 </div>
@@ -43,6 +43,7 @@
                                 </th>
                                 <th class="hidden-xs" data-sort-ignore="true">Order Name</th>
                                 <th class="hidden-xs"><strong>Appointment Time</strong></th>
+                                <th class="hidden-xs"><strong>Order Time</strong></th>
                                 <th data-hide="default">Amount</th>
                                 <th data-hide="default" data-type="numeric">Status</th>
                             </tr>
@@ -51,8 +52,9 @@
                             <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'"  ng-repeat="o in Orders">
                                 <td>{{o.SerialNo}}</td>
                                 <td class="hidden-xs">{{o.OfferName}}</td>
-                                <td class="hidden-xs">{{o.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</td>
-                                <td>{{o.Amount}}</td>
+                                <td class="hidden-xs">{{o.AppointmentTime | date:'d/M/yyyy HH:mm:ss'}}</td>
+                                <td class="hidden-xs">{{o.OrderTime | date:'d/M/yyyy HH:mm:ss'}}</td>
+                                <td>${{o.Amount}}</td>
                                 <td data-value="3">
                                     <a ng-if="o.Paid == 0 && CustomerType==1 && o.Status == 1" href="#orderpayment/{{o.SerialNo}}"><span class="label {{o.LabelString}}">Pay Now</span></a>
                                     <a ng-if="o.Paid == 0 && CustomerType==1 && o.Status == 0" href="#orderdetails-{{o.Status}}/{{o.SerialNo}}"><span class="label {{o.LabelString}}">{{o.StatusString}}</span></a>

@@ -8,6 +8,8 @@ using HostDB;
 using HostMessage.Responses;
 using Host.Common;
 using Host.Models;
+using System.IO.Compression;
+using Microsoft.Owin.FileSystems;
 
 namespace Host
 {
@@ -172,6 +174,29 @@ namespace Host
             resp.StatusString = StatusValue.GetStatusValue(newOrder.Status, newOrder.Paid);
             resp.LabelString = StatusValue.GetLabelValue(newOrder.Status, newOrder.Paid);
             response = resp;
+
+            if(curReq.ToStatus == (int)OrderStatus.OrderFinalised)
+            {
+                var rootPath = new PhysicalFileSystem(@"../../WebSrc/app");
+                long OrderId = newOrder.SerialNo;
+
+                string rawPhotoPath = rootPath.Root + @"/images/customer/" + OrderId + @"/" + @"raw";
+                string rawZipFile = rawPhotoPath + @"/" + OrderId + @"_Raw.zip";
+                string retouchedPhotoPath = rootPath.Root + @"/images/customer/" + OrderId + @"/" + @"retouched";
+                string retouchedZipFile = retouchedPhotoPath + @"/" + OrderId + @"_Retouched.zip";
+                try
+                {
+                    ZipFile.CreateFromDirectory(rawPhotoPath, rawZipFile);
+                    ZipFile.CreateFromDirectory(retouchedPhotoPath, retouchedZipFile);
+                }
+                catch(Exception ex)
+                {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Failed to Archive photos", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Failed to Archive photos";
+                    return Result.Failed;
+                }
+            }
             return Result.Success;
         }
         public override Result Prepare()
