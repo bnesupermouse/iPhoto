@@ -15,5 +15,9 @@
         StatusString: string;
         LabelString: string;
         Paid: number;
+        RawArchived: number;
+        RawZip: string;
+        RetouchedArchived: number;
+        RetouchedZip: string;
     }
 }

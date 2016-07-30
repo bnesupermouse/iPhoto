@@ -1915,6 +1915,7 @@ var OneStopCustomerApp;
                 .when("/orderdetails-2/:orderid", { templateUrl: "order/orderdetails-2.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-3/:orderid", { templateUrl: "order/orderdetails-3.html", controller: "ManageOrderCtrl" })
                 .when("/orderdetails-4/:orderid", { templateUrl: "order/orderdetails-4.html", controller: "ManageOrderCtrl" })
+                .when("/orderdetails-5/:orderid", { templateUrl: "order/orderdetails-5.html", controller: "ManageOrderCtrl" })
                 .when("/addoffer", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })
                 .when("/offerlist", { templateUrl: "offer/offerlist.html", controller: "GetOfferListCtrl" })
                 .when("/updoffer/:offerid", { templateUrl: "offer/updoffer.html", controller: "GetOfferDetailsCtrl" })

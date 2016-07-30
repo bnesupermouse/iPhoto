@@ -15,15 +15,29 @@ namespace Host.Tasks
         {
             while(true)
             {
-                List<long> ToArchiveOrders = new List<long>();
+                List<long> ToArchiveRawOrders = new List<long>();
                 using (var dc = new HostDBDataContext())
                 {
-                    ToArchiveOrders.AddRange(dc.CustomerOrder.Where(o=>o.Status == (int)OrderStatus.OrderFinalised && !o.Archived).Select(o=>o.SerialNo).ToList());
+                    ToArchiveRawOrders.AddRange(dc.CustomerOrder.Where(o=>o.Status >= (int)OrderStatus.RawPhotoUploaded && o.Status <= (int)OrderStatus.OrderFinalised && !o.RawArchived).Select(o=>o.SerialNo).ToList());
                 }
-                foreach(var o in ToArchiveOrders)
+                foreach(var o in ToArchiveRawOrders)
                 {
                     TxArchivePhoto txn = new TxArchivePhoto();
                     txn.OrderId = o;
+                    txn.ArchiveRaw = true;
+                    TxnFunc.ProcessTxn(txn);
+                }
+
+                List<long> ToArchiveRetouchedOrders = new List<long>();
+                using (var dc = new HostDBDataContext())
+                {
+                    ToArchiveRetouchedOrders.AddRange(dc.CustomerOrder.Where(o => o.Status == (int)OrderStatus.OrderFinalised && !o.RetouchedArchived).Select(o => o.SerialNo).ToList());
+                }
+                foreach (var o in ToArchiveRetouchedOrders)
+                {
+                    TxArchivePhoto txn = new TxArchivePhoto();
+                    txn.OrderId = o;
+                    txn.ArchiveRaw = false;
                     TxnFunc.ProcessTxn(txn);
                 }
                 Thread.Sleep(200);

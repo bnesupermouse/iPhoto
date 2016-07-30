@@ -2111,11 +2111,12 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Archived", (object)Archived??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RawArchived", (object)RawArchived??DBNull.Value);
             sqlComm.Parameters.AddWithValue("RawZip", (object)RawZip??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RetouchedArchived", (object)RetouchedArchived??DBNull.Value);
             sqlComm.Parameters.AddWithValue("RetouchedZip", (object)RetouchedZip??DBNull.Value);
 
-            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status,Paid,Archived,RawZip,RetouchedZip ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status,@Paid,@Archived,@RawZip,@RetouchedZip)";
+            sqlComm.CommandText ="INSERT INTO CustomerOrder ( SerialNo,PhotographerId,CustomerId,OfferId,AppointmentTime,OrderTime,Amount,PhotographerPay,Status,Paid,RawArchived,RawZip,RetouchedArchived,RetouchedZip ) values (@SerialNo,@PhotographerId,@CustomerId,@OfferId,@AppointmentTime,@OrderTime,@Amount,@PhotographerPay,@Status,@Paid,@RawArchived,@RawZip,@RetouchedArchived,@RetouchedZip)";
 
             int rows = 0;
             try
@@ -2153,11 +2154,12 @@ namespace HostDB
             sqlComm.Parameters.AddWithValue("PhotographerPay", (object)PhotographerPay??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Status", (object)Status??DBNull.Value);
             sqlComm.Parameters.AddWithValue("Paid", (object)Paid??DBNull.Value);
-            sqlComm.Parameters.AddWithValue("Archived", (object)Archived??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RawArchived", (object)RawArchived??DBNull.Value);
             sqlComm.Parameters.AddWithValue("RawZip", (object)RawZip??DBNull.Value);
+            sqlComm.Parameters.AddWithValue("RetouchedArchived", (object)RetouchedArchived??DBNull.Value);
             sqlComm.Parameters.AddWithValue("RetouchedZip", (object)RetouchedZip??DBNull.Value);
 
-            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status, Paid = @Paid, Archived = @Archived, RawZip = @RawZip, RetouchedZip = @RetouchedZip where SerialNo = @SerialNo ";
+            sqlComm.CommandText ="UPDATE CustomerOrder SET SerialNo = @SerialNo, PhotographerId = @PhotographerId, CustomerId = @CustomerId, OfferId = @OfferId, AppointmentTime = @AppointmentTime, OrderTime = @OrderTime, Amount = @Amount, PhotographerPay = @PhotographerPay, Status = @Status, Paid = @Paid, RawArchived = @RawArchived, RawZip = @RawZip, RetouchedArchived = @RetouchedArchived, RetouchedZip = @RetouchedZip where SerialNo = @SerialNo ";
 
             int rows = 0;
             try

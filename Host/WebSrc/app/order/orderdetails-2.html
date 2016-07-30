@@ -24,7 +24,7 @@
 
                     <div class="col-sm-12">
                         <div class="statusTop">
-                            <p><strong>Status:</strong> {{Details.StatusString}}</p>
+                            <p><strong>Status:</strong> <span class="label {{Details.LabelString}}"> {{Details.StatusString}} </span></p>
 
                             <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</p>
 
@@ -97,6 +97,14 @@
                                 <tr class="info">
                                     <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>Comment</strong></td>
                                     <td>{{Details.OfferInfo.Comment}}</td>
+                                </tr>
+                                <tr ng-if="Details.RawArchived >0" class="info">
+                                    <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>RawZip</strong></td>
+                                    <td><a href="{{Details.RawZip}}"><strong>Download</strong></a></td>
+                                </tr>
+                                <tr ng-if="Details.RetouchedArchived >0" class="info">
+                                    <td><i class="glyphicon glyphicon-pawn"></i>&nbsp;&nbsp;<strong>RetouchedZip</strong></td>
+                                    <td><a href="{{Details.RetouchedZip}}"><strong>Download</strong></a></td>
                                 </tr>
                             </tbody>
                             <tfoot>

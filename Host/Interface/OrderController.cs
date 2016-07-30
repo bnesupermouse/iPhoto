@@ -159,7 +159,11 @@ namespace Host
                                  Status = o.Status,
                                  StatusString = StatusValue.GetStatusValue(o.Status, o.Paid),
                                  LabelString = StatusValue.GetLabelValue(o.Status, o.Paid),
-                                 Paid = o.Paid ? 1 : 0
+                                 Paid = o.Paid ? 1 : 0,
+                                 RawArchived = o.RawArchived,
+                                 RawZip = o.RawZip,
+                                 RetouchedArchived = o.RetouchedArchived,
+                                 RetouchedZip = o.RetouchedZip
                              };
                 OrderDetails res = orders.ToList().FirstOrDefault();
                 if (res != null)

@@ -20,7 +20,9 @@ namespace Host
         {
             TxnId = 1;
         }
-        public long OrderId;
+        public long OrderId { get; set; }
+        public bool ArchiveRaw { get; set; }
+
         public override Result Validate()
         {
             var curReq = request as UpdateOrderStatus;
@@ -35,52 +37,81 @@ namespace Host
                 response.ErrorMsg = "Invalid Request";
                 return Result.Failed;
             }
-            if(order.Status == (int)OrderStatus.OrderFinalised)
+            if (ArchiveRaw)
             {
                 var rootPath = new PhysicalFileSystem(@"../../WebSrc/app");
                 long OrderId = order.SerialNo;
 
                 string orderPath = @"/images/customer/" + OrderId + @"/";
                 string rawPhotoPath = orderPath + @"raw";
-                string zipFoler = orderPath + @"zip/";
-                string rawZipFile = zipFoler + OrderId + @"_Raw.zip";
-                string retouchedPhotoPath = orderPath + @"retouched";
-                string retouchedZipFile = zipFoler + OrderId + @"_Retouched.zip";
+                string zipFolder = orderPath + @"zip/";
+                string rawZipFile = zipFolder + OrderId + @"_Raw.zip";
 
                 string rawZipPath = rawZipFile;
-                string retouchedZipPath = retouchedZipFile;
 
                 rawPhotoPath = rootPath.Root + rawPhotoPath;
-                retouchedPhotoPath = rootPath.Root + retouchedPhotoPath;
                 rawZipFile = rootPath.Root + rawZipFile;
-                retouchedZipFile = rootPath.Root + retouchedZipFile;
                 try
                 {
-                    if(File.Exists(rawZipFile))
+                    zipFolder = rootPath.Root + zipFolder;
+                    if (File.Exists(rawZipFile))
                     {
                         File.Delete(rawZipFile);
                     }
+                    if (!Directory.Exists(zipFolder))
+                    {
+                        Directory.CreateDirectory(zipFolder);
+                    }
+                    ZipFile.CreateFromDirectory(rawPhotoPath, rawZipFile);
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Failed to Archive Raw photos", Log4NetLevel.Error);
+                    response.ErrorNo = (int)Errors.InvalidRequest;
+                    response.ErrorMsg = "Failed to Archive Raw photos";
+                    return Result.Failed;
+                }
+                var newOrder = order.Clone() as CustomerOrder;
+                newOrder.RawArchived = true;
+                newOrder.RawZip = rawZipPath;
+                Data.AddNew(order, newOrder);
+            }
+            else
+            {
+                var rootPath = new PhysicalFileSystem(@"../../WebSrc/app");
+                long OrderId = order.SerialNo;
+
+                string orderPath = @"/images/customer/" + OrderId + @"/";
+                string zipFolder = orderPath + @"zip/";
+                string retouchedPhotoPath = orderPath + @"retouched";
+                string retouchedZipFile = zipFolder + OrderId + @"_Retouched.zip";
+
+                string retouchedZipPath = retouchedZipFile;
+
+                retouchedPhotoPath = rootPath.Root + retouchedPhotoPath;
+                retouchedZipFile = rootPath.Root + retouchedZipFile;
+                try
+                {
+                    zipFolder = rootPath.Root + zipFolder;
                     if (File.Exists(retouchedZipFile))
                     {
                         File.Delete(retouchedZipFile);
                     }
-                    if (!Directory.Exists(zipFoler))
+                    if (!Directory.Exists(zipFolder))
                     {
-                        Directory.CreateDirectory(zipFoler);
+                        Directory.CreateDirectory(zipFolder);
                     }
-                    ZipFile.CreateFromDirectory(rawPhotoPath, rawZipFile);
                     ZipFile.CreateFromDirectory(retouchedPhotoPath, retouchedZipFile);
                 }
                 catch(Exception ex)
                 {
-                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Failed to Archive photos", Log4NetLevel.Error);
+                    LogHelper.WriteLog(typeof(TxUpdateOrderStatus), "Failed to Archive Retouched photos", Log4NetLevel.Error);
                     response.ErrorNo = (int)Errors.InvalidRequest;
-                    response.ErrorMsg = "Failed to Archive photos";
+                    response.ErrorMsg = "Failed to Archive Retouched photos";
                     return Result.Failed;
                 }
                 var newOrder = order.Clone() as CustomerOrder;
-                newOrder.Archived = true;
-                newOrder.RawZip = rawZipPath;
+                newOrder.RetouchedArchived = true;
                 newOrder.RetouchedZip = retouchedZipPath;
                 Data.AddNew(order, newOrder);
             }

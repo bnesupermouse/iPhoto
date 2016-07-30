@@ -343,6 +343,7 @@
     <Content Include="WebSrc\app\offer\details.html" />
     <Content Include="WebSrc\app\offer\offerlist.html" />
     <Content Include="WebSrc\app\offer\orderpayment.html" />
+    <Content Include="WebSrc\app\order\orderdetails-5.html" />
     <Content Include="WebSrc\app\order\orderdetails-4.html" />
     <Content Include="WebSrc\app\order\orderdetails-3.html" />
     <Content Include="WebSrc\app\order\orderdetails-2.html" />

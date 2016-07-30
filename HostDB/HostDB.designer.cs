@@ -4841,9 +4841,11 @@ namespace HostDB
 		
 		private bool _Paid;
 		
-		private bool _Archived;
+		private bool _RawArchived;
 		
 		private string _RawZip;
+		
+		private bool _RetouchedArchived;
 		
 		private string _RetouchedZip;
 		
@@ -4871,10 +4873,12 @@ namespace HostDB
     partial void OnStatusChanged();
     partial void OnPaidChanging(bool value);
     partial void OnPaidChanged();
-    partial void OnArchivedChanging(bool value);
-    partial void OnArchivedChanged();
+    partial void OnRawArchivedChanging(bool value);
+    partial void OnRawArchivedChanged();
     partial void OnRawZipChanging(string value);
     partial void OnRawZipChanged();
+    partial void OnRetouchedArchivedChanging(bool value);
+    partial void OnRetouchedArchivedChanged();
     partial void OnRetouchedZipChanging(string value);
     partial void OnRetouchedZipChanged();
     #endregion
@@ -5094,23 +5098,23 @@ namespace HostDB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Archived", DbType="Bit NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RawArchived", DbType="Bit NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-		public bool Archived
+		public bool RawArchived
 		{
 			get
 			{
-				return this._Archived;
+				return this._RawArchived;
 			}
 			set
 			{
-				if ((this._Archived != value))
+				if ((this._RawArchived != value))
 				{
-					this.OnArchivedChanging(value);
+					this.OnRawArchivedChanging(value);
 					this.SendPropertyChanging();
-					this._Archived = value;
-					this.SendPropertyChanged("Archived");
-					this.OnArchivedChanged();
+					this._RawArchived = value;
+					this.SendPropertyChanged("RawArchived");
+					this.OnRawArchivedChanged();
 				}
 			}
 		}
@@ -5136,8 +5140,29 @@ namespace HostDB
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetouchedZip", DbType="NVarChar(500)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetouchedArchived", DbType="Bit NOT NULL")]
 		[global::System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+		public bool RetouchedArchived
+		{
+			get
+			{
+				return this._RetouchedArchived;
+			}
+			set
+			{
+				if ((this._RetouchedArchived != value))
+				{
+					this.OnRetouchedArchivedChanging(value);
+					this.SendPropertyChanging();
+					this._RetouchedArchived = value;
+					this.SendPropertyChanged("RetouchedArchived");
+					this.OnRetouchedArchivedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RetouchedZip", DbType="NVarChar(500)")]
+		[global::System.Runtime.Serialization.DataMemberAttribute(Order=14)]
 		public string RetouchedZip
 		{
 			get

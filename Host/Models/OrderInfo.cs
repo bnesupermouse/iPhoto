@@ -24,6 +24,10 @@ namespace Host.Models
         public string StatusString { get; set; }
         public string LabelString { get; set; }
         public int Paid { get; set; }
+        public bool RawArchived { get; set; }
+        public string RawZip { get; set; }
+        public bool RetouchedArchived { get; set; }
+        public string RetouchedZip { get; set; }
     }
 
     public class Appointment

@@ -235,8 +235,9 @@
       <Column Name="PhotographerPay" Type="System.Decimal" DbType="Money" CanBeNull="true" />
       <Column Name="Status" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Paid" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="Archived" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="RawArchived" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="RawZip" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="RetouchedArchived" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Column Name="RetouchedZip" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
     </Type>
   </Table>
