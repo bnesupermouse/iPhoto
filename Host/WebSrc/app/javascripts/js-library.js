@@ -524,6 +524,8 @@ var Controllers;
                     upper = self.$scope.UpperRange;
                 }
                 self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper, lastOfferId).then(function (data) {
+                    self.$scope.PhotoTypeId = data.PhotoTypeId;
+                    self.$scope.PhotoTypeName = data.PhotoTypeName;
                     if (self.$scope.Offers == null) {
                         self.$scope.Offers = new Array();
                     }
@@ -799,7 +801,7 @@ var Controllers;
 var Controllers;
 (function (Controllers) {
     var OfferDetailsCtrl = (function () {
-        function OfferDetailsCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
+        function OfferDetailsCtrl($scope, $cookies, $routeParams, $location, $filter, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
@@ -807,6 +809,7 @@ var Controllers;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.IsAdmin = 0;
+            self.$filter = $filter;
             if ($cookies.get("isadmin") == "true") {
                 self.$scope.IsAdmin = 1;
             }
@@ -1722,13 +1725,20 @@ var DataModels;
 var Controllers;
 (function (Controllers) {
     var CustomerInfoCtrl = (function () {
-        function CustomerInfoCtrl($scope, $cookies, $routeParams, $location, dataSvc) {
+        function CustomerInfoCtrl($scope, $cookies, $routeParams, $location, $filter, dataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
             self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
+            self.$filter = $filter;
+            self.$scope.$watch('NewCustomer.OpenDate', function (newDate) {
+                $scope.NewCustomer.OpenDate = $filter('date')(newDate, 'dd/MM/yyyy HH:mm:ss');
+            });
+            self.$scope.$watch('NewCustomer.LastLoginTime', function (newDate) {
+                $scope.NewCustomer.LastLoginTime = $filter('date')(newDate, 'dd/MM/yyyy HH:mm:ss');
+            });
             self.$scope.updateCustomer = function () {
                 var updCustomer = new DataModels.UpdCustomer();
                 updCustomer.OldCustomer = self.$scope.OldCustomer;
@@ -1934,7 +1944,7 @@ var OneStopCustomerApp;
     Controllers.ManageAccountCtrl.$inject = ['$scope', '$cookies', '$location', 'customerDataSvc'];
     Controllers.MainPageCtrl.$inject = ['$scope', '$cookies', 'mainPageDataSvc'];
     Controllers.PhotoTypeCtrl.$inject = ['$scope', '$routeParams', 'photoTypeDataSvc'];
-    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'offerDetailsDataSvc'];
+    Controllers.OfferDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', '$filter', 'offerDetailsDataSvc'];
     Controllers.OrderPaymentCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'paymentDataSvc'];
     Controllers.OrderCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
     Controllers.OrderDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'orderDataSvc'];
@@ -1942,7 +1952,7 @@ var OneStopCustomerApp;
     Controllers.PhotographerManCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
     Controllers.PhotographerDetailsCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'photographerManDataSvc'];
     Controllers.PhotographerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
-    Controllers.CustomerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', 'customerDataSvc'];
+    Controllers.CustomerInfoCtrl.$inject = ['$scope', '$cookies', '$routeParams', '$location', '$filter', 'customerDataSvc'];
     //test
     var app = angular.module("webApp", ['ngRoute', 'ngCookies', 'infinite-scroll', 'ui.bootstrap.datetimepicker', 'daypilot']);
     app.config(Config);

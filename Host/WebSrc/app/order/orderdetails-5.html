@@ -2,8 +2,8 @@
     <div class="row">
         <div class="breadcrumbDiv col-lg-12">
             <ul class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="account.html">My Account</a></li>
+                <li><a href="#/">Home</a></li>
+                <li><a href="#account">My Account</a></li>
                 <li class="active"> Order List</li>
             </ul>
         </div>
@@ -26,9 +26,9 @@
                         <div class="statusTop">
                             <p><strong>Status:</strong> <span class="label {{Details.LabelString}}"> {{Details.StatusString}} </span></p>
 
-                            <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'M/d/yyyy HH:mm:ss'}}</p>
+                            <p><strong>Appointment Date:</strong> {{Details.AppointmentTime | date:'d/M/yyyy HH:mm:ss'}}</p>
 
-                            <p><strong>Order Date:</strong> {{Details.OrderTime | date:'M/d/yyyy HH:mm:ss'}}</p>
+                            <p><strong>Order Date:</strong> {{Details.OrderTime | date:'d/M/yyyy HH:mm:ss'}}</p>
 
                             <p><strong>Order Number:</strong> {{Details.SerialNo}} </p>
                         </div>

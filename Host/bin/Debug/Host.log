@@ -1961,3 +1961,6 @@
 [2016-07-30 14:55:56,630]  11 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Failed to Archive Raw photos
 [2016-07-30 14:55:56,647]  11 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Failed to Archive Raw photos
 [2016-07-30 14:55:56,679]  11 -- ERROR -- Host.TxUpdateOrderStatus [WriteLog] -- Failed to Archive Raw photos
+[2016-07-30 20:13:09,022]  22 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid StartTime and EndTime
+[2016-07-31 13:29:41,727]  16 -- ERROR -- Host.TxUpdOffer [WriteLog] -- Invalid Status value update
+[2016-07-31 13:53:50,885]  26 -- ERROR -- Host.TxPhotographerLogin [WriteLog] -- Invalid Email and Password

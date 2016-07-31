@@ -9,14 +9,24 @@
         $location: ng.ILocationService;
         dataSvc: Services.CustomerDataSvc;
         CustomerId: number;
+        $filter: ng.IFilterService;
 
-        constructor($scope: DataModels.ICustomerPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: ICustomerDetailsRouteParams, $location: ng.ILocationService, dataSvc: Services.CustomerDataSvc) {
+        constructor($scope: DataModels.ICustomerPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: ICustomerDetailsRouteParams, $location: ng.ILocationService, $filter: ng.IFilterService, dataSvc: Services.CustomerDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
             self.$location = $location;
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
+            self.$filter = $filter;
+
+            self.$scope.$watch('NewCustomer.OpenDate', function (newDate) {
+                $scope.NewCustomer.OpenDate = $filter('date')(newDate, 'dd/MM/yyyy HH:mm:ss');
+            });
+
+            self.$scope.$watch('NewCustomer.LastLoginTime', function (newDate) {
+                $scope.NewCustomer.LastLoginTime = $filter('date')(newDate, 'dd/MM/yyyy HH:mm:ss');
+            });
 
             self.$scope.updateCustomer = function () {
                 let updCustomer = new DataModels.UpdCustomer();

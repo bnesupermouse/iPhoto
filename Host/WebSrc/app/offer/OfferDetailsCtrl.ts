@@ -9,8 +9,9 @@
         $location: ng.ILocationService;
         dataSvc: Services.OfferDetailsDataSvc;
         PhotoTypeId: number;
+        $filter: ng.IFilterService;
 
-        constructor($scope: DataModels.IOfferPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferDetailsRouteParams, $location: ng.ILocationService, dataSvc: Services.OfferDetailsDataSvc) {
+        constructor($scope: DataModels.IOfferPageScope, $cookies: ng.cookies.ICookieStoreService, $routeParams: IOfferDetailsRouteParams, $location: ng.ILocationService, $filter: ng.IFilterService, dataSvc: Services.OfferDetailsDataSvc) {
             var self = this;
             self.$scope = $scope;
             self.$cookies = $cookies;
@@ -18,6 +19,8 @@
             self.dataSvc = dataSvc;
             self.$routeParams = $routeParams;
             self.$scope.IsAdmin = 0;
+            self.$filter = $filter;
+
             if ($cookies.get("isadmin") == "true") {
                 self.$scope.IsAdmin = 1;
             }

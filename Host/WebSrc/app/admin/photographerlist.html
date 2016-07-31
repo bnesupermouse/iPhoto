@@ -47,7 +47,7 @@
                             <tr ng-class-odd="'cssOrderOdd'" ng-class-even="'cssOrderEven'" ng-repeat="p in Photographers">
                                 <td>{{p.PhotographerName}}</td>
                                 <td class="hidden-xs">{{p.Introduction}}</td>
-                                <td class="hidden-xs">{{p.OpenDate | date:'M/d/yyyy HH:mm:ss'}}</td>
+                                <td class="hidden-xs">{{p.OpenDate | date:'d/M/yyyy HH:mm:ss'}}</td>
                                 <td>{{p.Age}}</td>
                                 <td data-value="3">
                                     <a ng-if="p.Status == 0" href="#updphotographer/{{p.PhotographerId}}"><span class="label label-primary">New</span></a>

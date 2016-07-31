@@ -22,7 +22,7 @@ namespace Host.Tasks
                     var toOpenOffers = from o in dc.Offer
                                        join p in dc.OfferPhotographer on o.OfferId equals p.OfferId
                                        join ph in dc.Photographer on p.PhotographerId equals ph.PhotographerId
-                                       where o.StartTime <= DateTime.UtcNow && (o.Status == 1 || o.Status == 3)
+                                       where o.StartTime <= DateTime.UtcNow && o.Status == 1
                                        select new UpdOffer
                                        {
                                            OldOffer = o,

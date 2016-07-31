@@ -64,6 +64,8 @@
                 }
 
                 self.dataSvc.getPhotoTypeOffers(self.$routeParams.phototypeid, lower, upper, lastOfferId).then(function (data) {
+                    self.$scope.PhotoTypeId = data.PhotoTypeId;
+                    self.$scope.PhotoTypeName = data.PhotoTypeName;
                     if (self.$scope.Offers == null) {
                         self.$scope.Offers = new Array<DataModels.Offer>();
                     }
