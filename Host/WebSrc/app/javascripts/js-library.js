@@ -499,6 +499,9 @@ var Controllers;
                 });
             };
             self.$scope.loadMoreOffers = function () {
+                if (self.$scope.LastPhotoTypeOffer) {
+                    return;
+                }
                 self.$scope.busy = true;
                 var lastOfferId = 0;
                 if (self.$scope.Offers == null) {
@@ -528,6 +531,9 @@ var Controllers;
                     self.$scope.PhotoTypeName = data.PhotoTypeName;
                     if (self.$scope.Offers == null) {
                         self.$scope.Offers = new Array();
+                    }
+                    if (data.OfferList.length == 0) {
+                        self.$scope.LastPhotoTypeOffer = true;
                     }
                     for (var i = 0; i < data.OfferList.length; i++) {
                         self.$scope.Offers.push(data.OfferList[i]);
@@ -903,6 +909,9 @@ var Controllers;
                 }
             };
             self.$scope.loadMorePhotoPics = function () {
+                if (self.$scope.LastOfferPic) {
+                    return;
+                }
                 self.$scope.busy = true;
                 var lastPicId = 0;
                 if (self.$scope.OfferDetails == null) {
@@ -921,8 +930,10 @@ var Controllers;
                         self.$scope.OfferDetails.OfferPics = new Array();
                     }
                     for (var i = 0; i < data.Pics.length; i++) {
-                        self.$scope.OfferDetails.OfferPics.push(data.Pics[i]);
+                        if (data.Pics[i] != null && data.Pics[i].Path.length > 0)
+                            self.$scope.OfferDetails.OfferPics.push(data.Pics[i]);
                     }
+                    self.$scope.LastOfferPic = data.LastOfferPic;
                     self.$scope.busy = false;
                 });
             };
@@ -1069,6 +1080,7 @@ var Services;
             self.httpService.get(self.getOfferPicApiPath + "/" + offerId + "/" + lastPicId)
                 .then(function (result) {
                 self.Pics = result.data;
+                self.LastOfferPic = (self.Pics == null || self.Pics.length == 0);
                 deferred.resolve(self);
             }, function (error) {
                 deferred.reject(error);

@@ -38,6 +38,9 @@
 
 
             self.$scope.loadMoreOffers = function () {
+                if (self.$scope.LastPhotoTypeOffer) {
+                    return;
+                }
                 self.$scope.busy = true;
                 let lastOfferId = 0;
                 if (self.$scope.Offers == null) {
@@ -68,6 +71,9 @@
                     self.$scope.PhotoTypeName = data.PhotoTypeName;
                     if (self.$scope.Offers == null) {
                         self.$scope.Offers = new Array<DataModels.Offer>();
+                    }
+                    if (data.OfferList.length == 0) {
+                        self.$scope.LastPhotoTypeOffer = true;
                     }
                     for (var i = 0; i < data.OfferList.length; i++) {
                         self.$scope.Offers.push(data.OfferList[i]);

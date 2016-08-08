@@ -16,6 +16,7 @@
         Offers: Array<DataModels.Offer>;
         ErrorNo: number;
         ErrorMsg: string;
+        LastOfferPic: boolean;
 
         getOfferDetails(offerId:number): ng.IPromise<any> {
             var self = this;
@@ -77,6 +78,7 @@
             self.httpService.get(self.getOfferPicApiPath + "/" + offerId + "/" + lastPicId)
                 .then(function (result: any) {
                     self.Pics = result.data;
+                    self.LastOfferPic = (self.Pics == null || self.Pics.length == 0);
                     deferred.resolve(self);
                 }, function (error) {
                     deferred.reject(error);

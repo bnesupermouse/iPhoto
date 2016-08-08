@@ -121,6 +121,9 @@
             }
 
             self.$scope.loadMorePhotoPics = function () {
+                if (self.$scope.LastOfferPic) {
+                    return;
+                }
                 self.$scope.busy = true;
                 let lastPicId = 0;
                 if (self.$scope.OfferDetails == null) {
@@ -138,9 +141,11 @@
                     if (self.$scope.OfferDetails.OfferPics == null) {
                         self.$scope.OfferDetails.OfferPics = new Array<DataModels.PicInfo>();
                         }
-                        for (var i = 0; i < data.Pics.length; i++) {
+                    for (var i = 0; i < data.Pics.length; i++) {
+                        if (data.Pics[i] != null && data.Pics[i].Path.length > 0)
                             self.$scope.OfferDetails.OfferPics.push(data.Pics[i]);
-                        }
+                    }
+                    self.$scope.LastOfferPic = data.LastOfferPic;
                     self.$scope.busy = false;
                 });
             }

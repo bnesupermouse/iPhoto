@@ -145,11 +145,11 @@
                 <div class="order-box-content">
                     <div class="table-responsive">
                         <table>
-                            <tbody infinite-scroll='loadMorePhotoPics()' infinite-scroll-disabled='busy'>
+                            <tbody infinite-scroll='loadMorePhotoPics()' infinite-scroll-disabled='busy' infinite-scroll-distance='3'>
                                 <tr ng-repeat="r in OfferDetails.OfferPics">
                                     <td style="width:100%">
                                         <div>
-                                                <img class="img-responsive" alt="img"
+                                                <img ng-if="r.Path.length >0" class="img-responsive" alt="img"
                                                      src="{{r.Path}}">
                                         </div>
                                     </td>

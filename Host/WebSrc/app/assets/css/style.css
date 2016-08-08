@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* =============================================================== */
 /* 	TABLE CONTENT
 
@@ -29,23 +29,17 @@
 /* IMPORT CSS 
 /* =============================================================== */
 
-@import url("owl.carousel.css");
-/* owl.carousel */
-@import url("owl.theme.css");
 /* owl.carousel */
 @import url("font-awesome.css");
 /* Font Awesome Icon */
 @import url("animate.min.css");
 /* css3 animation */
 @import url("jquery.mCustomScrollbar.css");
-/* mCustomScrollbar */
-@import url("alpha.css");
+
 /* Background opacity IE fix */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css");
 /* jQuery Custom Select by select2 */
 @import url("smoothproducts.css");
-/* Product zoom  */
-@import url("../plugins/icheck-1.x/skins/all.css");
 /* ion.checkRadio.min.js || customs checkbox and radio plugin  */
 @import url("skin-0.css");
 /* btn styled from btn.less  */
@@ -1617,10 +1611,6 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 /* HOME PAGE SLIDER  
 /* =============================================================== */
 
-.sliderImg {
-    background: url('../../images/site/loading1.gif') center center no-repeat; /* prealoder */
-}
-
 .banner {
     margin-top: 80px;
     -webkit-transition: all 0.1s ease-out 0s;
@@ -2503,15 +2493,6 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     margin: 0 auto;
 }
 
-.productslider {
-    width: 100%;
-    display: block;
-}
-
-#productslider .item {
-    margin: 0 15px 15px;
-}
-
 .item {
     display: block;
     height: auto;
@@ -2522,10 +2503,6 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     -ms-transition: all 0.3s ease 0s;
     margin-bottom: 15px;
     height: 390px;
-}
-
-#SimilarProductSlider .item {
-    height: auto !important;
 }
 
 .product {
@@ -4565,44 +4542,7 @@ div.quickview {
 /* SUBSCRIBE | PROMOTIONAL MODAL
 /* =============================================================== */
 
-#modalAds .modal-bg-1 {
-    background: url(../../images/site/modal-img-1.jpg) right bottom no-repeat;
-    background-color: #F3F6FB;
-}
 
-.modal-bg-1 .close {
-    color: #454545;
-    display: block;
-    font-size: 34px;
-    font-weight: lighter;
-    line-height: 10px;
-    opacity: 0.6;
-    padding: 12px;
-    position: absolute;
-    right: 0;
-    text-shadow: none;
-    top: 0;
-    z-index: 1;
-}
-
-#modalAds .modal-dialog {
-    max-width: 660px;
-    min-height: 340px;
-    display: block;
-    overflow: auto;
-    padding: 15px;
-    position: relative;
-}
-
-#modalAds h3 {
-    color: #444;
-    font-family: Oswald, Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 26px;
-    font-weight: normal;
-    letter-spacing: 1px;
-    line-height: 29px;
-    text-transform: uppercase;
-}
 
 .discountLg {
     color: #000;
@@ -4611,14 +4551,6 @@ div.quickview {
     font-weight: bold;
     letter-spacing: 3px;
     line-height: 46px;
-    text-transform: uppercase;
-}
-
-#modalAds h4 {
-    font-size: 24px;
-    font-weight: normal;
-    letter-spacing: 2px;
-    line-height: 28px;
     text-transform: uppercase;
 }
 

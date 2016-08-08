@@ -61,6 +61,7 @@
         SearchOffer(): void;
         loadMoreOffers(): void;
         busy: boolean;
+        LastPhotoTypeOffer: boolean;
     }
     export interface IOfferPageScope extends IBaseScope {
         OfferDetails: Offer;
@@ -74,6 +75,7 @@
         uploadPhotos(): void;
         busy: boolean;
         PhotoTypeName: string;
+        LastOfferPic: boolean;
     }
     export interface IOfferListPageScope extends IBaseScope {
         Offers: Array<Offer>;
